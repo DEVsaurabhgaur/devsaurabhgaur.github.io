@@ -3,21 +3,29 @@
    ========================= */
 
 :root {
-  --bg: #05060b;
-  --bg-elevated: #0a0c13;
-  --bg-soft: #11131b;
-  --fg: #f5f5f7;
-  --muted: #9ca3af;
-  --accent: #f97316;
-  --accent-soft: rgba(249, 115, 22, 0.15);
-  --accent-strong: #fb923c;
-  --border-subtle: rgba(148, 163, 184, 0.2);
+  /* Electric Kiwi palette */
+  --kiwi-lime: #ccff00;
+  --kiwi-yellow: #ffff00;
+  --kiwi-soft: #dfff00;
+  --kiwi-black: #000000;
+
+  --bg: #000000;
+  --bg-elevated: #050505;
+  --bg-soft: #101010;
+  --fg: #f9fafb;
+  --muted: #b3b3b3;
+
+  /* Use lime / yellow as main accents */
+  --accent: var(--kiwi-lime);
+  --accent-soft: rgba(204, 255, 0, 0.16);
+  --accent-strong: var(--kiwi-yellow);
+  --border-subtle: rgba(255, 255, 255, 0.14);
 
   --radius-lg: 24px;
   --radius-md: 16px;
   --radius-sm: 10px;
 
-  --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.45);
+  --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.7);
 
   --font-display: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
@@ -40,7 +48,10 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+  background:
+    radial-gradient(circle at top left, rgba(204, 255, 0, 0.12), transparent 55%),
+    radial-gradient(circle at top right, rgba(223, 255, 0, 0.08), transparent 60%),
+    #000000;
   color: var(--fg);
   font-family: var(--font-body);
 }
@@ -187,9 +198,9 @@ img {
   position: absolute;
   inset: -40%;
   background:
-    radial-gradient(circle at 0% 0%, rgba(94, 234, 212, 0.05), transparent 55%),
-    radial-gradient(circle at 100% 0%, rgba(251, 191, 36, 0.1), transparent 58%),
-    radial-gradient(circle at 50% 100%, rgba(249, 115, 22, 0.1), transparent 60%);
+    radial-gradient(circle at 0% 0%, rgba(204, 255, 0, 0.24), transparent 55%),
+    radial-gradient(circle at 100% 0%, rgba(255, 255, 0, 0.18), transparent 58%),
+    radial-gradient(circle at 50% 100%, rgba(223, 255, 0, 0.12), transparent 60%);
   opacity: 0.9;
   pointer-events: none;
   z-index: -1;
@@ -823,3 +834,4 @@ img {
     height: 190px;
   }
 }
+
