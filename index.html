@@ -13,15 +13,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
   />
 
   <!-- Main CSS -->
   <link rel="stylesheet" href="assets/css/main.css" />
-
-  <!-- Optional: JS for future dynamic features -->
-  <script src="assets/js/main.js" defer></script>
 </head>
 <body>
   <div class="page">
@@ -40,29 +37,29 @@
           <a href="#story" class="nav__link">Life Story</a>
           <a href="#contact" class="nav__link nav__link--primary">Contact</a>
         </nav>
-
-        <button class="nav__toggle" aria-label="Toggle menu">
-          <span></span><span></span>
-        </button>
       </div>
     </header>
 
-    <!-- ================= HERO ================= -->
+    <!-- ================= MAIN ================= -->
     <main>
+      <!-- HERO -->
       <section id="hero" class="hero">
-        <div class="hero__bg-gradient"></div>
+        <div class="hero__glow"></div>
 
-        <div class="hero__content container">
-          <div class="hero__text">
+        <div class="container hero__layout">
+          <div class="hero__left">
             <p class="hero__eyebrow">Artist • Storyteller • Wallpaper Smith</p>
+
             <h1 class="hero__title">
               Handmade art and
               <span class="hero__title-highlight">UHD wallpapers</span>
               from a restless mind.
             </h1>
+
             <p class="hero__subtitle">
-              I turn late-night thoughts, scars and small moments into visual worlds –
-              then give them a home you can hang on your wall or your screen.
+              I turn late-night thoughts, scars and tiny moments into visual
+              worlds – then give them a home you can hang on your wall or your
+              screen.
             </p>
 
             <div class="hero__actions">
@@ -72,129 +69,149 @@
 
             <div class="hero__meta">
               <span>Based on real experiences & philosophy.</span>
-              <span>Built for 4K, ultrawide & mobile screens.</span>
+              <span>Optimised for 4K, ultrawide & mobile screens.</span>
             </div>
           </div>
 
-          <div class="hero__preview">
-            <!-- Replace image paths with real ones from assets/ART -->
-            <div class="hero-preview__stack">
-              <figure class="hero-preview__card">
+          <div class="hero__right">
+            <div class="hero-preview">
+              <!-- FRONT PORTRAIT -->
+              <figure class="hero-card hero-card--front">
                 <img
-                  src="assets/ART/art-1.jpg"
-                  alt="Handmade artwork preview"
+                  src="assets/ART/IMG_20221002_103510_251.jpg"
+                  alt="Charcoal portrait of a woman, intense gaze"
                   loading="lazy"
                 />
-                <figcaption>“Silent Room” · ink on paper</figcaption>
+                <figcaption>“Static Noise” · charcoal & graphite</figcaption>
               </figure>
 
-              <figure class="hero-preview__card hero-preview__card--offset">
+              <!-- BACK SHIVA -->
+              <figure class="hero-card hero-card--back">
                 <img
-                  src="assets/WALLPAPERS UHD/wallpaper-1.jpg"
-                  alt="UHD Wallpaper preview"
+                  src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg"
+                  alt="Mahadev artwork in blue tones"
                   loading="lazy"
                 />
-                <figcaption>UHD Wallpaper · 4K · free download</figcaption>
+                <figcaption>“Mahadev · Beyond the Mind”</figcaption>
               </figure>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ================= ART GALLERY ================= -->
-      <section id="art" class="section section--dark section-art">
+      <!-- ART GALLERY -->
+      <section id="art" class="section section--dark">
         <div class="container">
           <header class="section__header">
             <h2 class="section__title">Handmade Art Gallery</h2>
             <p class="section__subtitle">
-              Each piece starts on paper – pens, dust, mistakes – before it ever
-              becomes a wallpaper. These are the originals.
+              These are the originals – paper, paint, ink and a lot of late
+              nights. Every wallpaper begins with pieces like these.
             </p>
           </header>
 
           <div class="chips">
             <button class="chip chip--active" data-filter="all">All</button>
-            <button class="chip" data-filter="sketch">Sketches</button>
-            <button class="chip" data-filter="abstract">Abstract</button>
-            <button class="chip" data-filter="anime">Anime / Character</button>
-            <button class="chip" data-filter="spiritual">Spiritual</button>
+            <button class="chip" data-filter="portrait">Portrait</button>
+            <button class="chip" data-filter="devotional">Devotional</button>
+            <button class="chip" data-filter="shiva">Shiva</button>
+            <button class="chip" data-filter="fanart">Fan Art</button>
           </div>
 
           <div class="grid grid--art">
-            <!-- Card 1 -->
-            <article class="card-art" data-category="sketch">
+            <!-- Portrait -->
+            <article class="card-art" data-category="portrait">
               <div class="card-art__image-wrapper">
-                <!-- change image path as per your files -->
                 <img
-                  src="assets/ART/art-1.jpg"
-                  alt="Artwork 1"
+                  src="assets/ART/IMG_20221002_103510_251.jpg"
+                  alt="Charcoal portrait of a woman with intense gaze"
                   class="card-art__image"
                   loading="lazy"
                 />
               </div>
               <div class="card-art__body">
-                <h3 class="card-art__title">Alone in a crowded room</h3>
+                <h3 class="card-art__title">Static Noise</h3>
                 <p class="card-art__desc">
-                  Drawn in one sitting on a random night. Captures that
-                  strange feeling of being surrounded yet unseen.
+                  Drawn during a phase of overthinking and insomnia. Messy hair,
+                  sharp eyes – the mind is noisy but the focus stays locked.
                 </p>
-                <p class="card-art__meta">Ink on paper · A4 · 2025</p>
+                <p class="card-art__meta">
+                  Charcoal & graphite · A4 · @spiritof_art
+                </p>
               </div>
             </article>
 
-            <!-- Card 2 -->
-            <article class="card-art" data-category="anime">
+            <!-- Radha–Krishna -->
+            <article class="card-art" data-category="devotional">
               <div class="card-art__image-wrapper">
                 <img
-                  src="assets/ART/art-2.jpg"
-                  alt="Artwork 2"
+                  src="assets/ART/Picsart_23-09-20_16-24-16-574.jpg"
+                  alt="Radha and Krishna painting with flute"
                   class="card-art__image"
                   loading="lazy"
                 />
               </div>
               <div class="card-art__body">
-                <h3 class="card-art__title">The soldier who refused to break</h3>
+                <h3 class="card-art__title">Radha Krishna · Eternal Melody</h3>
                 <p class="card-art__desc">
-                  Inspired by anime warriors and real-life battles with
-                  self-doubt. Sharp lines, sharper intent.
+                  A tribute to devotion and balance. Bold strokes, chaotic
+                  background, calm faces – like finding silence in a loud world.
                 </p>
-                <p class="card-art__meta">Pencil & marker · A3 · 2025</p>
+                <p class="card-art__meta">Acrylic on sheet · 2023</p>
               </div>
             </article>
 
-            <!-- Card 3 -->
-            <article class="card-art" data-category="abstract">
+            <!-- Shiva -->
+            <article class="card-art" data-category="shiva">
               <div class="card-art__image-wrapper">
                 <img
-                  src="assets/ART/art-3.jpg"
-                  alt="Artwork 3"
+                  src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg"
+                  alt="Mahadev artwork with cosmic spray texture"
                   class="card-art__image"
                   loading="lazy"
                 />
               </div>
               <div class="card-art__body">
-                <h3 class="card-art__title">Chaos, then clarity</h3>
+                <h3 class="card-art__title">Mahadev · Beyond the Mind</h3>
                 <p class="card-art__desc">
-                  Abstract lines born from anxiety, slowly cleaned up into a
-                  balanced composition.
+                  The upward gaze reflects surrender. The speckled background is
+                  the universe – loud, expanding – while the face remains still.
                 </p>
-                <p class="card-art__meta">Mixed media · 2024</p>
+                <p class="card-art__meta">Mixed media · 2023</p>
               </div>
             </article>
 
-            <!-- Duplicate these cards and change src/text for more artworks -->
+            <!-- Avengers fanart -->
+            <article class="card-art" data-category="fanart">
+              <div class="card-art__image-wrapper">
+                <img
+                  src="assets/ART/Picsart_23-09-23_21-02-34-210.png"
+                  alt="Pen sketch of Tony Stark and Steve Rogers"
+                  class="card-art__image"
+                  loading="lazy"
+                />
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Stark & Rogers · Battle Focus</h3>
+                <p class="card-art__desc">
+                  Pure pen, no colors, no safety net. Lines capturing tension,
+                  loyalty and that pre-fight silence right before impact.
+                </p>
+                <p class="card-art__meta">Pen on paper · Fan art</p>
+              </div>
+            </article>
           </div>
         </div>
       </section>
 
-      <!-- ================= WALLPAPERS ================= -->
-      <section id="wallpapers" class="section section-wallpapers">
+      <!-- WALLPAPERS -->
+      <section id="wallpapers" class="section">
         <div class="container">
           <header class="section__header">
             <h2 class="section__title">UHD Wallpapers</h2>
             <p class="section__subtitle">
-              Turn your screen into a reminder of what you’re becoming.
-              4K, ultrawide and mobile-friendly wallpapers crafted from my originals.
+              Turn your screen into a reminder of who you’re becoming. These
+              wallpapers are crafted from my original artworks.
             </p>
           </header>
 
@@ -205,149 +222,149 @@
             <button class="chip" data-wall-filter="mobile">Mobile</button>
           </div>
 
-          <div class="grid grid--wallpapers">
-            <!-- Wallpaper card 1 -->
+          <div class="grid grid--wall">
+            <!-- wallpaper placeholders – rename src to real files in assets/WALLPAPERS UHD -->
             <article class="card-wall" data-category="dark">
               <div class="card-wall__image-wrapper">
                 <img
                   src="assets/WALLPAPERS UHD/wallpaper-1.jpg"
-                  alt="Wallpaper 1"
+                  alt="Dark UHD wallpaper preview"
                   class="card-wall__image"
                   loading="lazy"
                 />
               </div>
               <div class="card-wall__body">
-                <h3 class="card-wall__title">Night shift mindset</h3>
-                <p class="card-wall__meta">UHD · 3840×2160 · Free</p>
+                <div>
+                  <h3 class="card-wall__title">Night Shift Mindset</h3>
+                  <p class="card-wall__meta">3840×2160 · Free</p>
+                </div>
                 <a
                   href="assets/WALLPAPERS UHD/wallpaper-1.jpg"
                   download
                   class="btn btn--tiny"
-                >Download</a>
+                  >Download</a
+                >
               </div>
             </article>
 
-            <!-- Wallpaper card 2 -->
             <article class="card-wall" data-category="minimal">
               <div class="card-wall__image-wrapper">
                 <img
                   src="assets/WALLPAPERS UHD/wallpaper-2.jpg"
-                  alt="Wallpaper 2"
+                  alt="Minimal UHD wallpaper preview"
                   class="card-wall__image"
                   loading="lazy"
                 />
               </div>
               <div class="card-wall__body">
-                <h3 class="card-wall__title">Focus over noise</h3>
-                <p class="card-wall__meta">UHD · 5120×1440 · Free</p>
+                <div>
+                  <h3 class="card-wall__title">Focus Over Noise</h3>
+                  <p class="card-wall__meta">5120×1440 · Free</p>
+                </div>
                 <a
                   href="assets/WALLPAPERS UHD/wallpaper-2.jpg"
                   download
                   class="btn btn--tiny"
-                >Download</a>
+                  >Download</a
+                >
               </div>
             </article>
 
-            <!-- Wallpaper card 3 -->
             <article class="card-wall" data-category="mobile">
               <div class="card-wall__image-wrapper">
                 <img
                   src="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg"
-                  alt="Wallpaper 3"
+                  alt="Mobile wallpaper preview"
                   class="card-wall__image"
                   loading="lazy"
                 />
               </div>
               <div class="card-wall__body">
-                <h3 class="card-wall__title">Keep going.</h3>
-                <p class="card-wall__meta">Mobile · 1080×2400 · Free</p>
+                <div>
+                  <h3 class="card-wall__title">Keep Going</h3>
+                  <p class="card-wall__meta">1080×2400 · Free</p>
+                </div>
                 <a
                   href="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg"
                   download
                   class="btn btn--tiny"
-                >Download</a>
+                  >Download</a
+                >
               </div>
             </article>
-
-            <!-- Duplicate more cards as needed -->
           </div>
 
-          <p class="wallpapers__note">
-            Want custom wallpaper based on your story?
+          <p class="wall__note">
+            Want a wallpaper based on your own story?
             <a href="#contact">Reach out</a> and tell me your scene.
           </p>
         </div>
       </section>
 
-      <!-- ================= PHILOSOPHY / QUOTES ================= -->
-      <section id="philosophy" class="section section--dark section-philosophy">
+      <!-- PHILOSOPHY -->
+      <section id="philosophy" class="section section--philosophy">
         <div class="container">
           <header class="section__header">
             <h2 class="section__title">Philosophy & Quotes</h2>
             <p class="section__subtitle">
-              The art is just the surface. Underneath it are ideas about pain,
-              discipline, dreams and what it means to keep going.
+              The art is the surface layer. Underneath are ideas about pain,
+              discipline, ambition and what it actually means to rebuild
+              yourself.
             </p>
           </header>
 
           <div class="quotes">
-            <!-- Quote 1 -->
             <figure class="quote">
               <blockquote>
                 “Some people escape into entertainment. I escape into building
-                the life I used to dream about.”
+                the life I used to watch on screens.”
               </blockquote>
               <figcaption>— Saurabh Gaur</figcaption>
             </figure>
 
-            <!-- Quote 2 -->
             <figure class="quote">
               <blockquote>
-                “If I can turn my worst days into art, they don’t own me anymore.”
+                “If I can turn my worst days into art, they don’t own me
+                anymore.”
               </blockquote>
               <figcaption>— From a sketchbook note</figcaption>
             </figure>
 
-            <!-- Quote 3 -->
             <figure class="quote">
               <blockquote>
                 “Discipline is just self-respect stretched across time.”
               </blockquote>
               <figcaption>— Personal philosophy</figcaption>
             </figure>
-
-            <!-- Add more quotes similarly -->
           </div>
         </div>
       </section>
 
-      <!-- ================= LIFE STORY / TIMELINE ================= -->
-      <section id="story" class="section section-story">
+      <!-- LIFE STORY -->
+      <section id="story" class="section section--dark">
         <div class="container">
           <header class="section__header">
             <h2 class="section__title">Life Story in Chapters</h2>
             <p class="section__subtitle">
-              From a small room full of anime and old textbooks to building my
-              own visual universe. Here’s the short version.
+              From a small room in Bareilly to building my own visual universe
+              online. This is the short version of how the art started.
             </p>
           </header>
 
           <div class="timeline">
-            <!-- Chapter 1 -->
             <article class="timeline__item">
               <div class="timeline__dot"></div>
               <div class="timeline__content">
                 <h3 class="timeline__title">Chapter 1 — The small room</h3>
-                <p class="timeline__time">Childhood · Bareilly</p>
+                <p class="timeline__time">Childhood</p>
                 <p class="timeline__text">
-                  Cartoons, anime, Discovery Channel and a cheap phone with
-                  slow internet. No guidance, but a lot of imagination.
-                  This is where I started drawing on margins instead of notebooks.
+                  Cartoons, anime, Discovery Channel and an old phone with slow
+                  internet. No guidance, no resources, just curiosity and empty
+                  pages to draw on.
                 </p>
               </div>
             </article>
 
-            <!-- Chapter 2 -->
             <article class="timeline__item">
               <div class="timeline__dot"></div>
               <div class="timeline__content">
@@ -355,38 +372,36 @@
                 <p class="timeline__time">Teenage years</p>
                 <p class="timeline__text">
                   Bullied for being poor and quiet. A crush, a rejection and a
-                  decision: either stay small or build myself from scratch.
-                  Art became the first weapon.
+                  decision: either stay small or build myself from scratch. Art
+                  became the first weapon.
                 </p>
               </div>
             </article>
 
-            <!-- Chapter 3 -->
             <article class="timeline__item">
               <div class="timeline__dot"></div>
               <div class="timeline__content">
                 <h3 class="timeline__title">Chapter 3 — Digital canvas</h3>
-                <p class="timeline__time">Early 20s</p>
+                <p class="timeline__time">Early twenties</p>
                 <p class="timeline__text">
                   Learned design, wallpapers, and the power of shipping work
-                  online. This site is the latest checkpoint, not the final form.
+                  online. This site is not the final form – just one of the
+                  important checkpoints.
                 </p>
               </div>
             </article>
-
-            <!-- Add more chapters as needed -->
           </div>
         </div>
       </section>
 
-      <!-- ================= CONTACT ================= -->
-      <section id="contact" class="section section--dark section-contact">
+      <!-- CONTACT -->
+      <section id="contact" class="section section--contact">
         <div class="container">
           <header class="section__header">
             <h2 class="section__title">Let’s Build Something</h2>
             <p class="section__subtitle">
-              Custom wallpapers, cover art, or just a conversation about art,
-              philosophy and life upgrades — my inbox is open.
+              Custom wallpapers, cover art, or just a real conversation about
+              art and self-improvement – my inbox is open.
             </p>
           </header>
 
@@ -425,8 +440,8 @@
 
             <div class="contact__note">
               <p>
-                Tell me a bit about you, where you found my work and what you
-                want the art to say. The more personal, the better the result.
+                Tell me who you are, what you’re fighting with right now and
+                what you want the artwork to say every time you see it.
               </p>
               <p class="contact__quote">
                 “One honest story can become a hundred wallpapers.”
@@ -437,17 +452,16 @@
       </section>
     </main>
 
-    <!-- ================= FOOTER ================= -->
+    <!-- FOOTER -->
     <footer class="footer">
       <div class="container footer__inner">
         <span>© <span id="year"></span> Saurabh Gaur. All rights reserved.</span>
-        <span class="footer__note">Made with patience, coffee and late nights.</span>
+        <span class="footer__note">Made with Electric Kiwi energy.</span>
       </div>
     </footer>
   </div>
 
   <script>
-    // Small inline helper: update year
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
