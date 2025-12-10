@@ -1,350 +1,1203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artisan | The Void</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saurabh Gaur — Art, Wallpapers & Stories</title>
+  <meta name="description" content="Handmade art, philosophical wallpapers and life stories by Saurabh Gaur." />
 
-    <style>
-        /* --- 1. THE PALETTE (Your Custom Colors) --- */
-        :root {
-            /* Backgrounds */
-            --bg-color: #101210;       /* Deepest Black-Green */
-            --card-bg: #181C14;        /* Dark Charcoal Green */
-            
-            /* Accents */
-            --olive-deep: #2F3E2F;
-            --olive-mid: #4F6F52;      /* Primary Olive */
-            --purple-void: #190b28;    /* Deep Purple for Philosophy */
-            --purple-vivid: #7B1FA2;   /* Action Purple */
-            --purple-text: #E1BEE7;    /* Lavender */
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-            /* Typography */
-            --text-cream: #EADBC8;     /* The Cream color */
-            --text-muted: #8F9E8F;     /* Muted sage-grey */
-            
-            /* Structural */
-            --radius: 24px;
-            --gap: 16px;
-            --border: 1px solid rgba(234, 219, 200, 0.08); /* Subtle Cream Border */
-        }
+  <style>
+    :root {
+      --bg-main: #050707;
+      --bg-elevated: #101315;
+      --bg-soft: #151a1d;
+      --olive-deep: #2f3b24;
+      --olive-accent: #4e6b2f;
+      --purple-deep: #25132f;
+      --purple-accent: #7e3fd4;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --text-main: #f6f6f6;
+      --text-muted: #a6a6aa;
+      --danger: #ff4470;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --shadow-soft: 0 22px 40px rgba(0, 0, 0, 0.65);
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.28s ease;
+    }
 
-        /* --- 2. GLOBAL RESET --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-cream);
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            justify-content: center;
-            padding: 40px 20px;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        /* --- 3. BENTO GRID LAYOUT --- */
-        .bento-wrapper {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(4, auto);
-            gap: var(--gap);
-            max-width: 1000px;
-            width: 100%;
-        }
+    html {
+      scroll-behavior: smooth;
+      background: radial-gradient(circle at top, #181b20 0, #050607 42%, #020304 100%);
+    }
 
-        /* --- 4. CARD STYLING --- */
-        .card {
-            background-color: var(--card-bg);
-            border: var(--border);
-            border-radius: var(--radius);
-            padding: 28px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            
-            /* Entry Animation setup */
-            opacity: 0; 
-            animation: fadeUp 0.8s ease forwards;
-        }
+    body {
+      font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text-main);
+      background: transparent;
+      min-height: 100vh;
+    }
 
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--olive-mid);
-        }
+    /* ===== Layout Shell ===== */
 
-        /* --- 5. SPECIFIC CARD TYPES --- */
+    .page {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      min-height: 100vh;
+      max-width: 1320px;
+      margin: 24px auto 40px;
+      padding: 0 18px;
+      gap: 24px;
+    }
 
-        /* PROFILE (Large) */
-        .card-profile {
-            grid-column: span 2;
-            grid-row: span 2;
-            background: linear-gradient(160deg, var(--olive-mid) 0%, var(--card-bg) 80%);
-            border: 1px solid var(--olive-mid);
-        }
+    @media (max-width: 880px) {
+      .page {
+        grid-template-columns: minmax(0, 1fr);
+        margin-top: 16px;
+      }
+    }
 
-        /* PHILOSOPHY QUOTE (Wide) */
-        .card-quote {
-            grid-column: span 2;
-            background-color: var(--purple-void);
-            border: 1px solid #3d2252;
-            justify-content: center;
-            text-align: center;
-        }
+    /* ===== Side Panel / Nav ===== */
 
-        /* WALLPAPERS (Small) */
-        .card-download {
-            grid-column: span 1;
-            background: linear-gradient(to bottom, #1a1a1a, var(--bg-color));
-            align-items: center;
-            text-align: center;
-            justify-content: center;
-        }
+    .sidebar {
+      background: linear-gradient(145deg, #070808, #101416);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      padding: 20px 18px 18px;
+      box-shadow: var(--shadow-soft);
+      position: sticky;
+      top: 18px;
+      align-self: flex-start;
+    }
 
-        /* LIFE STORY (Wide) */
-        .card-story {
-            grid-column: span 2;
-            background-color: #141414;
-        }
+    @media (max-width: 880px) {
+      .sidebar {
+        position: static;
+        order: -1;
+        padding: 14px 14px 10px;
+      }
+    }
 
-        /* GALLERY IMAGES (Standard) */
-        .card-gallery {
-            grid-column: span 1;
-            grid-row: span 2;
-            padding: 0;
-            cursor: zoom-in;
-        }
-        
-        .card-gallery img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.8;
-            transition: opacity 0.3s ease, transform 0.5s ease;
-        }
+    .brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(78, 107, 47, 0.12);
+      color: #c0ff9a;
+      border: 1px solid rgba(178, 255, 150, 0.18);
+      margin-bottom: 10px;
+    }
 
-        .card-gallery:hover img {
-            opacity: 1;
-            transform: scale(1.05);
-        }
+    .brand-tag span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #9bff62;
+      box-shadow: 0 0 12px rgba(155, 255, 98, 0.9);
+    }
 
-        /* FOOTER CARD */
-        .card-footer {
-            grid-column: span 2;
-            background-color: #000;
-            flex-direction: row;
-            align-items: center;
-            padding: 15px 28px;
-        }
+    .profile-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
 
-        /* --- 6. TYPOGRAPHY & BUTTONS --- */
-        h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 12px; }
-        h2 { font-size: 1.1rem; font-weight: 600; color: var(--olive-mid); margin-bottom: 8px; }
-        p { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); }
-        
-        .quote-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-style: italic;
-            color: var(--purple-text);
-            margin-bottom: 10px;
-        }
+    .avatar-ring {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      padding: 2px;
+      background: conic-gradient(from 210deg, var(--purple-accent), var(--olive-accent), #22252b);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .btn {
-            margin-top: auto;
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: var(--purple-vivid);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: none;
-            transition: box-shadow 0.3s ease, background 0.3s;
-        }
-        
-        .btn:hover {
-            background-color: #9c27b0;
-            box-shadow: 0 0 20px rgba(123, 31, 162, 0.4);
-        }
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 0%, #555, #151515);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 24px;
+    }
 
-        .avatar {
-            width: 64px; 
-            height: 64px; 
-            border-radius: 50%; 
-            background: var(--text-cream); 
-            margin-bottom: 20px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--bg-color);
-            font-size: 1.5rem;
-        }
+    .profile-name {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
 
-        /* --- 7. UTILITIES & ANIMATIONS --- */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .profile-sub {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
 
-        /* Staggered loading delays */
-        .card:nth-child(1) { animation-delay: 0.1s; } /* Profile */
-        .card:nth-child(2) { animation-delay: 0.2s; } /* Quote */
-        .card:nth-child(3) { animation-delay: 0.3s; } /* Download */
-        .card:nth-child(4) { animation-delay: 0.4s; } /* Art 1 */
-        .card:nth-child(5) { animation-delay: 0.5s; } /* Story */
-        .card:nth-child(6) { animation-delay: 0.6s; } /* Art 2 */
-        .card:nth-child(7) { animation-delay: 0.7s; } /* Footer */
+    .profile-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
 
-        /* Lightbox */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(16, 18, 16, 0.95);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+    .side-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+      margin: 12px 0;
+    }
 
-        .lightbox img {
-            max-width: 90%;
-            max-height: 80vh;
-            border-radius: 8px;
-            box-shadow: 0 0 50px rgba(79, 111, 82, 0.2);
-        }
+    .side-section-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
 
-        /* --- 8. MOBILE RESPONSIVE --- */
-        @media (max-width: 768px) {
-            .bento-wrapper { grid-template-columns: 1fr; }
-            .card { grid-column: span 1 !important; grid-row: span 1 !important; }
-            .card-gallery { height: 300px; }
-        }
-    </style>
+    .side-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+
+    .side-nav a {
+      text-decoration: none;
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid transparent;
+      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform 0.12s ease-out;
+    }
+
+    .side-nav a span.key {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+
+    .side-nav a:hover,
+    .side-nav a.active {
+      background: radial-gradient(circle at 0% 0%, rgba(126, 63, 212, 0.25), transparent),
+                  radial-gradient(circle at 100% 100%, rgba(78, 107, 47, 0.25), transparent);
+      color: #f4f4f4;
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
+    }
+
+    .side-quote {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .side-quote strong {
+      color: #f4f4f4;
+      font-weight: 500;
+    }
+
+    .social-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .pill-link {
+      font-size: 11px;
+      text-decoration: none;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition-fast);
+    }
+
+    .pill-link:hover {
+      color: #fdfdfd;
+      border-color: rgba(178, 255, 150, 0.5);
+      background: radial-gradient(circle at 0% 0%, rgba(126, 63, 212, 0.22), rgba(4, 7, 5, 0.9));
+      transform: translateY(-1px);
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--olive-accent);
+    }
+
+    /* ===== Main Content ===== */
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .section {
+      background: radial-gradient(circle at top left, rgba(126, 63, 212, 0.18), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(78, 107, 47, 0.28), #050609 78%);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 20px 20px 18px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at -10% -10%, rgba(255, 255, 255, 0.05), transparent 55%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-kicker {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .section-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 380px;
+    }
+
+    .badge-soft {
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(0, 0, 0, 0.35);
+      color: var(--text-muted);
+      backdrop-filter: blur(6px);
+    }
+
+    /* ===== Hero Section ===== */
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: stretch;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 880px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-main {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 4vw, 40px);
+      line-height: 1.1;
+    }
+
+    .hero-highlight {
+      background: linear-gradient(120deg, #c4ff98, #ffefb7);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-body {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-size: 13px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      outline: none;
+      transition: background var(--transition-med), color var(--transition-med), transform 0.14s ease-out, border-color var(--transition-fast), box-shadow 0.16s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--olive-accent), var(--purple-accent));
+      color: #fdfdfd;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 52px rgba(0, 0, 0, 0.8);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-ghost {
+      background: rgba(0, 0, 0, 0.55);
+      border-color: rgba(255, 255, 255, 0.18);
+      color: var(--text-muted);
+    }
+
+    .btn-ghost:hover {
+      color: #fdfdfd;
+      background: radial-gradient(circle at 0 0, rgba(126, 63, 212, 0.3), rgba(4, 6, 6, 0.95));
+      transform: translateY(-1px);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .hero-meta span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(5, 7, 7, 0.8);
+    }
+
+    .hero-aside {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: radial-gradient(circle at 0% 0%, rgba(126, 63, 212, 0.35), transparent 55%),
+                  radial-gradient(circle at 100% 100%, rgba(37, 60, 26, 0.75), #060707 80%);
+      padding: 14px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-aside::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 110% -10%, rgba(255, 255, 255, 0.12), transparent 55%);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .hero-aside-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1;
+      position: relative;
+    }
+
+    .hero-aside-title {
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(240, 240, 240, 0.85);
+    }
+
+    .hero-aside-tag {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(3, 8, 3, 0.72);
+      border: 1px solid rgba(164, 255, 137, 0.5);
+      color: #d9ffd0;
+    }
+
+    .hero-aside-body {
+      position: relative;
+      z-index: 1;
+      font-size: 13px;
+      color: #f5f5f5;
+      line-height: 1.6;
+    }
+
+    .hero-aside-grid {
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .stat-card {
+      border-radius: 12px;
+      padding: 8px 8px 6px;
+      background: rgba(5, 7, 6, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+    }
+
+    .stat-value {
+      font-weight: 500;
+    }
+
+    .hero-aside-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      font-size: 11px;
+      color: rgba(233, 233, 233, 0.78);
+      z-index: 1;
+      position: relative;
+    }
+
+    .hero-aside-footer span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #9bff62;
+      margin-right: 4px;
+      box-shadow: 0 0 10px rgba(155, 255, 98, 0.9);
+    }
+
+    /* ===== Art Gallery ===== */
+
+    .grid-art {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .art-card {
+      background: linear-gradient(145deg, #090b0c, #151a1d);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, border-color 0.18s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .art-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(178, 255, 150, 0.5);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9);
+    }
+
+    .art-thumb {
+      border-radius: 12px;
+      background: radial-gradient(circle at 10% 0%, #3d3d3d, #090909);
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      font-size: 12px;
+      text-align: center;
+      padding: 8px;
+    }
+
+    .art-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .art-title {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .tag-chip {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    /* ===== Wallpapers ===== */
+
+    .wallpaper-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .wall-card {
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: linear-gradient(145deg, #090a0c, #141820);
+      padding: 10px 10px 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+    }
+
+    .wall-preview {
+      height: 150px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 0% 0%, rgba(126, 63, 212, 0.6), transparent 50%), 
+                  radial-gradient(circle at 100% 100%, rgba(78, 107, 47, 0.9), #050608 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: rgba(247, 247, 247, 0.9);
+      text-align: center;
+      padding: 10px;
+    }
+
+    .wall-title {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .wall-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .btn-mini {
+      font-size: 11px;
+      padding: 6px 10px;
+    }
+
+    /* ===== Stories / Timeline ===== */
+
+    .timeline {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .story-card {
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(145deg, #070808, #141a1e);
+      padding: 10px 11px 9px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .story-pill {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .story-title {
+      font-size: 15px;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+
+    .story-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ===== Quotes ===== */
+
+    .quote-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .quote-card {
+      border-radius: 18px;
+      padding: 10px 11px;
+      background: radial-gradient(circle at 0% 0%, rgba(126, 63, 212, 0.25), #090a0c 65%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 13px;
+      line-height: 1.7;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-card small {
+      display: block;
+      margin-top: 6px;
+      font-size: 11px;
+      color: rgba(207, 207, 207, 0.82);
+    }
+
+    .quote-mark {
+      position: absolute;
+      right: 10px;
+      top: 6px;
+      font-size: 32px;
+      color: rgba(255, 255, 255, 0.08);
+    }
+
+    /* ===== Contact ===== */
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-row p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .contact-row strong {
+      color: #f4f4f4;
+    }
+
+    footer {
+      max-width: 1320px;
+      margin: 4px auto 20px;
+      padding: 0 20px;
+      font-size: 11px;
+      color: var(--text-muted);
+      opacity: 0.6;
+    }
+
+    /* ===== Utilities ===== */
+
+    .hidden {
+      display: none !important;
+    }
+
+    .pill-accent {
+      background: rgba(126, 63, 212, 0.12);
+      border-color: rgba(126, 63, 212, 0.4);
+      color: #f1e7ff;
+    }
+
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .scroll-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
+
 <body>
+  <div class="page">
+    <!-- ===== Sidebar / Identity ===== -->
+    <aside class="sidebar">
+      <div class="brand-tag">
+        <span class="dot"></span>
+        <span>Building Saurabh's World</span>
+      </div>
 
-    <div class="bento-wrapper">
+      <div class="profile-block">
+        <div class="avatar-ring">
+          <div class="avatar-inner">
+            SG
+          </div>
+        </div>
+        <div>
+          <div class="profile-name">Saurabh Gaur</div>
+          <div class="profile-sub">Artist • Software Developer</div>
+        </div>
+        <p class="profile-desc">
+          Hand-drawn lines, handwritten code, and a head full of stories. I build worlds where philosophy, anime,
+          and minimal design collide.
+        </p>
+      </div>
 
-        <div class="card card-profile">
+      <div class="side-divider"></div>
+
+      <div>
+        <div class="side-section-title">Navigate</div>
+        <ul class="side-nav">
+          <li><a href="#hero" class="nav-link active"><span>Overview</span><span class="key">01</span></a></li>
+          <li><a href="#gallery" class="nav-link"><span>Art Gallery</span><span class="key">02</span></a></li>
+          <li><a href="#wallpapers" class="nav-link"><span>Wallpapers</span><span class="key">03</span></a></li>
+          <li><a href="#stories" class="nav-link"><span>Life Stories</span><span class="key">04</span></a></li>
+          <li><a href="#quotes" class="nav-link"><span>Quotes</span><span class="key">05</span></a></li>
+          <li><a href="#contact" class="nav-link"><span>Contact</span><span class="key">06</span></a></li>
+        </ul>
+      </div>
+
+      <div class="side-divider"></div>
+
+      <p class="side-quote">
+        <strong>"Art is how I translate chaos into clarity."</strong>
+        Every drawing, line of code and wallpaper is a page from the inner journal I never posted on social media.
+      </p>
+
+      <div class="side-divider"></div>
+
+      <div>
+        <div class="side-section-title">Links</div>
+        <div class="social-list">
+          <a href="https://www.instagram.com/thesaurabhgaur" class="pill-link" target="_blank" rel="noreferrer">
+            <span class="pill-dot"></span> Instagram
+          </a>
+          <a href="https://github.com/DEVsaurabhgaur" class="pill-link" target="_blank" rel="noreferrer">
+            <span class="pill-dot"></span> GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/saurabh-gaur-122k" class="pill-link" target="_blank" rel="noreferrer">
+            <span class="pill-dot"></span> LinkedIn
+          </a>
+          <a href="mailto:saurabhgaur122000@gmail.com" class="pill-link pill-accent">
+            <span class="pill-dot"></span> Email me
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===== Main Content ===== -->
+    <main>
+      <!-- Hero -->
+      <section class="section scroll-fade" id="hero">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Welcome to</div>
+            <div class="section-title">Saurabh Gaur's World</div>
+          </div>
+          <div class="badge-soft">
+            Handmade art • Downloadable wallpapers • Living philosophy
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-main">
             <div>
-                <div class="avatar">A</div> <h1>The Artisan.</h1>
-                <p style="color: #c9dcc9;">Digital Craftsman & Abstract Artist. I build worlds with code and paint them with solitude. Exploring the darker shades of life.</p>
+              <h1 class="hero-title">
+                Handmade <span class="hero-highlight">art & wallpapers</span><br />
+                from a mind obsessed with meaning.
+              </h1>
+              <p class="hero-body">
+                I draw what I cannot explain with words—shadows from anime, fragments of memory, and quiet questions
+                about who we become. This space is my visual diary: galleries, wallpapers you can carry on your screens,
+                and stories from a life that refused to stay average.
+              </p>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px; margin-top: 20px;">
-                <div style="width: 8px; height: 8px; background: #81C784; border-radius: 50%; box-shadow: 0 0 10px #81C784;"></div>
-                <span style="font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px;">AVAILABLE FOR COMMISSION</span>
+
+            <div>
+              <div class="hero-actions">
+                <a href="#gallery" class="btn btn-primary">View Art Gallery</a>
+                <a href="#wallpapers" class="btn btn-ghost">Browse Wallpapers</a>
+              </div>
+              <div class="hero-meta">
+                <span>Based in India</span>
+                <span>Self-taught Artist</span>
+                <span>Code + Canvas</span>
+              </div>
             </div>
-        </div>
+          </div>
 
-        <div class="card card-quote">
-            <p class="quote-text">"He who has a why to live can bear almost any how."</p>
-            <p id="quote-author" style="font-size: 0.85rem; color: var(--purple-vivid); font-weight: bold; margin-top: 8px;">— NIETZSCHE</p>
-        </div>
-
-        <div class="card card-download">
-            <div style="margin-bottom: 10px;">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--text-cream)" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
+          <aside class="hero-aside">
+            <div class="hero-aside-header">
+              <div class="hero-aside-title">Inner World Snapshot</div>
+              <div class="hero-aside-tag">Work in progress</div>
             </div>
-            <h2 style="color: var(--text-cream); font-size: 1rem;">Wallpaper Pack</h2>
-            <p style="font-size: 0.75rem; margin-bottom: 15px;">Dark / 4K / Mobile</p>
-            <a href="#" class="btn" style="padding: 8px 20px;">Get .ZIP</a>
-        </div>
+            <div class="hero-aside-body">
+              <p>
+                I grew up with anime heroes, borrowed books and a stubborn belief that reality is editable. Every
+                piece you see here is handcrafted with pencil, ink or digital brush—no AI shortcuts.
+              </p>
 
-        <div class="card card-gallery">
-            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="The Void Stares Back">
-        </div>
-
-        <div class="card card-story">
-            <h2>Chronicles</h2>
-            <p style="margin-bottom: 15px;">"I realized early on that art isn't just about what you see, but what you feel when you close your eyes. My journey began in a small studio..."</p>
-            <a href="#" style="color: var(--purple-vivid); font-size: 0.9rem; text-decoration: none; font-weight: 600;">Read Full Story &rarr;</a>
-        </div>
-
-        <div class="card card-gallery">
-            <img src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=2574&auto=format&fit=crop" alt="Olive Rain">
-        </div>
-
-        <div class="card card-footer">
-            <p style="font-size: 0.8rem; flex-grow: 1;">© 2025 Artisan Portfolio</p>
-            <div style="display: flex; gap: 20px;">
-                <a href="#" style="color: var(--text-muted); text-decoration: none; font-size: 0.8rem;">Instagram</a>
-                <a href="#" style="color: var(--text-muted); text-decoration: none; font-size: 0.8rem;">Twitter</a>
+              <div class="hero-aside-grid">
+                <div class="stat-card">
+                  <span class="stat-label">Handmade pieces</span>
+                  <span class="stat-value">+XX</span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-label">Wallpaper packs</span>
+                  <span class="stat-value">Coming soon</span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-label">Years drawing</span>
+                  <span class="stat-value">Since childhood</span>
+                </div>
+              </div>
             </div>
+            <div class="hero-aside-footer">
+              <span><span class="dot"></span> No filters. No fake aesthetics. Only real work.</span>
+              <span>Scroll to explore ↓</span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Art Gallery -->
+      <section class="section scroll-fade" id="gallery">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Gallery</div>
+            <div class="section-title">Handmade Art</div>
+          </div>
+          <div class="section-sub">
+            Close-up portraits, anime-inspired frames and original compositions. Replace the placeholders below with your
+            real artwork images.
+          </div>
         </div>
 
-    </div>
+        <div class="grid-art">
+          <!-- Example card — duplicate & replace content with your art -->
+          <article class="art-card">
+            <div class="art-thumb">
+              Replace this block with an &lt;img&gt; of your artwork (e.g. Robert Downey Jr sketch)
+            </div>
+            <div class="art-meta">
+              <div>
+                <div class="art-title">Shades of Brilliance</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Graphite on paper • 2024</div>
+              </div>
+              <span class="tag-chip">Portrait</span>
+            </div>
+          </article>
 
-    <div id="lightbox" class="lightbox">
-        <img id="lightbox-img" src="">
-        <p id="lightbox-caption" style="margin-top: 15px; color: var(--text-cream); font-family: 'Playfair Display'; font-style: italic;"></p>
-        <div style="margin-top: 20px; cursor: pointer; color: var(--text-muted);" onclick="document.getElementById('lightbox').style.display='none'">[ CLOSE ]</div>
-    </div>
+          <article class="art-card">
+            <div class="art-thumb">
+              Add your Naruto / Attack on Titan inspired piece here with an image tag.
+            </div>
+            <div class="art-meta">
+              <div>
+                <div class="art-title">Weight of a Promise</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Ink &amp; marker • 2024</div>
+              </div>
+              <span class="tag-chip">Anime</span>
+            </div>
+          </article>
 
-    <script>
-        // --- 1. QUOTE ROTATOR LOGIC ---
-        const quotes = [
-            { text: "He who has a why to live can bear almost any how.", author: "NIETZSCHE" },
-            { text: "The wound is the place where the Light enters you.", author: "RUMI" },
-            { text: "Man is condemned to be free.", author: "SARTRE" },
-            { text: "We suffer more often in imagination than in reality.", author: "SENECA" },
-            { text: "To be is to be perceived.", author: "BERKELEY" }
-        ];
+          <article class="art-card">
+            <div class="art-thumb">
+              Original composition exploring loneliness, ambition or any feeling you want to immortalize.
+            </div>
+            <div class="art-meta">
+              <div>
+                <div class="art-title">Quiet Revolution</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Digital illustration</div>
+              </div>
+              <span class="tag-chip">Original</span>
+            </div>
+          </article>
 
-        let qIndex = 0;
-        const qText = document.querySelector('.quote-text');
-        const qAuth = document.getElementById('quote-author');
+          <!-- Add more <article class="art-card"> blocks as needed -->
+        </div>
+      </section>
 
-        setInterval(() => {
-            qText.style.opacity = 0;
-            qAuth.style.opacity = 0;
-            
-            setTimeout(() => {
-                qIndex = (qIndex + 1) % quotes.length;
-                qText.innerText = `"${quotes[qIndex].text}"`;
-                qAuth.innerText = `— ${quotes[qIndex].author}`;
-                qText.style.opacity = 1;
-                qAuth.style.opacity = 1;
-            }, 500); // Wait for fade out
-        }, 6000); // Change every 6 seconds
+      <!-- Wallpapers -->
+      <section class="section scroll-fade" id="wallpapers">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Wallpapers</div>
+            <div class="section-title">Downloadable Screens</div>
+          </div>
+          <div class="section-sub">
+            Curated wallpapers designed for phones and desktops. Philosophical, minimal and anime-touched — your screen
+            becomes a reminder, not just decoration.
+          </div>
+        </div>
 
-        // --- 2. LIGHTBOX LOGIC ---
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxCap = document.getElementById('lightbox-caption');
-        
-        document.querySelectorAll('.card-gallery img').forEach(img => {
-            img.addEventListener('click', () => {
-                lightbox.style.display = 'flex';
-                lightboxImg.src = img.src;
-                lightboxCap.innerText = img.alt;
-            });
+        <div class="wallpaper-list">
+          <!-- Wallpaper Card -->
+          <article class="wall-card">
+            <div class="wall-preview">
+              “Stand up until the fear gets bored.”<br />
+              — minimalist quote wallpaper preview
+            </div>
+            <div class="wall-title">Stand Tall</div>
+            <div class="wall-footer">
+              <span>Mobile • 1080×1920</span>
+              <!-- Change the href to the real wallpaper file URL in your repo -->
+              <a href="#" class="btn btn-primary btn-mini" download>Download</a>
+            </div>
+          </article>
+
+          <article class="wall-card">
+            <div class="wall-preview">
+              Subtle purple + olive gradient with hand-drawn texture. Perfect clean home screen background.
+            </div>
+            <div class="wall-title">Olive Night Gradient</div>
+            <div class="wall-footer">
+              <span>Desktop • 2560×1440</span>
+              <a href="#" class="btn btn-primary btn-mini" download>Download</a>
+            </div>
+          </article>
+
+          <article class="wall-card">
+            <div class="wall-preview">
+              Shadowy character silhouette from your original universe. Strong mood, soft details.
+            </div>
+            <div class="wall-title">Wanderer</div>
+            <div class="wall-footer">
+              <span>Both • Pack</span>
+              <a href="#" class="btn btn-primary btn-mini" download>Download pack</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Stories -->
+      <section class="section scroll-fade" id="stories">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Stories</div>
+            <div class="section-title">Life in Frames</div>
+          </div>
+          <div class="section-sub">
+            Mini-essays from your life: poverty, discipline, anime, rejection, obsession. Visitors should feel like
+            they’re reading the director’s commentary of your art.
+          </div>
+        </div>
+
+        <div class="timeline">
+          <article class="story-card">
+            <div class="story-meta">
+              <span>Rudrapur • Early years</span>
+              <span class="story-pill">Origin</span>
+            </div>
+            <div class="story-title">The boy who drew in the margins</div>
+            <p class="story-text">
+              While teachers chased marks, I chased shapes. Desks filled with rough sketches, notebooks with more
+              drawings than answers. We didn’t have much money, but I had cheap pencils and borrowed cartoon channels.
+              That was enough to start a quiet rebellion against a scripted life.
+            </p>
+          </article>
+
+          <article class="story-card">
+            <div class="story-meta">
+              <span>High school • First rejection</span>
+              <span class="story-pill">Turning point</span>
+            </div>
+            <div class="story-title">The day “no” became fuel</div>
+            <p class="story-text">
+              A simple crush, a simple rejection — but it cracked something open. I realised I could either stay the
+              nice, invisible boy, or I could rebuild myself. The gym, sketchbook, and long late-night walks became my
+              temples of transformation.
+            </p>
+          </article>
+
+          <article class="story-card">
+            <div class="story-meta">
+              <span>Now • Building the world</span>
+              <span class="story-pill">Act I</span>
+            </div>
+            <div class="story-title">Why this website exists</div>
+            <p class="story-text">
+              This isn’t a “portfolio site”. It’s a checkpoint in the story. A place where I can show my work, my
+              scars, and the philosophies shaping me into a top-tier creator. If anything here wakes up a sleeping part
+              of you, then the work is doing its job.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Quotes -->
+      <section class="section scroll-fade" id="quotes">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Philosophy</div>
+            <div class="section-title">Quotes I Live & Draw By</div>
+          </div>
+          <div class="section-sub">
+            Lines that show up again and again in my sketchbooks, captions and late-night notes. Some borrowed, some
+            mine.
+          </div>
+        </div>
+
+        <div class="quote-grid">
+          <article class="quote-card">
+            <div class="quote-mark">“</div>
+            Sometimes the bravest thing you can do is outgrow the version of you everyone is comfortable with.
+            <small>— Saurabh Gaur</small>
+          </article>
+
+          <article class="quote-card">
+            <div class="quote-mark">“</div>
+            I don’t want aesthetic perfection. I want work that leaves a scar on the viewer’s memory.
+            <small>— Sketchbook note</small>
+          </article>
+
+          <article class="quote-card">
+            <div class="quote-mark">“</div>
+            Pain is just raw material. What you build from it is your real character.
+            <small>— From a late-night walk</small>
+          </article>
+
+          <article class="quote-card">
+            <div class="quote-mark">“</div>
+            If you don’t design your own identity, the world will assign you a boring one.
+            <small>— Studio wall</small>
+          </article>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section scroll-fade" id="contact">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Connect</div>
+            <div class="section-title">Commissions, collaborations & conversations</div>
+          </div>
+          <div class="section-sub">
+            For custom artwork, wallpaper packs, branding, or just to talk about anime and philosophy — reach out.
+          </div>
+        </div>
+
+        <div class="contact-row">
+          <p>
+            <strong>Email:</strong> <a href="mailto:saurabhgaur122000@gmail.com" class="pill-link pill-accent">saurabhgaur122000@gmail.com</a>
+          </p>
+          <p>
+            <strong>Instagram:</strong> <a href="https://www.instagram.com/thesaurabhgaur" class="pill-link" target="_blank" rel="noreferrer">@thesaurabhgaur</a>
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    © <span id="year"></span> Saurabh Gaur. All artwork and wallpapers are original. Please don’t use commercially
+    without permission.
+  </footer>
+
+  <script>
+    // Update year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
         });
+      },
+      { threshold: 0.12 }
+    );
 
-        // Close on background click
-        lightbox.addEventListener('click', (e) => {
-            if(e.target === lightbox) lightbox.style.display = 'none';
-        });
-    </script>
+    document.querySelectorAll(".scroll-fade").forEach(el => observer.observe(el));
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    window.addEventListener("scroll", () => {
+      let fromTop = window.scrollY + 80;
+
+      sections.forEach(section => {
+        if (section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
+          navLinks.forEach(link => link.classList.remove("active"));
+          const id = section.getAttribute("id");
+          const activeLink = document.querySelector('.nav-link[href="#' + id + '"]');
+          if (activeLink) activeLink.classList.add("active");
+        }
+      });
+    });
+  </script>
 </body>
 </html>
