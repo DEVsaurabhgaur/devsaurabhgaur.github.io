@@ -783,7 +783,7 @@ img {
 
 @media
 /* =========================================
-   Lightbox
+   Lightbox (Global Styles - Moved out of broken media query)
    ========================================= */
 
 .lightbox {
@@ -859,14 +859,18 @@ img {
   box-shadow: 0 0 15px rgba(204, 255, 0, 0.9);
 }
 
-@media 
-(max-width: 720px) {
+/* =========================================
+   Final Responsive Tweaks
+   ========================================= */
+
+@media (max-width: 720px) {
   .lightbox__content {
     inset: 6%;
     padding: 0.9rem 0.9rem 0.8rem;
   }
 }
-(max-width: 480px) {
+
+@media (max-width: 480px) {
   .hero__meta span {
     width: 100%;
   }
@@ -876,4 +880,3 @@ img {
     height: 190px;
   }
 }
-
