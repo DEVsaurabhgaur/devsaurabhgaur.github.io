@@ -4,939 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Saurabh Gaur — Handmade Art & Wallpapers</title>
-  <meta name="description" content="Handmade art, philosophical wallpapers and life stories by Saurabh Gaur — artist and software developer from India." />
+  <meta name="description" content="Handmade art, philosophical wallpapers and life stories by Saurabh Gaur — artist and software developer." />
 
-  <!-- FONT -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <style>
-    /* =========================
-       COLOR SYSTEM (Figma-inspired)
-       Dark + Olive + Deep Purple
-       ========================= */
-    :root {
-      --bg-main: #050608;          /* main background - gothic noir style */
-      --bg-elevated: #101315;      /* cards */
-      --bg-soft: #151a1d;          /* subtle panels */
-
-      --olive-deep: #222c1c;       /* deep olive shadow */
-      --olive-main: #4e6b2f;       /* primary accent (Mossy / Olive grove) */
-      --olive-soft: #708c46;       /* hover */
-
-      --purple-deep: #1b1027;      /* background purple */
-      --purple-main: #7e3fd4;      /* creative accent (neon purple) */
-      --purple-soft: #b08bff;      /* gentle highlight */
-
-      --border-subtle: rgba(46, 52, 60, 0.85);
-
-      --text-main: #f5f5f7;
-      --text-muted: #a6a6aa;
-
-      --highlight-warm: #f4efb0;   /* warm yellow highlight */
-      --danger: #ff4b6e;
-
-      --radius-lg: 18px;
-      --radius-xl: 24px;
-
-      --shadow-soft: 0 22px 40px rgba(0, 0, 0, 0.75);
-      --transition-fast: 0.18s ease-out;
-      --transition-med: 0.28s ease;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      background:
-        radial-gradient(circle at top, #1a1f22 0, #050608 55%, #020304 100%);
-    }
-
-    body {
-      font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: transparent;
-      color: var(--text-main);
-      min-height: 100vh;
-    }
-
-    /* =========================
-       Layout
-       ========================= */
-
-    .page {
-      display: grid;
-      grid-template-columns: 260px minmax(0, 1fr);
-      max-width: 1320px;
-      margin: 24px auto 40px;
-      padding: 0 18px;
-      gap: 24px;
-      min-height: 100vh;
-    }
-
-    @media (max-width: 880px) {
-      .page {
-        grid-template-columns: minmax(0, 1fr);
-        margin-top: 16px;
-      }
-    }
-
-    /* =========================
-       Sidebar
-       ========================= */
-
-    .sidebar {
-      background: linear-gradient(145deg, #050607, #101416);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      padding: 20px 18px 16px;
-      box-shadow: var(--shadow-soft);
-      position: sticky;
-      top: 18px;
-      align-self: flex-start;
-    }
-
-    @media (max-width: 880px) {
-      .sidebar {
-        position: static;
-        order: -1;
-        padding: 14px 14px 12px;
-      }
-    }
-
-    .brand-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(78, 107, 47, 0.18);
-      color: #c7ff9d;
-      border: 1px solid rgba(178, 255, 150, 0.22);
-      margin-bottom: 10px;
-    }
-
-    .brand-tag span.dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #9bff62;
-      box-shadow: 0 0 12px rgba(155, 255, 98, 0.9);
-    }
-
-    .profile-block {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .avatar-ring {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      padding: 2px;
-      background: conic-gradient(from 210deg, var(--purple-main), var(--olive-main), #22252b);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .avatar-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 0%, #565b65, #16181c);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 24px;
-    }
-
-    .profile-name {
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
-
-    .profile-sub {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-    }
-
-    .profile-desc {
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--text-muted);
-    }
-
-    .side-divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
-      margin: 12px 0;
-    }
-
-    .side-section-title {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .side-nav {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-bottom: 12px;
-    }
-
-    .side-nav a {
-      text-decoration: none;
-      font-size: 13px;
-      color: var(--text-muted);
-      padding: 7px 10px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px solid transparent;
-      transition: background var(--transition-fast),
-                  border-color var(--transition-fast),
-                  color var(--transition-fast),
-                  transform 0.12s ease-out;
-    }
-
-    .side-nav a span.key {
-      font-size: 11px;
-      opacity: 0.65;
-    }
-
-    .side-nav a:hover {
-      background: radial-gradient(circle at 0% 0%, rgba(126, 63, 212, 0.26), transparent),
-                  radial-gradient(circle at 100% 100%, rgba(78, 107, 47, 0.26), transparent);
-      color: #f4f4f4;
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-1px);
-    }
-
-    .side-nav a.active {
-      background: linear-gradient(90deg, rgba(126, 63, 212, 0.42), rgba(78, 107, 47, 0.42));
-      color: #ffffff;
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .side-quote {
-      font-size: 12px;
-      line-height: 1.7;
-      color: var(--text-muted);
-      font-style: italic;
-      margin-bottom: 10px;
-    }
-
-    .side-quote strong {
-      color: #f4f4f4;
-      font-weight: 500;
-    }
-
-    .social-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
-    }
-
-    .pill-link {
-      font-size: 11px;
-      text-decoration: none;
-      padding: 6px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: var(--text-muted);
-      background: rgba(0, 0, 0, 0.45);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: var(--transition-fast);
-    }
-
-    .pill-link:hover {
-      color: #fdfdfd;
-      border-color: rgba(178, 255, 150, 0.6);
-      background: radial-gradient(circle at 0% 0%, rgba(126, 63, 212, 0.25), rgba(4, 7, 5, 0.96));
-      transform: translateY(-1px);
-    }
-
-    .pill-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--olive-main);
-    }
-
-    .pill-accent {
-      background: rgba(126, 63, 212, 0.18);
-      border-color: rgba(126, 63, 212, 0.5);
-      color: #f3e8ff;
-    }
-
-    /* =========================
-       Main Sections
-       ========================= */
-
-    main {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .section {
-      background:
-        radial-gradient(circle at top left, rgba(126, 63, 212, 0.2), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(78, 107, 47, 0.32), #050608 76%);
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 20px 20px 18px;
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 4px;
-    }
-
-    .section::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at -10% -10%, rgba(255, 255, 255, 0.06), transparent 55%);
-      opacity: 0.55;
-      pointer-events: none;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-kicker {
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 2px;
-    }
-
-    .section-title {
-      font-size: 22px;
-      font-weight: 600;
-    }
-
-    .section-sub {
-      font-size: 13px;
-      color: var(--text-muted);
-      max-width: 380px;
-    }
-
-    .badge-soft {
-      font-size: 11px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(6px);
-      color: var(--text-muted);
-    }
-
-    /* =========================
-       Hero
-       ========================= */
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 18px;
-      align-items: stretch;
-      position: relative;
-      z-index: 1;
-    }
-
-    @media (max-width: 880px) {
-      .hero-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .hero-main {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .hero-title {
-      font-size: clamp(32px, 4vw, 40px);
-      line-height: 1.1;
-    }
-
-    .hero-highlight {
-      background: linear-gradient(120deg, #c4ff98, #f4efb0);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero-body {
-      font-size: 14px;
-      color: var(--text-muted);
-      max-width: 500px;
-      line-height: 1.7;
-      margin-top: 6px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .btn {
-      border-radius: 999px;
-      padding: 9px 16px;
-      font-size: 13px;
-      border: 1px solid transparent;
-      cursor: pointer;
-      outline: none;
-      transition: background var(--transition-med),
-                  color var(--transition-med),
-                  transform 0.14s ease-out,
-                  border-color var(--transition-fast),
-                  box-shadow 0.18s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--olive-main), var(--purple-main));
-      color: #fdfdfd;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.9);
-      border-color: rgba(255, 255, 255, 0.25);
-    }
-
-    .btn-ghost {
-      background: rgba(0, 0, 0, 0.55);
-      border-color: rgba(255, 255, 255, 0.2);
-      color: var(--text-muted);
-    }
-
-    .btn-ghost:hover {
-      color: #fdfdfd;
-      background: radial-gradient(circle at 0 0, rgba(126, 63, 212, 0.32), rgba(4, 6, 6, 0.98));
-      transform: translateY(-1px);
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 8px;
-    }
-
-    .hero-meta span {
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(5, 7, 7, 0.85);
-    }
-
-    .hero-aside {
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      background:
-        radial-gradient(circle at 0% 0%, rgba(126, 63, 212, 0.36), transparent 58%),
-        radial-gradient(circle at 100% 100%, rgba(78, 107, 47, 0.9), #060707 78%);
-      padding: 14px 14px 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-aside::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 115% -10%, rgba(255, 255, 255, 0.14), transparent 55%);
-      opacity: 0.35;
-      pointer-events: none;
-    }
-
-    .hero-aside-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1;
-      position: relative;
-    }
-
-    .hero-aside-title {
-      font-size: 13px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(240, 240, 240, 0.88);
-    }
-
-    .hero-aside-tag {
-      font-size: 10px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(3, 8, 3, 0.8);
-      border: 1px solid rgba(164, 255, 137, 0.6);
-      color: #dfffce;
-    }
-
-    .hero-aside-body {
-      position: relative;
-      z-index: 1;
-      font-size: 13px;
-      color: #f5f5f5;
-      line-height: 1.6;
-    }
-
-    .hero-aside-grid {
-      margin-top: 8px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 6px;
-    }
-
-    .stat-card {
-      border-radius: 12px;
-      padding: 8px 8px 6px;
-      background: rgba(5, 7, 6, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      font-size: 11px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .stat-label {
-      color: var(--text-muted);
-    }
-
-    .stat-value {
-      font-weight: 500;
-    }
-
-    .hero-aside-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 6px;
-      font-size: 11px;
-      color: rgba(233, 233, 233, 0.86);
-      z-index: 1;
-      position: relative;
-    }
-
-    .hero-aside-footer span.dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #9bff62;
-      margin-right: 4px;
-      box-shadow: 0 0 10px rgba(155, 255, 98, 0.9);
-    }
-
-    /* =========================
-       Art Gallery
-       ========================= */
-
-    .grid-art {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 12px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .art-card {
-      background: linear-gradient(145deg, #070909, #151a1d);
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 8px 8px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      transition: transform 0.18s ease-out,
-                  box-shadow 0.18s ease-out,
-                  border-color 0.18s ease-out;
-      position: relative;
-      overflow: hidden;
-      cursor: zoom-in;
-    }
-
-    .art-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(176, 139, 255, 0.7);
-      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.9);
-    }
-
-    .art-thumb {
-      border-radius: 12px;
-      overflow: hidden;
-      background: radial-gradient(circle at 10% 0%, #3d3d3d, #090909);
-      height: 190px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .art-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scale(1.02);
-      transition: transform 0.4s ease-out,
-                  filter 0.4s ease-out;
-      display: block;
-    }
-
-    .art-card:hover .art-thumb img {
-      transform: scale(1.06);
-      filter: saturate(1.15) contrast(1.06);
-    }
-
-    .art-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-    }
-
-    .art-title {
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .tag-chip {
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      font-size: 10px;
-      color: var(--text-muted);
-      background: rgba(0, 0, 0, 0.5);
-    }
-
-    /* =========================
-       Wallpapers
-       ========================= */
-
-    .wallpaper-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .wall-card {
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      background: linear-gradient(145deg, #090a0c, #151820);
-      padding: 10px 10px 9px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.75);
-    }
-
-    .wall-preview {
-      position: relative;
-      overflow: hidden;
-      border-radius: 14px;
-      background: radial-gradient(circle at 0% 0%, rgba(126, 63, 212, 0.6), transparent 50%),
-                  radial-gradient(circle at 100% 100%, rgba(78, 107, 47, 0.9), #050608 70%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      height: 150px;
-    }
-
-    .wall-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transform: scale(1.02);
-      transition: transform 0.35s ease-out;
-    }
-
-    .wall-card:hover .wall-preview img {
-      transform: scale(1.06);
-    }
-
-    .wall-title {
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .wall-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .btn-mini {
-      font-size: 11px;
-      padding: 6px 10px;
-    }
-
-    /* =========================
-       Stories
-       ========================= */
-
-    .timeline {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 12px;
-    }
-
-    .story-card {
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: linear-gradient(145deg, #070808, #151a1e);
-      padding: 10px 11px 9px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .story-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 4px;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .story-pill {
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-    }
-
-    .story-title {
-      font-size: 15px;
-      margin-bottom: 5px;
-      font-weight: 500;
-    }
-
-    .story-text {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    /* =========================
-       Quotes
-       ========================= */
-
-    .quote-grid {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 10px;
-    }
-
-    .quote-card {
-      border-radius: 18px;
-      padding: 10px 11px;
-      background: radial-gradient(circle at 0% 0%, rgba(126, 63, 212, 0.28), #090a0c 72%);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      font-size: 13px;
-      line-height: 1.7;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .quote-mark {
-      position: absolute;
-      right: 10px;
-      top: 6px;
-      font-size: 32px;
-      color: rgba(255, 255, 255, 0.08);
-    }
-
-    .quote-card small {
-      display: block;
-      margin-top: 6px;
-      font-size: 11px;
-      color: rgba(207, 207, 207, 0.86);
-    }
-
-    /* =========================
-       Contact
-       ========================= */
-
-    .contact-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .contact-row p {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .contact-row strong {
-      color: #f4f4f4;
-    }
-
-    footer {
-      max-width: 1320px;
-      margin: 6px auto 20px;
-      padding: 0 20px;
-      font-size: 11px;
-      color: var(--text-muted);
-      opacity: 0.65;
-    }
-
-    /* =========================
-       Lightbox
-       ========================= */
-
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-
-    .lightbox.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .lightbox-backdrop {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(126, 63, 212, 0.6), rgba(0, 0, 0, 0.98));
-      backdrop-filter: blur(10px);
-    }
-
-    .lightbox-content {
-      position: relative;
-      max-width: 90vw;
-      max-height: 90vh;
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.26);
-      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.9);
-      display: flex;
-      flex-direction: column;
-      background: #050607;
-    }
-
-    .lightbox-content img {
-      max-width: 100%;
-      max-height: 76vh;
-      object-fit: contain;
-      background: #050607;
-    }
-
-    .lightbox-caption {
-      padding: 10px 14px;
-      font-size: 13px;
-      color: var(--text-muted);
-      background: linear-gradient(90deg, rgba(21, 26, 29, 0.96), rgba(27, 16, 39, 0.96));
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: 8px;
-      right: 10px;
-      border: none;
-      background: rgba(0, 0, 0, 0.7);
-      color: #ffffff;
-      border-radius: 999px;
-      width: 26px;
-      height: 26px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    /* =========================
-       Utilities
-       ========================= */
-
-    .hidden {
-      display: none !important;
-    }
-
-    .scroll-fade {
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    .scroll-fade.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
 <body>
   <div class="page">
-    <!-- =========================
-         SIDEBAR
-         ========================= -->
+    
     <aside class="sidebar">
       <div class="brand-tag">
         <span class="dot"></span>
@@ -952,8 +29,7 @@
           <div class="profile-sub">Artist • Software Developer</div>
         </div>
         <p class="profile-desc">
-          Hand-drawn lines, handwritten code and a head full of stories. I build worlds where philosophy, anime and
-          minimal design collide.
+          Hand-drawn lines, handwritten code and a head full of stories. I build worlds where philosophy, anime and minimal design collide.
         </p>
       </div>
 
@@ -999,11 +75,8 @@
       </div>
     </aside>
 
-    <!-- =========================
-         MAIN
-         ========================= -->
     <main>
-      <!-- HERO -->
+      
       <section class="section scroll-fade" id="hero">
         <div class="section-header">
           <div>
@@ -1023,9 +96,7 @@
                 from a mind obsessed with meaning.
               </h1>
               <p class="hero-body">
-                I draw what I cannot explain with words—shadows from anime, fragments of memory and quiet questions
-                about who we become. This space is my visual diary: galleries, wallpapers you can carry on your
-                screens, and stories from a life that refused to stay average.
+                I draw what I cannot explain with words—shadows from anime, fragments of memory and quiet questions about who we become. This space is my visual diary.
               </p>
             </div>
 
@@ -1048,19 +119,17 @@
               <div class="hero-aside-tag">Work in progress</div>
             </div>
             <div class="hero-aside-body">
-              <p>
-                I grew up with anime heroes, borrowed books and a stubborn belief that reality is editable. Every
-                piece you see here is handcrafted with pencil, ink or digital brush—no AI shortcuts.
+              <p style="font-size: 13px; line-height: 1.6;">
+                I grew up with anime heroes, borrowed books and a stubborn belief that reality is editable. Every piece you see here is handcrafted.
               </p>
-
               <div class="hero-aside-grid">
                 <div class="stat-card">
                   <span class="stat-label">Handmade pieces</span>
-                  <span class="stat-value">+XX</span>
+                  <span class="stat-value">Uploaded</span>
                 </div>
                 <div class="stat-card">
                   <span class="stat-label">Wallpaper packs</span>
-                  <span class="stat-value">Launching soon</span>
+                  <span class="stat-value">Coming Soon</span>
                 </div>
                 <div class="stat-card">
                   <span class="stat-label">Years drawing</span>
@@ -1068,15 +137,10 @@
                 </div>
               </div>
             </div>
-            <div class="hero-aside-footer">
-              <span><span class="dot"></span> No filters. No fake aesthetics. Only real work.</span>
-              <span>Scroll to explore ↓</span>
-            </div>
           </aside>
         </div>
       </section>
 
-      <!-- ART GALLERY -->
       <section class="section scroll-fade" id="gallery">
         <div class="section-header">
           <div>
@@ -1089,62 +153,47 @@
         </div>
 
         <div class="grid-art">
-          <!-- Example art card 1 -->
           <article class="art-card">
             <div class="art-thumb">
-              <!-- TODO: change src to your real file name -->
-              <img src="assets/art/rdj-sketch.jpg" alt="Shades of Brilliance graphite sketch by Saurabh Gaur">
+              <img src="assets/art/rdj-sketch.jpg" alt="Shades of Brilliance graphite sketch">
             </div>
             <div class="art-meta">
               <div>
                 <div class="art-title">Shades of Brilliance</div>
-                <div style="font-size: 11px; color: var(--text-muted);">
-                  Graphite on paper • 2024
-                </div>
+                <div style="font-size: 11px; color: var(--text-muted);">Graphite on paper</div>
               </div>
               <span class="tag-chip">Portrait</span>
             </div>
           </article>
 
-          <!-- Example art card 2 -->
           <article class="art-card">
             <div class="art-thumb">
-              <!-- Naruto / AOT style art -->
-              <img src="assets/art/anime-piece.jpg" alt="Anime inspired illustration by Saurabh Gaur">
+              <img src="assets/art/anime-piece.jpg" alt="Anime inspired illustration">
             </div>
             <div class="art-meta">
               <div>
                 <div class="art-title">Weight of a Promise</div>
-                <div style="font-size: 11px; color: var(--text-muted);">
-                  Ink & marker • 2024
-                </div>
+                <div style="font-size: 11px; color: var(--text-muted);">Ink & Marker</div>
               </div>
               <span class="tag-chip">Anime</span>
             </div>
           </article>
 
-          <!-- Example art card 3 -->
           <article class="art-card">
             <div class="art-thumb">
-              <!-- Original concept art -->
-              <img src="assets/art/quiet-revolution.jpg" alt="Quiet Revolution original artwork by Saurabh Gaur">
+              <img src="assets/art/quiet-revolution.jpg" alt="Quiet Revolution original artwork">
             </div>
             <div class="art-meta">
               <div>
                 <div class="art-title">Quiet Revolution</div>
-                <div style="font-size: 11px; color: var(--text-muted);">
-                  Digital illustration
-                </div>
+                <div style="font-size: 11px; color: var(--text-muted);">Digital Illustration</div>
               </div>
               <span class="tag-chip">Original</span>
             </div>
           </article>
-
-          <!-- Add more <article class="art-card"> blocks for each artwork -->
         </div>
       </section>
 
-      <!-- WALLPAPERS -->
       <section class="section scroll-fade" id="wallpapers">
         <div class="section-header">
           <div>
@@ -1157,55 +206,41 @@
         </div>
 
         <div class="wallpaper-list">
-          <!-- Wallpaper 1 -->
           <article class="wall-card">
             <div class="wall-preview">
-              <!-- preview image -->
-              <img src="assets/wallpapers/stand-tall-preview.jpg" alt="Stand Tall quote wallpaper preview">
+              <img src="assets/wallpapers/stand-tall-preview.jpg" alt="Stand Tall Wallpaper">
             </div>
             <div class="wall-title">Stand Tall</div>
             <div class="wall-footer">
-              <span>Mobile • 1080×1920</span>
-              <!-- full wallpaper file -->
-              <a href="assets/wallpapers/stand-tall-1080x1920.png" class="btn btn-primary btn-mini" download>
-                Download
-              </a>
+              <span style="font-size:11px; color:var(--text-muted)">Mobile • 4K</span>
+              <a href="assets/wallpapers/stand-tall.png" class="btn btn-primary btn-mini" download>Download</a>
             </div>
           </article>
 
-          <!-- Wallpaper 2 -->
           <article class="wall-card">
             <div class="wall-preview">
-              <img src="assets/wallpapers/olive-night-preview.jpg" alt="Olive Night gradient wallpaper preview">
+              <img src="assets/wallpapers/olive-night-preview.jpg" alt="Olive Night Wallpaper">
             </div>
             <div class="wall-title">Olive Night Gradient</div>
             <div class="wall-footer">
-              <span>Desktop • 2560×1440</span>
-              <a href="assets/wallpapers/olive-night-2560x1440.png" class="btn btn-primary btn-mini" download>
-                Download
-              </a>
+              <span style="font-size:11px; color:var(--text-muted)">Desktop • 4K</span>
+              <a href="assets/wallpapers/olive-night.png" class="btn btn-primary btn-mini" download>Download</a>
             </div>
           </article>
 
-          <!-- Wallpaper 3 (pack) -->
           <article class="wall-card">
             <div class="wall-preview">
-              <img src="assets/wallpapers/wanderer-preview.jpg" alt="Wanderer wallpaper pack preview">
+              <img src="assets/wallpapers/wanderer-preview.jpg" alt="Wanderer Pack">
             </div>
-            <div class="wall-title">Wanderer</div>
+            <div class="wall-title">Wanderer Pack</div>
             <div class="wall-footer">
-              <span>Phone + Desktop • Pack</span>
-              <a href="assets/wallpapers/wanderer-pack.zip" class="btn btn-primary btn-mini" download>
-                Download pack
-              </a>
+              <span style="font-size:11px; color:var(--text-muted)">ZIP Bundle</span>
+              <a href="assets/wallpapers/wanderer-pack.zip" class="btn btn-primary btn-mini" download>Download</a>
             </div>
           </article>
-
-          <!-- Add more wallpaper cards as you create new packs -->
         </div>
       </section>
 
-      <!-- STORIES -->
       <section class="section scroll-fade" id="stories">
         <div class="section-header">
           <div>
@@ -1219,55 +254,36 @@
 
         <div class="timeline">
           <article class="story-card">
-            <div class="story-meta">
-              <span>Rudrapur • Early years</span>
-              <span class="story-pill">Origin</span>
-            </div>
+            <div class="story-meta">Rudrapur • Early years</div>
             <div class="story-title">The boy who drew in the margins</div>
             <p class="story-text">
-              While teachers chased marks, I chased shapes. Desks filled with rough sketches, notebooks with more
-              drawings than answers. We didn’t have much money, but I had cheap pencils and borrowed cartoon channels.
-              That was enough to start a quiet rebellion against a scripted life.
+              While teachers chased marks, I chased shapes. Desks filled with rough sketches, notebooks with more drawings than answers. That was enough to start a quiet rebellion against a scripted life.
             </p>
           </article>
 
           <article class="story-card">
-            <div class="story-meta">
-              <span>High school • First rejection</span>
-              <span class="story-pill">Turning point</span>
-            </div>
+            <div class="story-meta">High school • Turning Point</div>
             <div class="story-title">The day “no” became fuel</div>
             <p class="story-text">
-              A simple crush, a simple rejection—but it cracked something open. I realised I could either stay the
-              nice, invisible boy, or I could rebuild myself. The gym, sketchbook and late-night walks became my
-              temples of transformation.
+              A simple crush, a simple rejection—but it cracked something open. I realised I could either stay the nice, invisible boy, or I could rebuild myself. The gym, sketchbook and late-night walks became my temples.
             </p>
           </article>
 
           <article class="story-card">
-            <div class="story-meta">
-              <span>Now • Building the world</span>
-              <span class="story-pill">Act I</span>
-            </div>
+            <div class="story-meta">Now • Act I</div>
             <div class="story-title">Why this website exists</div>
             <p class="story-text">
-              This isn’t just a portfolio. It’s a checkpoint. A place where I can show my work, my scars and the
-              philosophies shaping me into a top-tier creator. If anything here wakes up a sleeping part of you, then
-              the work is doing its job.
+              This isn’t just a portfolio. It’s a checkpoint. A place where I can show my work, my scars and the philosophies shaping me into a top-tier creator.
             </p>
           </article>
         </div>
       </section>
 
-      <!-- QUOTES -->
       <section class="section scroll-fade" id="quotes">
         <div class="section-header">
           <div>
             <div class="section-kicker">Philosophy</div>
-            <div class="section-title">Quotes I Live & Draw By</div>
-          </div>
-          <div class="section-sub">
-            Lines that show up again and again in my sketchbooks, captions and late-night notes. Some borrowed, some mine.
+            <div class="section-title">Quotes I Live By</div>
           </div>
         </div>
 
@@ -1287,7 +303,7 @@
           <article class="quote-card">
             <div class="quote-mark">“</div>
             Pain is just raw material. What you build from it is your real character.
-            <small>— From a late-night walk</small>
+            <small>— Late-night thought</small>
           </article>
 
           <article class="quote-card">
@@ -1298,15 +314,14 @@
         </div>
       </section>
 
-      <!-- CONTACT -->
       <section class="section scroll-fade" id="contact">
         <div class="section-header">
           <div>
             <div class="section-kicker">Connect</div>
-            <div class="section-title">Commissions, collaborations & conversations</div>
+            <div class="section-title">Commissions & Collaborations</div>
           </div>
           <div class="section-sub">
-            For custom artwork, wallpaper packs, branding, or just to talk about anime and philosophy — reach out.
+            For custom artwork, wallpaper packs, branding, or just to talk about anime and philosophy.
           </div>
         </div>
 
@@ -1329,24 +344,23 @@
   </div>
 
   <footer>
-    © <span id="year"></span> Saurabh Gaur. All artwork and wallpapers are original. Please don’t use commercially without permission.
+    © <span id="year"></span> Saurabh Gaur. All artwork is original.
   </footer>
 
-  <!-- LIGHTBOX -->
   <div id="lightbox" class="lightbox hidden">
     <div class="lightbox-backdrop"></div>
     <div class="lightbox-content">
-      <img id="lightbox-img" src="" alt="">
+      <img id="lightbox-img" src="" alt="Enlarged Art">
       <div class="lightbox-caption" id="lightbox-caption"></div>
       <button class="lightbox-close" aria-label="Close">✕</button>
     </div>
   </div>
 
   <script>
-    // year
+    // 1. Auto-update Year in Footer
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // scroll reveal
+    // 2. Scroll Reveal Animation
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
@@ -1355,16 +369,16 @@
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.1 }
     );
     document.querySelectorAll(".scroll-fade").forEach(el => observer.observe(el));
 
-    // active nav link on scroll
+    // 3. Active Nav Link Highlighter
     const sections = document.querySelectorAll("section");
     const navLinks = document.querySelectorAll(".nav-link");
 
     window.addEventListener("scroll", () => {
-      let fromTop = window.scrollY + 80;
+      let fromTop = window.scrollY + 100;
 
       sections.forEach(section => {
         if (section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
@@ -1376,7 +390,7 @@
       });
     });
 
-    // Lightbox for artworks
+    // 4. Lightbox Logic
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
     const lightboxCaption = document.getElementById("lightbox-caption");
@@ -1384,18 +398,22 @@
 
     document.querySelectorAll(".art-card").forEach(card => {
       const img = card.querySelector("img");
-      if (!img) return;
+      if (!img) return; // Skip if no image
 
       card.addEventListener("click", () => {
+        // Set image source
         lightboxImg.src = img.src;
+        
+        // Get caption text from the card title
         const title = card.querySelector(".art-title")?.textContent || "";
-        const metaEl = card.querySelector(".art-meta div div:nth-child(2)");
-        const meta = metaEl ? metaEl.textContent.trim() : "";
-        lightboxCaption.textContent = meta ? `${title} — ${meta}` : title;
+        lightboxCaption.textContent = title;
+        
+        // Show lightbox
         lightbox.classList.remove("hidden");
       });
     });
 
+    // Close Lightbox functions
     function closeLightbox() {
       lightbox.classList.add("hidden");
       lightboxImg.src = "";
