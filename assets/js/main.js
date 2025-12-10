@@ -1,11 +1,11 @@
 // ==============================
-// MAIN JS – LIGHTBOX + AUTO GALLERY
+// MAIN JS – LIGHTBOX + FILTERS
 // ==============================
 
 document.addEventListener("DOMContentLoaded", () => {
   setupLightbox();
-  autoLoadArt();
-  autoLoadWallpapers();
+  setupArtFilters();
+  setupWallpaperFilters();
 });
 
 // ==============================
@@ -37,14 +37,16 @@ function setupLightbox() {
     }, 150);
   }
 
-  // Event delegation: works for existing + future images
+  // Event delegation – works for all current + future images
   document.addEventListener("click", (e) => {
     const img = e.target.closest(".card-art__image, .card-wall__image");
     if (!img) return;
 
     const fullSrc = img.dataset.fullSrc || img.src;
     const card = img.closest(".card-art, .card-wall");
-    const titleEl = card ? card.querySelector(".card-art__title, .card-wall__title") : null;
+    const titleEl = card
+      ? card.querySelector(".card-art__title, .card-wall__title")
+      : null;
     const caption = titleEl ? titleEl.textContent.trim() : "";
     openLightbox(fullSrc, caption);
   });
@@ -60,154 +62,55 @@ function setupLightbox() {
 }
 
 // ==============================
-// AUTO ART GALLERY
+// ART FILTERS
 // ==============================
 
-const AUTO_ART_CONFIG = {
-  basePath: "assets/ART/",
-  prefix: "auto-art-",
-  maxItems: 99, // support up to 99 artworks
-};
+function setupArtFilters() {
+  const chips = document.querySelectorAll("[data-filter]");
+  const cards = document.querySelectorAll(".card-art");
+  if (!chips.length || !cards.length) return;
 
-function autoLoadArt() {
-  const container = document.querySelector(".grid--art");
-  if (!container) return;
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const filter = chip.dataset.filter;
+      chips.forEach((c) => c.classList.remove("chip--active"));
+      chip.classList.add("chip--active");
 
-  for (let i = 1; i <= AUTO_ART_CONFIG.maxItems; i++) {
-    const num = String(i).padStart(2, "0");
-
-    // Expected filename format:
-    // auto-art-01__Title-With-Dashes__category.jpg
-    const baseName = `${AUTO_ART_CONFIG.prefix}${num}`;
-    const fileName = `${baseName}.jpg`;
-    const src = `${AUTO_ART_CONFIG.basePath}${fileName}`;
-
-    const probe = new Image();
-    probe.onload = () => {
-      const meta = parseAutoName(baseName, "art", i);
-      const card = createArtCard(src, meta);
-      container.appendChild(card);
-    };
-    probe.onerror = () => {
-      // no file with this number, just ignore
-    };
-    probe.src = src;
-  }
-}
-
-function parseAutoName(baseName, type, index) {
-  // baseName like "auto-art-01__Title-With-Dashes__category"
-  const parts = baseName.split("__");
-  const rawTitle = parts[1] || `${type === "art" ? "Artwork" : "Wallpaper"} #${index}`;
-  const title = rawTitle.replace(/-/g, " ");
-  const rawCategory = (parts[2] || "").toLowerCase();
-
-  let category = "other";
-  if (type === "art") {
-    const allowed = ["portrait", "devotional", "shiva", "fanart", "other"];
-    if (allowed.includes(rawCategory)) category = rawCategory;
-  } else {
-    const allowed = ["dark", "minimal", "mobile", "other"];
-    if (allowed.includes(rawCategory)) category = rawCategory;
-  }
-
-  const alt =
-    type === "art"
-      ? `Handmade artwork: ${title}`
-      : `Wallpaper: ${title}`;
-
-  return {
-    title,
-    category,
-    alt,
-    // short generic text so height stable
-    desc:
-      type === "art"
-        ? "Original handmade artwork from Saurabh’s auto gallery collection."
-        : "UHD wallpaper generated from Saurabh’s artwork collection.",
-    meta:
-      type === "art"
-        ? "Original artwork · Auto gallery"
-        : "UHD · Auto gallery",
-  };
-}
-
-function createArtCard(src, meta) {
-  const article = document.createElement("article");
-  article.className = "card-art";
-  article.dataset.category = meta.category;
-
-  article.innerHTML = `
-    <div class="card-art__image-wrapper">
-      <img
-        src="${src}"
-        alt="${meta.alt}"
-        class="card-art__image"
-        loading="lazy"
-      />
-    </div>
-    <div class="card-art__body">
-      <h3 class="card-art__title">${meta.title}</h3>
-      <p class="card-art__desc">${meta.desc}</p>
-      <p class="card-art__meta">${meta.meta}</p>
-    </div>
-  `;
-  return article;
+      cards.forEach((card) => {
+        const cat = card.dataset.category || "all";
+        if (filter === "all" || filter === cat) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  });
 }
 
 // ==============================
-// AUTO WALLPAPER GALLERY
+// WALLPAPER FILTERS
 // ==============================
 
-const AUTO_WALL_CONFIG = {
-  basePath: "assets/WALLPAPERS UHD/",
-  prefix: "auto-wall-",
-  maxItems: 99,
-};
+function setupWallpaperFilters() {
+  const chips = document.querySelectorAll("[data-wall-filter]");
+  const cards = document.querySelectorAll(".card-wall");
+  if (!chips.length || !cards.length) return;
 
-function autoLoadWallpapers() {
-  const container = document.querySelector(".grid--wall");
-  if (!container) return;
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const filter = chip.dataset.wallFilter;
+      chips.forEach((c) => c.classList.remove("chip--active"));
+      chip.classList.add("chip--active");
 
-  for (let i = 1; i <= AUTO_WALL_CONFIG.maxItems; i++) {
-    const num = String(i).padStart(2, "0");
-    // auto-wall-01__Title-With-Dashes__category.jpg
-    const baseName = `${AUTO_WALL_CONFIG.prefix}${num}`;
-    const fileName = `${baseName}.jpg`;
-    const src = `${AUTO_WALL_CONFIG.basePath}${fileName}`;
-
-    const probe = new Image();
-    probe.onload = () => {
-      const meta = parseAutoName(baseName, "wall", i);
-      const card = createWallCard(src, meta);
-      container.appendChild(card);
-    };
-    probe.onerror = () => {};
-    probe.src = src;
-  }
-}
-
-function createWallCard(src, meta) {
-  const article = document.createElement("article");
-  article.className = "card-wall";
-  article.dataset.category = meta.category;
-
-  article.innerHTML = `
-    <div class="card-wall__image-wrapper">
-      <img
-        src="${src}"
-        alt="${meta.alt}"
-        class="card-wall__image"
-        loading="lazy"
-      />
-    </div>
-    <div class="card-wall__body">
-      <div>
-        <h3 class="card-wall__title">${meta.title}</h3>
-        <p class="card-wall__meta">${meta.meta}</p>
-      </div>
-      <a href="${src}" download class="btn btn--tiny">Download</a>
-    </div>
-  `;
-  return article;
+      cards.forEach((card) => {
+        const cat = card.dataset.category || "all";
+        if (filter === "all" || filter === cat) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  });
 }
