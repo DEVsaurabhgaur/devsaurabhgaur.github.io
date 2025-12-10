@@ -745,7 +745,7 @@ img {
 }
 
 /* =========================================
-   Responsive
+   Responsive (Global Layout)
    ========================================= */
 
 @media (max-width: 880px) {
@@ -781,9 +781,8 @@ img {
   }
 }
 
-@media
 /* =========================================
-   Lightbox (Global Styles - Moved out of broken media query)
+   Lightbox
    ========================================= */
 
 .lightbox {
