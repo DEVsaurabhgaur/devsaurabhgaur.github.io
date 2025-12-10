@@ -1140,9 +1140,12 @@ input, select, textarea {
 			-ms-transition-delay: 0.75s;
 			transition-delay: 0.75s;
 			background-image: linear-gradient(to top, rgba(19, 21, 25, 0.5), rgba(19, 21, 25, 0.5)), url("../../images/overlay.png");
-			background-size: auto, 256px 256px;
-			background-position: center, center;
-			background-repeat: no-repeat, repeat;
+			background-size: auto,
+ 256px 256px;
+			background-position: center,
+ center;
+			background-repeat: no-repeat,
+ repeat;
 			z-index: 2;
 		}
 
@@ -1656,3 +1659,213 @@ input, select, textarea {
 		body.is-preload #footer {
 			opacity: 0;
 		}
+/* =======================================================================
+   SAURABH CUSTOM THEME  – overrides for Dimension
+   Palette: dark (#181C14) + green + cream + purple accent
+   Load this AFTER the original Dimension CSS (keep everything above as is)
+   ======================================================================= */
+
+:root {
+  /* Dark base */
+  --sg-bg: #181c14;
+  --sg-bg-soft: #232a22;
+
+  /* Green palette */
+  --sg-green-dark: #4e6a2c;
+  --sg-green-mid: #6f9441;
+  --sg-green-light: #96ba6b;
+
+  /* Cream */
+  --sg-cream: #ead7b0;
+
+  /* Purple accent */
+  --sg-purple-dark: #260033;
+  --sg-purple-mid: #7a19b8;
+  --sg-purple-light: #bb5cf5;
+
+  /* Text */
+  --sg-text-main: #f7f7f5;
+  --sg-text-muted: #c7c7c0;
+}
+
+/* ---- Global background + body ---- */
+
+body {
+  background: radial-gradient(circle at top, var(--sg-bg-soft), var(--sg-bg)) fixed;
+  color: var(--sg-text-main);
+}
+
+/* Background overlay of Dimension */
+#bg:before {
+  background: radial-gradient(circle at top left, var(--sg-green-dark), var(--sg-bg)) fixed;
+  opacity: 0.9;
+}
+
+/* Links */
+a {
+  border-bottom-color: rgba(234, 215, 176, 0.4);
+  color: var(--sg-cream);
+}
+a:hover {
+  border-bottom-color: transparent;
+  color: var(--sg-green-light);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: 0.25rem;
+  text-transform: uppercase;
+  color: var(--sg-cream);
+}
+
+h1.major, h2.major, h3.major {
+  border-bottom-color: var(--sg-green-light);
+}
+
+/* ---- HEADER / HERO ---- */
+
+#header .logo span {
+  /* circle icon */
+  background: linear-gradient(145deg, var(--sg-green-dark), var(--sg-green-light));
+  box-shadow: 0 0 25px rgba(150, 186, 107, 0.7);
+}
+
+/* inner content (Saurabh intro block) */
+#header .content .inner {
+  background: rgba(24, 28, 20, 0.88);
+  border-radius: 1.6rem;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(234, 215, 176, 0.12);
+}
+
+#header .content .inner p {
+  color: var(--sg-text-muted);
+}
+
+/* Navigation */
+#header nav ul li a {
+  border: 0;
+  color: var(--sg-text-muted);
+  letter-spacing: 0.18rem;
+}
+
+#header nav ul li a:hover {
+  color: var(--sg-cream);
+}
+
+#header nav ul li a.active {
+  color: var(--sg-green-light);
+}
+
+/* ---- ARTICLES (Intro, Work, About, Contact) ---- */
+
+#main article {
+  background: rgba(24, 28, 20, 0.96);
+  border-radius: 1.6rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(234, 215, 176, 0.12);
+}
+
+/* Images inside sections */
+#main article .image.main img {
+  border-radius: 1.2rem;
+  border: 1px solid rgba(234, 215, 176, 0.18);
+}
+
+/* Section titles */
+#main article h2.major {
+  border-bottom-color: var(--sg-purple-light);
+}
+
+/* Text inside sections */
+#main article p {
+  color: var(--sg-text-muted);
+}
+
+/* Lists a little softer */
+#main article ul,
+#main article ol {
+  color: var(--sg-text-muted);
+}
+
+/* ---- BUTTONS ---- */
+
+.button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  background: linear-gradient(135deg, var(--sg-green-dark), var(--sg-green-light));
+  border: none;
+  color: #111;
+  font-weight: 600;
+  letter-spacing: 0.18rem;
+  text-transform: uppercase;
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.7);
+}
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover {
+  background: linear-gradient(135deg, var(--sg-purple-mid), var(--sg-purple-light));
+  color: #120019;
+}
+
+/* Ghost / secondary type (if needed) */
+.button.secondary {
+  background: transparent;
+  border: 1px solid var(--sg-cream);
+  color: var(--sg-cream);
+  box-shadow: none;
+}
+.button.secondary:hover {
+  background: rgba(234, 215, 176, 0.05);
+}
+
+/* ---- FORMS (Contact section) ---- */
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+  border-color: rgba(234, 215, 176, 0.6);
+  background-color: rgba(24, 28, 20, 0.92);
+  color: var(--sg-text-main);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  border-color: var(--sg-green-light);
+  box-shadow: 0 0 0 1px var(--sg-green-light);
+}
+
+/* ---- SOCIAL ICONS ---- */
+
+ul.icons li a {
+  border-radius: 999px;
+  border: 1px solid rgba(234, 215, 176, 0.25);
+  background: rgba(24, 28, 20, 0.88);
+}
+
+ul.icons li a:hover {
+  background: linear-gradient(135deg, var(--sg-purple-dark), var(--sg-purple-mid));
+  border-color: transparent;
+}
+
+/* ---- FOOTER ---- */
+
+#footer {
+  color: var(--sg-text-muted);
+}
+
+#footer a {
+  color: var(--sg-cream);
+  border-bottom-color: rgba(234, 215, 176, 0.4);
+}
+
+#footer a:hover {
+  border-bottom-color: transparent;
+  color: var(--sg-green-light);
+}
