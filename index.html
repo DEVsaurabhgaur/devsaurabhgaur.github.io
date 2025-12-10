@@ -19,6 +19,9 @@
 
   <!-- Main CSS -->
   <link rel="stylesheet" href="assets/css/main.css" />
+
+  <!-- JS -->
+  <script src="assets/js/main.js" defer></script>
 </head>
 <body>
   <div class="page">
@@ -50,16 +53,14 @@
           <div class="hero__left">
             <p class="hero__eyebrow">HANDMADE PORTRAITS • AI WALLPAPERS • DIGITAL ART</p>
             <h1 class="hero__title">
-  Handmade art, digital art and
-  <span class="hero__title-highlight">wallpapers</span>
-  by Artist Saurabh Gaur
-</h1>
-
+              Handmade art, digital art and
+              <span class="hero__title-highlight">wallpapers</span>
+              by Artist Saurabh Gaur
+            </h1>
 
             <p class="hero__subtitle">
-  I design custom portraits, AI wallpapers and digital art that turn ideas into visuals worth keeping.
-</p>
-
+              I design custom portraits, AI wallpapers and digital art that turn ideas into visuals worth keeping.
+            </p>
 
             <div class="hero__actions">
               <a href="#art" class="btn btn--primary">View Art Gallery</a>
@@ -460,11 +461,19 @@
     </footer>
   </div>
 
+  <!-- IMAGE LIGHTBOX -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox__backdrop"></div>
+    <div class="lightbox__content" role="dialog" aria-modal="true">
+      <button class="lightbox__close" aria-label="Close preview">×</button>
+      <img src="" alt="" class="lightbox__image" />
+      <p class="lightbox__caption"></p>
+    </div>
+  </div>
+
+  <!-- Year script -->
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-
-
-
