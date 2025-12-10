@@ -1,181 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Saurabh Gaur | Art · Code · Mind</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <meta name="description" content="Portfolio and journal of Saurabh Gaur – artist, software developer, and thinker exploring art, technology, psychology, and philosophy." />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisan | The Void</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. THE PALETTE (Your Custom Colors) --- */
+        :root {
+            /* Backgrounds */
+            --bg-color: #101210;       /* Deepest Black-Green */
+            --card-bg: #181C14;        /* Dark Charcoal Green */
+            
+            /* Accents */
+            --olive-deep: #2F3E2F;
+            --olive-mid: #4F6F52;      /* Primary Olive */
+            --purple-void: #190b28;    /* Deep Purple for Philosophy */
+            --purple-vivid: #7B1FA2;   /* Action Purple */
+            --purple-text: #E1BEE7;    /* Lavender */
+
+            /* Typography */
+            --text-cream: #EADBC8;     /* The Cream color */
+            --text-muted: #8F9E8F;     /* Muted sage-grey */
+            
+            /* Structural */
+            --radius: 24px;
+            --gap: 16px;
+            --border: 1px solid rgba(234, 219, 200, 0.08); /* Subtle Cream Border */
+        }
+
+        /* --- 2. GLOBAL RESET --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-cream);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 3. BENTO GRID LAYOUT --- */
+        .bento-wrapper {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, auto);
+            gap: var(--gap);
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        /* --- 4. CARD STYLING --- */
+        .card {
+            background-color: var(--card-bg);
+            border: var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            
+            /* Entry Animation setup */
+            opacity: 0; 
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--olive-mid);
+        }
+
+        /* --- 5. SPECIFIC CARD TYPES --- */
+
+        /* PROFILE (Large) */
+        .card-profile {
+            grid-column: span 2;
+            grid-row: span 2;
+            background: linear-gradient(160deg, var(--olive-mid) 0%, var(--card-bg) 80%);
+            border: 1px solid var(--olive-mid);
+        }
+
+        /* PHILOSOPHY QUOTE (Wide) */
+        .card-quote {
+            grid-column: span 2;
+            background-color: var(--purple-void);
+            border: 1px solid #3d2252;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* WALLPAPERS (Small) */
+        .card-download {
+            grid-column: span 1;
+            background: linear-gradient(to bottom, #1a1a1a, var(--bg-color));
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+        }
+
+        /* LIFE STORY (Wide) */
+        .card-story {
+            grid-column: span 2;
+            background-color: #141414;
+        }
+
+        /* GALLERY IMAGES (Standard) */
+        .card-gallery {
+            grid-column: span 1;
+            grid-row: span 2;
+            padding: 0;
+            cursor: zoom-in;
+        }
+        
+        .card-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.5s ease;
+        }
+
+        .card-gallery:hover img {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* FOOTER CARD */
+        .card-footer {
+            grid-column: span 2;
+            background-color: #000;
+            flex-direction: row;
+            align-items: center;
+            padding: 15px 28px;
+        }
+
+        /* --- 6. TYPOGRAPHY & BUTTONS --- */
+        h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 12px; }
+        h2 { font-size: 1.1rem; font-weight: 600; color: var(--olive-mid); margin-bottom: 8px; }
+        p { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); }
+        
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--purple-text);
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            margin-top: auto;
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--purple-vivid);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+            transition: box-shadow 0.3s ease, background 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #9c27b0;
+            box-shadow: 0 0 20px rgba(123, 31, 162, 0.4);
+        }
+
+        .avatar {
+            width: 64px; 
+            height: 64px; 
+            border-radius: 50%; 
+            background: var(--text-cream); 
+            margin-bottom: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-color);
+            font-size: 1.5rem;
+        }
+
+        /* --- 7. UTILITIES & ANIMATIONS --- */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Staggered loading delays */
+        .card:nth-child(1) { animation-delay: 0.1s; } /* Profile */
+        .card:nth-child(2) { animation-delay: 0.2s; } /* Quote */
+        .card:nth-child(3) { animation-delay: 0.3s; } /* Download */
+        .card:nth-child(4) { animation-delay: 0.4s; } /* Art 1 */
+        .card:nth-child(5) { animation-delay: 0.5s; } /* Story */
+        .card:nth-child(6) { animation-delay: 0.6s; } /* Art 2 */
+        .card:nth-child(7) { animation-delay: 0.7s; } /* Footer */
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(16, 18, 16, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(79, 111, 82, 0.2);
+        }
+
+        /* --- 8. MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .bento-wrapper { grid-template-columns: 1fr; }
+            .card { grid-column: span 1 !important; grid-row: span 1 !important; }
+            .card-gallery { height: 300px; }
+        }
+    </style>
 </head>
-<body class="is-preload">
+<body>
 
-    <div id="wrapper">
+    <div class="bento-wrapper">
 
-        <!-- Header -->
-        <header id="header">
-            <div class="logo">
-                <span class="icon fa-gem"></span>
+        <div class="card card-profile">
+            <div>
+                <div class="avatar">A</div> <h1>The Artisan.</h1>
+                <p style="color: #c9dcc9;">Digital Craftsman & Abstract Artist. I build worlds with code and paint them with solitude. Exploring the darker shades of life.</p>
             </div>
-            <div class="content">
-                <div class="inner">
-                    <h1>Saurabh Gaur</h1>
-                    <p>Artist · Software Developer · Mind Explorer</p>
-                    <p style="font-size: 0.8em; opacity: 0.8; margin-top: 1rem;">
-                        A personal world where art, code, and deep thinking meet.<br />
-                        Portraits, systems, and ideas shaped by curiosity and discipline.
-                    </p>
-                </div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-top: 20px;">
+                <div style="width: 8px; height: 8px; background: #81C784; border-radius: 50%; box-shadow: 0 0 10px #81C784;"></div>
+                <span style="font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px;">AVAILABLE FOR COMMISSION</span>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="#gallery">Art</a></li>
-                    <li><a href="#writing">Writing</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
-
-        <!-- Main -->
-        <div id="main">
-
-            <!-- Gallery -->
-            <article id="gallery">
-                <h2 class="major">Art Gallery</h2>
-                <p>Portraits, anime-inspired work, and visual experiments that explore emotion, focus, and inner conflict.</p>
-                
-                <span class="image main"><img src="images/gallery1.jpg" alt="Ember Mind artwork by Saurabh Gaur" /></span>
-                <h3>Ember Mind</h3>
-                <p>A high-contrast portrait capturing the tension between stillness and chaos — the quiet fire inside a focused mind.</p>
-                <hr />
-
-                <span class="image main"><img src="images/gallery2.jpg" alt="Shinobi Resolve artwork by Saurabh Gaur" /></span>
-                <h3>Shinobi Resolve</h3>
-                <p>An anime-inspired piece about discipline, loyalty, and the weight of destiny — the moment before action.</p>
-                <hr />
-
-                <span class="image main"><img src="images/gallery3.jpg" alt="Quiet Storm artwork by Saurabh Gaur" /></span>
-                <h3>Quiet Storm</h3>
-                <p>Minimal colours, controlled strokes, and a calm face hiding a storm of thoughts underneath.</p>
-                
-                <ul class="actions">
-                    <li><a href="https://instagram.com/thesaurabhgaur" target="_blank" class="button primary">View Full Gallery on Instagram</a></li>
-                </ul>
-            </article>
-
-            <!-- Writing -->
-            <article id="writing">
-                <h2 class="major">Writing &amp; Mindset</h2>
-                <span class="image main"><img src="images/pic02.jpg" alt="Notebook and pen" /></span>
-
-                <h3>Why Pain Is a Teacher</h3>
-                <blockquote>
-                    Most people run away from pain, but the right kind of pain sharpens you. With structure and intention, struggle can turn into training instead of trauma.
-                </blockquote>
-                <p><em>Full article coming soon – notes on turning emotional pain into fuel for discipline, art, and deep work.</em></p>
-                <hr />
-
-                <h3>Art as Combat</h3>
-                <blockquote>
-                    When the mind starts to overthink, a pen or brush becomes a weapon. You’re not fighting the canvas, you’re fighting your own chaos.
-                </blockquote>
-                <p><em>Full article coming soon – how drawing and writing can act like daily sparring for the mind.</em></p>
-                <hr />
-
-                <h3>Code &amp; Consciousness</h3>
-                <blockquote>
-                    Code is logical, life is messy. Combining both teaches you to design systems that can handle chaos without collapsing.
-                </blockquote>
-                <p><em>Full article coming soon – reflections on building software, habits, and mental frameworks like long-term projects.</em></p>
-            </article>
-
-            <!-- About -->
-            <article id="about">
-                <h2 class="major">About Me</h2>
-                <span class="image main"><img src="images/hero.jpg" alt="Portrait of Saurabh Gaur" /></span>
-                
-                <p>
-                    I’m <strong>Saurabh Gaur</strong> from India – a self-taught artist and software developer. 
-                    I didn’t come through art school or elite coaching. I come from curiosity, anime, late-night experiments, and a lot of trial and error.
-                </p>
-                
-                <p>
-                    My days are split between <strong>code, sketches, and reflection</strong>. 
-                    I’m obsessed with how the inner world shapes the outer one – how our thoughts, discipline, and pain show up as lines, colours, projects, and decisions.
-                </p>
-                
-                <h3>Currently Focused On</h3>
-                <ul>
-                    <li>Portrait and anime illustration with strong emotion and storytelling</li>
-                    <li>Python, AI, and early steps into quantum computing experiments</li>
-                    <li>Content around discipline, pain, mindset, and long-term growth</li>
-                </ul>
-
-                <ul class="icons">
-                    <li><a href="https://instagram.com/thesaurabhgaur" target="_blank" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-                    <li><a href="https://github.com/DEVsaurabhgaur" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-                    <li><a href="https://linkedin.com/in/saurabh-gaur-122k" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-                </ul>
-            </article>
-
-            <!-- Contact -->
-            <article id="contact">
-                <h2 class="major">Contact</h2>
-                <p>If you’d like to discuss art commissions, collaborations, or projects in software and AI, feel free to reach out.</p>
-                
-                <ul class="alt">
-                    <li><strong>Email:</strong> <a href="mailto:saurabhgaur122000@gmail.com">saurabhgaur122000@gmail.com</a></li>
-                    <li><strong>For Art:</strong> Instagram DMs usually get the fastest reply.</li>
-                    <li><strong>For Development &amp; Tech:</strong> Email or LinkedIn works best.</li>
-                </ul>
-
-                <form method="post" action="#" onsubmit="return false;">
-                    <div class="fields">
-                        <div class="field half">
-                            <label for="name">Name</label>
-                            <input type="text" name="name" id="name" />
-                        </div>
-                        <div class="field half">
-                            <label for="email">Email</label>
-                            <input type="text" name="email" id="email" />
-                        </div>
-                        <div class="field">
-                            <label for="message">Message</label>
-                            <textarea name="message" id="message" rows="4"></textarea>
-                        </div>
-                    </div>
-                    <ul class="actions">
-                        <li><input type="submit" value="Send Message" class="button primary" disabled /></li>
-                        <li><input type="reset" value="Reset" /></li>
-                    </ul>
-                    <p style="font-size: 0.8rem; opacity: 0.6;">
-                        This is a static site for now, so the form is disabled. Please use email or social links to contact me directly.
-                    </p>
-                </form>
-            </article>
-
         </div>
 
-        <!-- Footer -->
-        <footer id="footer">
-            <p class="copyright">&copy; <span id="year"></span> Saurabh Gaur. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-        </footer>
+        <div class="card card-quote">
+            <p class="quote-text">"He who has a why to live can bear almost any how."</p>
+            <p id="quote-author" style="font-size: 0.85rem; color: var(--purple-vivid); font-weight: bold; margin-top: 8px;">— NIETZSCHE</p>
+        </div>
+
+        <div class="card card-download">
+            <div style="margin-bottom: 10px;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--text-cream)" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+            </div>
+            <h2 style="color: var(--text-cream); font-size: 1rem;">Wallpaper Pack</h2>
+            <p style="font-size: 0.75rem; margin-bottom: 15px;">Dark / 4K / Mobile</p>
+            <a href="#" class="btn" style="padding: 8px 20px;">Get .ZIP</a>
+        </div>
+
+        <div class="card card-gallery">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="The Void Stares Back">
+        </div>
+
+        <div class="card card-story">
+            <h2>Chronicles</h2>
+            <p style="margin-bottom: 15px;">"I realized early on that art isn't just about what you see, but what you feel when you close your eyes. My journey began in a small studio..."</p>
+            <a href="#" style="color: var(--purple-vivid); font-size: 0.9rem; text-decoration: none; font-weight: 600;">Read Full Story &rarr;</a>
+        </div>
+
+        <div class="card card-gallery">
+            <img src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=2574&auto=format&fit=crop" alt="Olive Rain">
+        </div>
+
+        <div class="card card-footer">
+            <p style="font-size: 0.8rem; flex-grow: 1;">© 2025 Artisan Portfolio</p>
+            <div style="display: flex; gap: 20px;">
+                <a href="#" style="color: var(--text-muted); text-decoration: none; font-size: 0.8rem;">Instagram</a>
+                <a href="#" style="color: var(--text-muted); text-decoration: none; font-size: 0.8rem;">Twitter</a>
+            </div>
+        </div>
 
     </div>
 
-    <div id="bg"></div>
+    <div id="lightbox" class="lightbox">
+        <img id="lightbox-img" src="">
+        <p id="lightbox-caption" style="margin-top: 15px; color: var(--text-cream); font-family: 'Playfair Display'; font-style: italic;"></p>
+        <div style="margin-top: 20px; cursor: pointer; color: var(--text-muted);" onclick="document.getElementById('lightbox').style.display='none'">[ CLOSE ]</div>
+    </div>
 
-    <!-- Scripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
-    
     <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+        // --- 1. QUOTE ROTATOR LOGIC ---
+        const quotes = [
+            { text: "He who has a why to live can bear almost any how.", author: "NIETZSCHE" },
+            { text: "The wound is the place where the Light enters you.", author: "RUMI" },
+            { text: "Man is condemned to be free.", author: "SARTRE" },
+            { text: "We suffer more often in imagination than in reality.", author: "SENECA" },
+            { text: "To be is to be perceived.", author: "BERKELEY" }
+        ];
 
+        let qIndex = 0;
+        const qText = document.querySelector('.quote-text');
+        const qAuth = document.getElementById('quote-author');
+
+        setInterval(() => {
+            qText.style.opacity = 0;
+            qAuth.style.opacity = 0;
+            
+            setTimeout(() => {
+                qIndex = (qIndex + 1) % quotes.length;
+                qText.innerText = `"${quotes[qIndex].text}"`;
+                qAuth.innerText = `— ${quotes[qIndex].author}`;
+                qText.style.opacity = 1;
+                qAuth.style.opacity = 1;
+            }, 500); // Wait for fade out
+        }, 6000); // Change every 6 seconds
+
+        // --- 2. LIGHTBOX LOGIC ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCap = document.getElementById('lightbox-caption');
+        
+        document.querySelectorAll('.card-gallery img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightbox.style.display = 'flex';
+                lightboxImg.src = img.src;
+                lightboxCap.innerText = img.alt;
+            });
+        });
+
+        // Close on background click
+        lightbox.addEventListener('click', (e) => {
+            if(e.target === lightbox) lightbox.style.display = 'none';
+        });
+    </script>
 </body>
 </html>
