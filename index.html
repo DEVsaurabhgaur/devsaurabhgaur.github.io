@@ -2,436 +2,453 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Saurabh Gaur — Handmade Art & Wallpapers</title>
-  <meta name="description" content="Handmade art, philosophical wallpapers and life stories by Saurabh Gaur — artist and software developer." />
+  <title>Saurabh Gaur | Art, Wallpapers & Philosophy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Handmade art galleries, UHD wallpapers, philosophical quotes and life stories by Saurabh Gaur."
+  />
 
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-  <link rel="stylesheet" href="assets/css/main.css">
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="assets/css/main.css" />
+
+  <!-- Optional: JS for future dynamic features -->
+  <script src="assets/js/main.js" defer></script>
 </head>
-
 <body>
   <div class="page">
-    
-    <aside class="sidebar">
-      <div class="brand-tag">
-        <span class="dot"></span>
-        <span>Building Saurabh's World</span>
+    <!-- ================= NAVBAR ================= -->
+    <header class="nav">
+      <div class="nav__inner">
+        <a href="#hero" class="nav__logo">
+          <span class="nav__logo-dot"></span>
+          <span class="nav__logo-text">Saurabh&nbsp;Gaur</span>
+        </a>
+
+        <nav class="nav__links">
+          <a href="#art" class="nav__link">Art</a>
+          <a href="#wallpapers" class="nav__link">Wallpapers</a>
+          <a href="#philosophy" class="nav__link">Philosophy</a>
+          <a href="#story" class="nav__link">Life Story</a>
+          <a href="#contact" class="nav__link nav__link--primary">Contact</a>
+        </nav>
+
+        <button class="nav__toggle" aria-label="Toggle menu">
+          <span></span><span></span>
+        </button>
       </div>
+    </header>
 
-      <div class="profile-block">
-        <div class="avatar-ring">
-          <div class="avatar-inner">SG</div>
-        </div>
-        <div>
-          <div class="profile-name">Saurabh Gaur</div>
-          <div class="profile-sub">Artist • Software Developer</div>
-        </div>
-        <p class="profile-desc">
-          Hand-drawn lines, handwritten code and a head full of stories. I build worlds where philosophy, anime and minimal design collide.
-        </p>
-      </div>
-
-      <div class="side-divider"></div>
-
-      <div>
-        <div class="side-section-title">Navigate</div>
-        <ul class="side-nav">
-          <li><a href="#hero" class="nav-link active"><span>Overview</span><span class="key">01</span></a></li>
-          <li><a href="#gallery" class="nav-link"><span>Art Gallery</span><span class="key">02</span></a></li>
-          <li><a href="#wallpapers" class="nav-link"><span>Wallpapers</span><span class="key">03</span></a></li>
-          <li><a href="#stories" class="nav-link"><span>Life Stories</span><span class="key">04</span></a></li>
-          <li><a href="#quotes" class="nav-link"><span>Quotes</span><span class="key">05</span></a></li>
-          <li><a href="#contact" class="nav-link"><span>Contact</span><span class="key">06</span></a></li>
-        </ul>
-      </div>
-
-      <div class="side-divider"></div>
-
-      <p class="side-quote">
-        <strong>"Art is how I translate chaos into clarity."</strong>
-        Every drawing, line of code and wallpaper is a page from the inner journal I never posted on social media.
-      </p>
-
-      <div class="side-divider"></div>
-
-      <div>
-        <div class="side-section-title">Links</div>
-        <div class="social-list">
-          <a href="https://www.instagram.com/thesaurabhgaur" class="pill-link" target="_blank" rel="noreferrer">
-            <span class="pill-dot"></span> Instagram
-          </a>
-          <a href="https://github.com/DEVsaurabhgaur" class="pill-link" target="_blank" rel="noreferrer">
-            <span class="pill-dot"></span> GitHub
-          </a>
-          <a href="https://www.linkedin.com/in/saurabh-gaur-122k" class="pill-link" target="_blank" rel="noreferrer">
-            <span class="pill-dot"></span> LinkedIn
-          </a>
-          <a href="mailto:saurabhgaur122000@gmail.com" class="pill-link pill-accent">
-            <span class="pill-dot"></span> Email me
-          </a>
-        </div>
-      </div>
-    </aside>
-
+    <!-- ================= HERO ================= -->
     <main>
-      
-      <section class="section scroll-fade" id="hero">
-        <div class="section-header">
-          <div>
-            <div class="section-kicker">Welcome to</div>
-            <div class="section-title">Saurabh Gaur's World</div>
+      <section id="hero" class="hero">
+        <div class="hero__bg-gradient"></div>
+
+        <div class="hero__content container">
+          <div class="hero__text">
+            <p class="hero__eyebrow">Artist • Storyteller • Wallpaper Smith</p>
+            <h1 class="hero__title">
+              Handmade art and
+              <span class="hero__title-highlight">UHD wallpapers</span>
+              from a restless mind.
+            </h1>
+            <p class="hero__subtitle">
+              I turn late-night thoughts, scars and small moments into visual worlds –
+              then give them a home you can hang on your wall or your screen.
+            </p>
+
+            <div class="hero__actions">
+              <a href="#art" class="btn btn--primary">View Art Gallery</a>
+              <a href="#wallpapers" class="btn btn--ghost">Browse Wallpapers</a>
+            </div>
+
+            <div class="hero__meta">
+              <span>Based on real experiences & philosophy.</span>
+              <span>Built for 4K, ultrawide & mobile screens.</span>
+            </div>
           </div>
-          <div class="badge-soft">
-            Handmade art • Downloadable wallpapers • Living philosophy
+
+          <div class="hero__preview">
+            <!-- Replace image paths with real ones from assets/ART -->
+            <div class="hero-preview__stack">
+              <figure class="hero-preview__card">
+                <img
+                  src="assets/ART/art-1.jpg"
+                  alt="Handmade artwork preview"
+                  loading="lazy"
+                />
+                <figcaption>“Silent Room” · ink on paper</figcaption>
+              </figure>
+
+              <figure class="hero-preview__card hero-preview__card--offset">
+                <img
+                  src="assets/WALLPAPERS UHD/wallpaper-1.jpg"
+                  alt="UHD Wallpaper preview"
+                  loading="lazy"
+                />
+                <figcaption>UHD Wallpaper · 4K · free download</figcaption>
+              </figure>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="hero-grid">
-          <div class="hero-main">
-            <div>
-              <h1 class="hero-title">
-                Handmade <span class="hero-highlight">art & wallpapers</span><br />
-                from a mind obsessed with meaning.
-              </h1>
-              <p class="hero-body">
-                I draw what I cannot explain with words—shadows from anime, fragments of memory and quiet questions about who we become. This space is my visual diary.
+      <!-- ================= ART GALLERY ================= -->
+      <section id="art" class="section section--dark section-art">
+        <div class="container">
+          <header class="section__header">
+            <h2 class="section__title">Handmade Art Gallery</h2>
+            <p class="section__subtitle">
+              Each piece starts on paper – pens, dust, mistakes – before it ever
+              becomes a wallpaper. These are the originals.
+            </p>
+          </header>
+
+          <div class="chips">
+            <button class="chip chip--active" data-filter="all">All</button>
+            <button class="chip" data-filter="sketch">Sketches</button>
+            <button class="chip" data-filter="abstract">Abstract</button>
+            <button class="chip" data-filter="anime">Anime / Character</button>
+            <button class="chip" data-filter="spiritual">Spiritual</button>
+          </div>
+
+          <div class="grid grid--art">
+            <!-- Card 1 -->
+            <article class="card-art" data-category="sketch">
+              <div class="card-art__image-wrapper">
+                <!-- change image path as per your files -->
+                <img
+                  src="assets/ART/art-1.jpg"
+                  alt="Artwork 1"
+                  class="card-art__image"
+                  loading="lazy"
+                />
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Alone in a crowded room</h3>
+                <p class="card-art__desc">
+                  Drawn in one sitting on a random night. Captures that
+                  strange feeling of being surrounded yet unseen.
+                </p>
+                <p class="card-art__meta">Ink on paper · A4 · 2025</p>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="card-art" data-category="anime">
+              <div class="card-art__image-wrapper">
+                <img
+                  src="assets/ART/art-2.jpg"
+                  alt="Artwork 2"
+                  class="card-art__image"
+                  loading="lazy"
+                />
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">The soldier who refused to break</h3>
+                <p class="card-art__desc">
+                  Inspired by anime warriors and real-life battles with
+                  self-doubt. Sharp lines, sharper intent.
+                </p>
+                <p class="card-art__meta">Pencil & marker · A3 · 2025</p>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="card-art" data-category="abstract">
+              <div class="card-art__image-wrapper">
+                <img
+                  src="assets/ART/art-3.jpg"
+                  alt="Artwork 3"
+                  class="card-art__image"
+                  loading="lazy"
+                />
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Chaos, then clarity</h3>
+                <p class="card-art__desc">
+                  Abstract lines born from anxiety, slowly cleaned up into a
+                  balanced composition.
+                </p>
+                <p class="card-art__meta">Mixed media · 2024</p>
+              </div>
+            </article>
+
+            <!-- Duplicate these cards and change src/text for more artworks -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= WALLPAPERS ================= -->
+      <section id="wallpapers" class="section section-wallpapers">
+        <div class="container">
+          <header class="section__header">
+            <h2 class="section__title">UHD Wallpapers</h2>
+            <p class="section__subtitle">
+              Turn your screen into a reminder of what you’re becoming.
+              4K, ultrawide and mobile-friendly wallpapers crafted from my originals.
+            </p>
+          </header>
+
+          <div class="chips">
+            <button class="chip chip--active" data-wall-filter="all">All</button>
+            <button class="chip" data-wall-filter="dark">Dark</button>
+            <button class="chip" data-wall-filter="minimal">Minimal</button>
+            <button class="chip" data-wall-filter="mobile">Mobile</button>
+          </div>
+
+          <div class="grid grid--wallpapers">
+            <!-- Wallpaper card 1 -->
+            <article class="card-wall" data-category="dark">
+              <div class="card-wall__image-wrapper">
+                <img
+                  src="assets/WALLPAPERS UHD/wallpaper-1.jpg"
+                  alt="Wallpaper 1"
+                  class="card-wall__image"
+                  loading="lazy"
+                />
+              </div>
+              <div class="card-wall__body">
+                <h3 class="card-wall__title">Night shift mindset</h3>
+                <p class="card-wall__meta">UHD · 3840×2160 · Free</p>
+                <a
+                  href="assets/WALLPAPERS UHD/wallpaper-1.jpg"
+                  download
+                  class="btn btn--tiny"
+                >Download</a>
+              </div>
+            </article>
+
+            <!-- Wallpaper card 2 -->
+            <article class="card-wall" data-category="minimal">
+              <div class="card-wall__image-wrapper">
+                <img
+                  src="assets/WALLPAPERS UHD/wallpaper-2.jpg"
+                  alt="Wallpaper 2"
+                  class="card-wall__image"
+                  loading="lazy"
+                />
+              </div>
+              <div class="card-wall__body">
+                <h3 class="card-wall__title">Focus over noise</h3>
+                <p class="card-wall__meta">UHD · 5120×1440 · Free</p>
+                <a
+                  href="assets/WALLPAPERS UHD/wallpaper-2.jpg"
+                  download
+                  class="btn btn--tiny"
+                >Download</a>
+              </div>
+            </article>
+
+            <!-- Wallpaper card 3 -->
+            <article class="card-wall" data-category="mobile">
+              <div class="card-wall__image-wrapper">
+                <img
+                  src="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg"
+                  alt="Wallpaper 3"
+                  class="card-wall__image"
+                  loading="lazy"
+                />
+              </div>
+              <div class="card-wall__body">
+                <h3 class="card-wall__title">Keep going.</h3>
+                <p class="card-wall__meta">Mobile · 1080×2400 · Free</p>
+                <a
+                  href="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg"
+                  download
+                  class="btn btn--tiny"
+                >Download</a>
+              </div>
+            </article>
+
+            <!-- Duplicate more cards as needed -->
+          </div>
+
+          <p class="wallpapers__note">
+            Want custom wallpaper based on your story?
+            <a href="#contact">Reach out</a> and tell me your scene.
+          </p>
+        </div>
+      </section>
+
+      <!-- ================= PHILOSOPHY / QUOTES ================= -->
+      <section id="philosophy" class="section section--dark section-philosophy">
+        <div class="container">
+          <header class="section__header">
+            <h2 class="section__title">Philosophy & Quotes</h2>
+            <p class="section__subtitle">
+              The art is just the surface. Underneath it are ideas about pain,
+              discipline, dreams and what it means to keep going.
+            </p>
+          </header>
+
+          <div class="quotes">
+            <!-- Quote 1 -->
+            <figure class="quote">
+              <blockquote>
+                “Some people escape into entertainment. I escape into building
+                the life I used to dream about.”
+              </blockquote>
+              <figcaption>— Saurabh Gaur</figcaption>
+            </figure>
+
+            <!-- Quote 2 -->
+            <figure class="quote">
+              <blockquote>
+                “If I can turn my worst days into art, they don’t own me anymore.”
+              </blockquote>
+              <figcaption>— From a sketchbook note</figcaption>
+            </figure>
+
+            <!-- Quote 3 -->
+            <figure class="quote">
+              <blockquote>
+                “Discipline is just self-respect stretched across time.”
+              </blockquote>
+              <figcaption>— Personal philosophy</figcaption>
+            </figure>
+
+            <!-- Add more quotes similarly -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= LIFE STORY / TIMELINE ================= -->
+      <section id="story" class="section section-story">
+        <div class="container">
+          <header class="section__header">
+            <h2 class="section__title">Life Story in Chapters</h2>
+            <p class="section__subtitle">
+              From a small room full of anime and old textbooks to building my
+              own visual universe. Here’s the short version.
+            </p>
+          </header>
+
+          <div class="timeline">
+            <!-- Chapter 1 -->
+            <article class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div class="timeline__content">
+                <h3 class="timeline__title">Chapter 1 — The small room</h3>
+                <p class="timeline__time">Childhood · Bareilly</p>
+                <p class="timeline__text">
+                  Cartoons, anime, Discovery Channel and a cheap phone with
+                  slow internet. No guidance, but a lot of imagination.
+                  This is where I started drawing on margins instead of notebooks.
+                </p>
+              </div>
+            </article>
+
+            <!-- Chapter 2 -->
+            <article class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div class="timeline__content">
+                <h3 class="timeline__title">Chapter 2 — Rejection & rebellion</h3>
+                <p class="timeline__time">Teenage years</p>
+                <p class="timeline__text">
+                  Bullied for being poor and quiet. A crush, a rejection and a
+                  decision: either stay small or build myself from scratch.
+                  Art became the first weapon.
+                </p>
+              </div>
+            </article>
+
+            <!-- Chapter 3 -->
+            <article class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div class="timeline__content">
+                <h3 class="timeline__title">Chapter 3 — Digital canvas</h3>
+                <p class="timeline__time">Early 20s</p>
+                <p class="timeline__text">
+                  Learned design, wallpapers, and the power of shipping work
+                  online. This site is the latest checkpoint, not the final form.
+                </p>
+              </div>
+            </article>
+
+            <!-- Add more chapters as needed -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CONTACT ================= -->
+      <section id="contact" class="section section--dark section-contact">
+        <div class="container">
+          <header class="section__header">
+            <h2 class="section__title">Let’s Build Something</h2>
+            <p class="section__subtitle">
+              Custom wallpapers, cover art, or just a conversation about art,
+              philosophy and life upgrades — my inbox is open.
+            </p>
+          </header>
+
+          <div class="contact__grid">
+            <div class="contact__info">
+              <h3>Contact</h3>
+              <ul class="contact__list">
+                <li>
+                  <span class="contact__label">Email</span>
+                  <a href="mailto:saurabhgaur122000@gmail.com"
+                    >saurabhgaur122000@gmail.com</a
+                  >
+                </li>
+                <li>
+                  <span class="contact__label">GitHub</span>
+                  <a href="https://github.com/DEVsaurabhgaur" target="_blank"
+                    >DEVsaurabhgaur</a
+                  >
+                </li>
+                <li>
+                  <span class="contact__label">LinkedIn</span>
+                  <a
+                    href="https://www.linkedin.com/in/saurabh-gaur-122k"
+                    target="_blank"
+                    >saurabh-gaur-122k</a
+                  >
+                </li>
+                <li>
+                  <span class="contact__label">Instagram</span>
+                  <a href="https://instagram.com/thesaurabhgaur" target="_blank"
+                    >@thesaurabhgaur</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="contact__note">
+              <p>
+                Tell me a bit about you, where you found my work and what you
+                want the art to say. The more personal, the better the result.
+              </p>
+              <p class="contact__quote">
+                “One honest story can become a hundred wallpapers.”
               </p>
             </div>
-
-            <div>
-              <div class="hero-actions">
-                <a href="#gallery" class="btn btn-primary">View Art Gallery</a>
-                <a href="#wallpapers" class="btn btn-ghost">Browse Wallpapers</a>
-              </div>
-              <div class="hero-meta">
-                <span>Based in India</span>
-                <span>Self-taught Artist</span>
-                <span>Code + Canvas</span>
-              </div>
-            </div>
           </div>
-
-          <aside class="hero-aside">
-            <div class="hero-aside-header">
-              <div class="hero-aside-title">Inner World Snapshot</div>
-              <div class="hero-aside-tag">Work in progress</div>
-            </div>
-            <div class="hero-aside-body">
-              <p style="font-size: 13px; line-height: 1.6;">
-                I grew up with anime heroes, borrowed books and a stubborn belief that reality is editable. Every piece you see here is handcrafted.
-              </p>
-              <div class="hero-aside-grid">
-                <div class="stat-card">
-                  <span class="stat-label">Handmade pieces</span>
-                  <span class="stat-value">Uploaded</span>
-                </div>
-                <div class="stat-card">
-                  <span class="stat-label">Wallpaper packs</span>
-                  <span class="stat-value">Coming Soon</span>
-                </div>
-                <div class="stat-card">
-                  <span class="stat-label">Years drawing</span>
-                  <span class="stat-value">Since childhood</span>
-                </div>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section class="section scroll-fade" id="gallery">
-        <div class="section-header">
-          <div>
-            <div class="section-kicker">Gallery</div>
-            <div class="section-title">Handmade Art</div>
-          </div>
-          <div class="section-sub">
-            Close-up portraits, anime-inspired frames and original compositions. Click any piece to view it larger.
-          </div>
-        </div>
-
-        <div class="grid-art">
-          <article class="art-card">
-            <div class="art-thumb">
-              <img src="assets/art/rdj-sketch.jpg" alt="Shades of Brilliance graphite sketch">
-            </div>
-            <div class="art-meta">
-              <div>
-                <div class="art-title">Shades of Brilliance</div>
-                <div style="font-size: 11px; color: var(--text-muted);">Graphite on paper</div>
-              </div>
-              <span class="tag-chip">Portrait</span>
-            </div>
-          </article>
-
-          <article class="art-card">
-            <div class="art-thumb">
-              <img src="assets/art/anime-piece.jpg" alt="Anime inspired illustration">
-            </div>
-            <div class="art-meta">
-              <div>
-                <div class="art-title">Weight of a Promise</div>
-                <div style="font-size: 11px; color: var(--text-muted);">Ink & Marker</div>
-              </div>
-              <span class="tag-chip">Anime</span>
-            </div>
-          </article>
-
-          <article class="art-card">
-            <div class="art-thumb">
-              <img src="assets/art/quiet-revolution.jpg" alt="Quiet Revolution original artwork">
-            </div>
-            <div class="art-meta">
-              <div>
-                <div class="art-title">Quiet Revolution</div>
-                <div style="font-size: 11px; color: var(--text-muted);">Digital Illustration</div>
-              </div>
-              <span class="tag-chip">Original</span>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section scroll-fade" id="wallpapers">
-        <div class="section-header">
-          <div>
-            <div class="section-kicker">Wallpapers</div>
-            <div class="section-title">Downloadable Screens</div>
-          </div>
-          <div class="section-sub">
-            Philosophical, minimal and anime-touched designs. Your screen becomes a reminder, not just decoration.
-          </div>
-        </div>
-
-        <div class="wallpaper-list">
-          <article class="wall-card">
-            <div class="wall-preview">
-              <img src="assets/wallpapers/stand-tall-preview.jpg" alt="Stand Tall Wallpaper">
-            </div>
-            <div class="wall-title">Stand Tall</div>
-            <div class="wall-footer">
-              <span style="font-size:11px; color:var(--text-muted)">Mobile • 4K</span>
-              <a href="assets/wallpapers/stand-tall.png" class="btn btn-primary btn-mini" download>Download</a>
-            </div>
-          </article>
-
-          <article class="wall-card">
-            <div class="wall-preview">
-              <img src="assets/wallpapers/olive-night-preview.jpg" alt="Olive Night Wallpaper">
-            </div>
-            <div class="wall-title">Olive Night Gradient</div>
-            <div class="wall-footer">
-              <span style="font-size:11px; color:var(--text-muted)">Desktop • 4K</span>
-              <a href="assets/wallpapers/olive-night.png" class="btn btn-primary btn-mini" download>Download</a>
-            </div>
-          </article>
-
-          <article class="wall-card">
-            <div class="wall-preview">
-              <img src="assets/wallpapers/wanderer-preview.jpg" alt="Wanderer Pack">
-            </div>
-            <div class="wall-title">Wanderer Pack</div>
-            <div class="wall-footer">
-              <span style="font-size:11px; color:var(--text-muted)">ZIP Bundle</span>
-              <a href="assets/wallpapers/wanderer-pack.zip" class="btn btn-primary btn-mini" download>Download</a>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section scroll-fade" id="stories">
-        <div class="section-header">
-          <div>
-            <div class="section-kicker">Stories</div>
-            <div class="section-title">Life in Frames</div>
-          </div>
-          <div class="section-sub">
-            Mini-essays from my life: poverty, discipline, anime, rejection, obsession. The context behind the art.
-          </div>
-        </div>
-
-        <div class="timeline">
-          <article class="story-card">
-            <div class="story-meta">Rudrapur • Early years</div>
-            <div class="story-title">The boy who drew in the margins</div>
-            <p class="story-text">
-              While teachers chased marks, I chased shapes. Desks filled with rough sketches, notebooks with more drawings than answers. That was enough to start a quiet rebellion against a scripted life.
-            </p>
-          </article>
-
-          <article class="story-card">
-            <div class="story-meta">High school • Turning Point</div>
-            <div class="story-title">The day “no” became fuel</div>
-            <p class="story-text">
-              A simple crush, a simple rejection—but it cracked something open. I realised I could either stay the nice, invisible boy, or I could rebuild myself. The gym, sketchbook and late-night walks became my temples.
-            </p>
-          </article>
-
-          <article class="story-card">
-            <div class="story-meta">Now • Act I</div>
-            <div class="story-title">Why this website exists</div>
-            <p class="story-text">
-              This isn’t just a portfolio. It’s a checkpoint. A place where I can show my work, my scars and the philosophies shaping me into a top-tier creator.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section scroll-fade" id="quotes">
-        <div class="section-header">
-          <div>
-            <div class="section-kicker">Philosophy</div>
-            <div class="section-title">Quotes I Live By</div>
-          </div>
-        </div>
-
-        <div class="quote-grid">
-          <article class="quote-card">
-            <div class="quote-mark">“</div>
-            Sometimes the bravest thing you can do is outgrow the version of you everyone is comfortable with.
-            <small>— Saurabh Gaur</small>
-          </article>
-
-          <article class="quote-card">
-            <div class="quote-mark">“</div>
-            I don’t want aesthetic perfection. I want work that leaves a scar on the viewer’s memory.
-            <small>— Sketchbook note</small>
-          </article>
-
-          <article class="quote-card">
-            <div class="quote-mark">“</div>
-            Pain is just raw material. What you build from it is your real character.
-            <small>— Late-night thought</small>
-          </article>
-
-          <article class="quote-card">
-            <div class="quote-mark">“</div>
-            If you don’t design your own identity, the world will assign you a boring one.
-            <small>— Studio wall</small>
-          </article>
-        </div>
-      </section>
-
-      <section class="section scroll-fade" id="contact">
-        <div class="section-header">
-          <div>
-            <div class="section-kicker">Connect</div>
-            <div class="section-title">Commissions & Collaborations</div>
-          </div>
-          <div class="section-sub">
-            For custom artwork, wallpaper packs, branding, or just to talk about anime and philosophy.
-          </div>
-        </div>
-
-        <div class="contact-row">
-          <p>
-            <strong>Email:</strong>
-            <a href="mailto:saurabhgaur122000@gmail.com" class="pill-link pill-accent">
-              saurabhgaur122000@gmail.com
-            </a>
-          </p>
-          <p>
-            <strong>Instagram:</strong>
-            <a href="https://www.instagram.com/thesaurabhgaur" class="pill-link" target="_blank" rel="noreferrer">
-              @thesaurabhgaur
-            </a>
-          </p>
         </div>
       </section>
     </main>
-  </div>
 
-  <footer>
-    © <span id="year"></span> Saurabh Gaur. All artwork is original.
-  </footer>
-
-  <div id="lightbox" class="lightbox hidden">
-    <div class="lightbox-backdrop"></div>
-    <div class="lightbox-content">
-      <img id="lightbox-img" src="" alt="Enlarged Art">
-      <div class="lightbox-caption" id="lightbox-caption"></div>
-      <button class="lightbox-close" aria-label="Close">✕</button>
-    </div>
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <span>© <span id="year"></span> Saurabh Gaur. All rights reserved.</span>
+        <span class="footer__note">Made with patience, coffee and late nights.</span>
+      </div>
+    </footer>
   </div>
 
   <script>
-    // 1. Auto-update Year in Footer
+    // Small inline helper: update year
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    // 2. Scroll Reveal Animation
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll(".scroll-fade").forEach(el => observer.observe(el));
-
-    // 3. Active Nav Link Highlighter
-    const sections = document.querySelectorAll("section");
-    const navLinks = document.querySelectorAll(".nav-link");
-
-    window.addEventListener("scroll", () => {
-      let fromTop = window.scrollY + 100;
-
-      sections.forEach(section => {
-        if (section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
-          navLinks.forEach(link => link.classList.remove("active"));
-          const id = section.getAttribute("id");
-          const activeLink = document.querySelector('.nav-link[href="#' + id + '"]');
-          if (activeLink) activeLink.classList.add("active");
-        }
-      });
-    });
-
-    // 4. Lightbox Logic
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightbox-img");
-    const lightboxCaption = document.getElementById("lightbox-caption");
-    const closeBtn = document.querySelector(".lightbox-close");
-
-    document.querySelectorAll(".art-card").forEach(card => {
-      const img = card.querySelector("img");
-      if (!img) return; // Skip if no image
-
-      card.addEventListener("click", () => {
-        // Set image source
-        lightboxImg.src = img.src;
-        
-        // Get caption text from the card title
-        const title = card.querySelector(".art-title")?.textContent || "";
-        lightboxCaption.textContent = title;
-        
-        // Show lightbox
-        lightbox.classList.remove("hidden");
-      });
-    });
-
-    // Close Lightbox functions
-    function closeLightbox() {
-      lightbox.classList.add("hidden");
-      lightboxImg.src = "";
-    }
-
-    closeBtn.addEventListener("click", closeLightbox);
-
-    lightbox.addEventListener("click", e => {
-      if (e.target === lightbox || e.target.classList.contains("lightbox-backdrop")) {
-        closeLightbox();
-      }
-    });
-
-    window.addEventListener("keydown", e => {
-      if (e.key === "Escape" && !lightbox.classList.contains("hidden")) {
-        closeLightbox();
-      }
-    });
   </script>
 </body>
 </html>
