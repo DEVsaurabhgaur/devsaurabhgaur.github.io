@@ -1,912 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Saurabh Gaur | Art, Wallpapers & Philosophy</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="HANDMADE PORTRAITS • AI WALLPAPERS • DIGITAL ART Saurabh Gaur."
-  />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Saurabh Gaur — Art & Wallpapers</title>
+  <meta name="description" content="Handmade portraits, digital art & 4K wallpapers by Saurabh Gaur" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <!-- main CSS -->
+  <link rel="stylesheet" href="assets/css/main.css">
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="assets/css/main.css" />
-  <script src="assets/js/main.js" defer></script>
+  <!-- favicon -->
+  <link rel="icon" href="assets/favicon.png" />
 </head>
 <body>
-<!-- ===== Improved Neon Sphere Loader (lighter, Electric-Kiwi palette) ===== -->
-<style>
-  :root{
-    --kiwi: #00ffd5;
-    --violet: #8b00ff;
-    --soft-white: rgba(255,255,255,0.94);
-    --loader-bg: rgba(2,2,4,0.62); /* keeps page visible underneath */
-  }
 
-  /* overlay */
-  #sphere-loader {
-    position: fixed;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    background: var(--loader-bg);
-    z-index: 9999;
-    transition: opacity 0.45s ease, visibility 0.45s;
-    opacity: 1;
-    visibility: visible;
-    backdrop-filter: blur(6px) saturate(1.04);
-    -webkit-backdrop-filter: blur(6px) saturate(1.04);
-    pointer-events: auto;
-  }
-  #sphere-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  <!-- Dynamic rotating background layers -->
+  <div id="dynamic-bg" aria-hidden="true"></div>
+  <div id="bg-noise" aria-hidden="true"></div>
 
-  /* container holding logo + canvas + controls */
-  .loader-wrap{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:18px;
-    width:min(860px, 88vw);
-    padding:22px;
-    border-radius:14px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border: 1px solid rgba(255,255,255,0.04);
-    box-shadow: 0 40px 120px rgba(0,0,0,0.6);
-    overflow:hidden;
-  }
+  <!-- Page nav -->
+  <header class="nav" role="banner">
+    <div class="nav__inner container">
+      <a class="nav__logo" href="#home">
+        <span class="nav__logo-dot" aria-hidden="true"></span>
+        <span class="nav__logo-text">Saurabh Gaur</span>
+      </a>
 
-  /* small neon brand */
-  .loader-brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    pointer-events:none;
-  }
-  .brand-dot{
-    width:14px;height:14px;border-radius:6px;background:linear-gradient(90deg,var(--kiwi),var(--violet));
-    box-shadow:0 8px 28px rgba(0,255,213,0.12), 0 0 28px rgba(139,0,255,0.06);
-  }
-  .brand-text{color:var(--soft-white);font-weight:700;letter-spacing:0.06em}
-
-  /* canvas / video size - smaller than before so it doesn't dominate */
-  #sphere-canvas, #sphere-video {
-    width: min(520px, 78vw);
-    height: auto;
-    max-height: 56vh;
-    display:block;
-    border-radius:10px;
-    overflow:hidden;
-    background: transparent;
-  }
-
-  /* gentle vignette around the shader so the page still reads */
-  .loader-vignette{
-    position:absolute;inset:0;border-radius:14px;pointer-events:none;
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0.0) 30%, rgba(0,0,0,0.28) 80%);
-    mix-blend-mode:multiply;
-  }
-
-  /* controls (text + CTA) */
-  .loader-controls { text-align:center; color:rgba(230,240,250,0.92); font-family:Inter,system-ui; font-size:14px }
-  .loader-title{font-weight:700;letter-spacing:0.18em;margin-bottom:6px}
-  .loader-sub{opacity:0.82;font-size:13px;margin-bottom:10px;}
-
-  /* neon pill CTA */
-  .loader-cta{
-    display:inline-flex;align-items:center;gap:10px;padding:10px 20px;border-radius:999px;border:0;
-    background: linear-gradient(90deg, rgba(0,255,213,0.98), rgba(159,233,255,0.85));
-    color:#001217;font-weight:800;cursor:pointer;box-shadow:0 18px 60px rgba(0,255,213,0.06), inset 0 -2px 8px rgba(255,255,255,0.06);
-    transition: transform .14s ease, box-shadow .14s ease, opacity .14s ease;
-  }
-  .loader-cta:hover{ transform: translateY(-4px); box-shadow: 0 28px 100px rgba(0,255,213,0.10) }
-
-  /* accessibility: hide canvas from screen readers & keep controls readable */
-  #sphere-canvas, #sphere-video { pointer-events:none }
-
-  /* responsive */
-  @media (max-width:520px){
-    .loader-wrap{ width:92vw; padding:14px }
-    #sphere-canvas, #sphere-video { width:min(360px,92vw); max-height:44vh }
-    .loader-title{font-size:13px}
-    .loader-sub{font-size:12px}
-  }
-</style>
-
-<div id="sphere-loader" aria-hidden="false" role="status" aria-live="polite">
-  <div class="loader-wrap" role="presentation">
-    <div class="loader-brand" aria-hidden="true">
-      <span class="brand-dot"></span>
-      <span class="brand-text">Saurabh Gaur</span>
+      <nav class="nav__links" role="navigation" aria-label="Primary">
+        <a class="nav__link" href="#art">Art</a>
+        <a class="nav__link" href="#wallpapers">Wallpapers</a>
+        <a class="nav__link" href="#philosophy">Philosophy</a>
+        <a class="nav__link" href="#story">Life Story</a>
+        <a class="nav__link nav__link--primary" href="#contact">Contact</a>
+        <a class="nav__link nav__link--primary" href="#donate">Donate</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- shader canvas -->
-    <div style="position:relative; width:100%; display:flex; justify-content:center; align-items:center;">
-      <canvas id="sphere-canvas" aria-hidden="true"></canvas>
-      <div class="loader-vignette" aria-hidden="true"></div>
-    </div>
+  <!-- HERO -->
+  <main id="home">
+    <section class="hero container">
+      <div class="hero__layout">
+        <div class="hero__left">
+          <div class="hero__eyebrow">HANDMADE PORTRAITS • AI WALLPAPERS • DIGITAL ART</div>
+          <h1 class="hero__title">
+            Handmade art, digital art and <span class="hero__title-highlight">wallpapers</span> by Artist Saurabh Gaur
+          </h1>
+          <p class="hero__subtitle">I design custom portraits, AI wallpapers and digital art that turn ideas into visuals worth keeping.</p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#art">View Art Gallery</a>
+            <a class="btn btn--ghost" href="#wallpapers">Browse Wallpapers</a>
+          </div>
+        </div>
 
-    <!-- video fallback (hidden unless used) -->
-    <video id="sphere-video" loop muted playsinline style="display:none" preload="auto" poster="/assets/loader/loader-poster.jpg" aria-hidden="true">
-      <source src="/assets/loader/loader.webm" type="video/webm">
-    </video>
-
-    <div class="loader-controls" role="note">
-      <div class="loader-title">LOADING</div>
-      <div class="loader-sub">Finishing touches — your gallery will be visible shortly</div>
-      <button class="loader-cta" id="loaderSkipBtn" type="button" aria-label="Skip loader">Skip & view site</button>
-    </div>
-  </div>
-</div>
-
-<script type="module">
-  import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
-
-  const loaderEl = document.getElementById('sphere-loader');
-  const canvas = document.getElementById('sphere-canvas');
-  const video = document.getElementById('sphere-video');
-  const skipBtn = document.getElementById('loaderSkipBtn');
-
-  const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
-  const FORCE_VIDEO = false;
-  const useVideo = FORCE_VIDEO || (isMobile);
-
-  function hideLoaderSoon(delayMs=350){
-    // small fade then cleanup
-    loaderEl.classList.add('hidden');
-    setTimeout(()=>{
-      try{
-        if(video && !video.paused){ video.pause(); video.src = ''; }
-        if(window._sphereDispose) window._sphereDispose();
-      }catch(e){}
-      loaderEl.setAttribute('aria-hidden','true');
-    }, 520 + delayMs);
-  }
-
-  skipBtn.addEventListener('click', () => { hideLoaderSoon(0); });
-
-  // if we should use the video fallback (mobile or forced)
-  if(useVideo){
-    canvas.style.display = 'none';
-    video.style.display = 'block';
-    video.muted = true; video.loop = true; video.playsInline = true;
-    // try autoplay, if blocked user can skip
-    video.addEventListener('canplay', ()=> { video.play().catch(()=>{}); });
-    // auto hide quickly when canplay and DOM content ready
-    video.addEventListener('playing', ()=> {
-      // show for minimum 600ms so it doesn't flash
-      setTimeout(()=> hideLoaderSoon(200), 600);
-    }, { once:true });
-  } else {
-    // --- calmer shader version (same logic but toned down parameters) ---
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: false });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.4));
-    // limit rendered size so it doesn't hog GPU
-    const startW = Math.min(window.innerWidth, 900);
-    const startH = Math.min(window.innerHeight, 700);
-    renderer.setSize(startW, startH);
-    renderer.setClearColor(0x000000, 0);
-
-    const camera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
-    const scene = new THREE.Scene();
-
-    const frag = `
-      precision mediump float;
-      #define MAX_STEPS 28
-      #define MAX_DIST 3.5
-      #define SURF 0.025
-      uniform float iTime;
-      uniform vec2 resolution;
-      uniform float rotationSpeed;
-      uniform float glow;
-      uniform vec3 kiwi;
-      uniform vec3 violet;
-
-      float hash(vec2 p){ return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453); }
-      float noise(vec3 p){
-        vec2 ip = floor(p.xy);
-        vec2 fp = fract(p.xy);
-        float a = hash(ip + vec2(0.0,0.0));
-        float b = hash(ip + vec2(1.0,0.0));
-        float c = hash(ip + vec2(0.0,1.0));
-        float d = hash(ip + vec2(1.0,1.0));
-        vec2 u = fp*fp*(3.0-2.0*fp);
-        return mix(mix(a,b,u.x), mix(c,d,u.x), u.y);
-      }
-      mat2 rot(float a){ float s=sin(a), c=cos(a); return mat2(c,-s,s,c); }
-
-      float map(vec3 p){
-        float wob = noise(vec3(p.x*1.4, p.y*1.4, p.z*0.4 + iTime*0.12))*0.04;
-        return length(p)-1.08 + wob;
-      }
-
-      float pattern(vec3 p){
-        vec3 n = normalize(p);
-        float lat = acos(n.y);
-        float lon = atan(n.z, n.x);
-        float t = iTime*0.5;
-        float s1 = sin(lat*10.0 + lon*1.4 + t);
-        float p1 = smoothstep(0.965,1.0, abs(s1));
-        return p1;
-      }
-
-      void main(){
-        vec2 uv = (gl_FragCoord.xy - 0.5*resolution.xy) / resolution.y;
-        vec3 ro = vec3(0.0,0.0,-2.6);
-        vec3 rd = normalize(vec3(uv,1.0));
-        float r = iTime * rotationSpeed;
-        ro.xz *= rot(r); rd.xz *= rot(r);
-        ro.yz *= rot(r*0.3); rd.yz *= rot(r*0.3);
-
-        vec3 accum = vec3(0.0);
-        float t = 0.0;
-        for(int i=0;i<MAX_STEPS;i++){
-          vec3 p = ro + rd * t;
-          float d = map(p);
-          if(d < 0.22){
-            float inten = pattern(p);
-            float f = 1.0 / (1.0 + abs(d)*14.0);
-            vec3 col = mix(kiwi, violet, (sin(p.y*1.8 + iTime)*0.5+0.5));
-            col = mix(col, vec3(1.0), inten*0.75);
-            accum += col * inten * f * glow * 0.018;
-          }
-          t += max(abs(d)*0.64, SURF*0.64);
-          if(t > MAX_DIST) break;
-        }
-
-        // minor scan + grain for texture
-        float scan = sin(uv.y * 420.0 - iTime*0.85)*0.45 + 0.55;
-        accum *= mix(0.84,1.0,scan);
-        float g = hash(uv + vec2(mod(iTime,9.0)));
-        accum += g * length(accum) * 0.06;
-
-        // tone mapping & gamma
-        vec3 outc = accum / (1.0 + accum);
-        outc = pow(outc, vec3(1.0/2.2));
-
-        float alpha = smoothstep(0.0,0.06,length(accum));
-        gl_FragColor = vec4(outc, alpha);
-      }
-    `;
-
-    const vert = `void main(){ gl_Position = vec4(position,1.0); }`;
-
-    const uniforms = {
-      iTime: { value: 0 },
-      resolution: { value: new THREE.Vector2(startW, startH) },
-      rotationSpeed: { value: 0.36 },
-      glow: { value: 0.95 },
-      kiwi: { value: new THREE.Vector3(0.0,1.0,0.84) },   // approximated
-      violet: { value: new THREE.Vector3(0.545,0.361,0.965) }
-    };
-
-    const mat = new THREE.ShaderMaterial({ vertexShader: vert, fragmentShader: frag, uniforms, transparent:true, depthWrite:false, depthTest:false });
-    const geo = new THREE.PlaneGeometry(2,2);
-    const mesh = new THREE.Mesh(geo, mat);
-    scene.add(mesh);
-
-    const clock = new THREE.Clock();
-    let rafId;
-    function onResize(){
-      const w = Math.min(window.innerWidth, 900);
-      const h = Math.min(window.innerHeight, 700);
-      renderer.setSize(w,h);
-      uniforms.resolution.value.set(w,h);
-    }
-    window.addEventListener('resize', onResize, { passive:true });
-
-    function animate(){
-      uniforms.iTime.value = clock.getElapsedTime();
-      renderer.render(scene, camera);
-      rafId = requestAnimationFrame(animate);
-    }
-    animate();
-
-    // cleanup hook
-    window._sphereDispose = () => {
-      cancelAnimationFrame(rafId);
-      try{ geo.dispose(); mat.dispose(); renderer.dispose(); }catch(e){}
-    };
-
-    // auto-hide as soon as first shader frame renders and page is loaded-ish
-    // wait for one animation frame + minimal visible time
-    setTimeout(()=>{
-      // ensure not to close immediately — keep minimal presence
-      setTimeout(()=>{ hideLoaderSoon(120); }, 700);
-    }, 420);
-  }
-
-  // Safety nets:
-  // - hide on window.load (fast), but only after a minimal visible time
-  window.addEventListener('load', ()=> { setTimeout(()=> hideLoaderSoon(0), 600); }, { once:true });
-
-  // - never hang more than 9s (keeps UX snappy)
-  setTimeout(()=>{ hideLoaderSoon(0); }, 9000);
-</script>
-<!-- ===== end improved loader ===== -->
-
-<!-- END loader -->
-
-  <div class="page">
-    <!-- Background layers for parallax (keeps old palette, used by main.js) -->
-    <div class="bg-layer bg-smoke" aria-hidden="true" data-parallax-speed="0.18" style="background-image:url('assets/bg/smoke.jpg')"></div>
-    <div class="bg-layer bg-slices" aria-hidden="true" data-parallax-speed="0.35" style="background-image:url('assets/bg/slices.jpg')"></div>
-    <div class="bg-layer bg-noise" aria-hidden="true" style="background-image:url('assets/bg/noise.png')"></div>
-
-    <!-- ================= NAVBAR ================= -->
-    <header class="nav">
-      <div class="nav__inner">
-        <a href="#hero" class="nav__logo">
-          <span class="nav__logo-dot"></span>
-          <span class="nav__logo-text">Saurabh&nbsp;Gaur</span>
-        </a>
-
-        <nav class="nav__links" aria-label="Main navigation">
-          <a href="#art" class="nav__link">Art</a>
-          <a href="#wallpapers" class="nav__link">Wallpapers</a>
-          <a href="#philosophy" class="nav__link">Philosophy</a>
-          <a href="#story" class="nav__link">Life Story</a>
-          <a href="#contact" class="nav__link nav__link--primary">Contact</a>
-          <!-- donate button wired for JS -->
-          <button id="donateBtn" class="nav__link nav__link--primary" aria-haspopup="dialog">Donate</button>
-        </nav>
+        <aside class="hero-preview" aria-hidden="true">
+          <div class="hero-card"><img src="assets/ART/IMG_20221002_103510_251.jpg" alt="hero artwork preview"></div>
+        </aside>
       </div>
-    </header>
+    </section>
 
-    <!-- ================= MAIN ================= -->
-    <main>
-      <!-- HERO -->
-      <section id="hero" class="hero">
-        <div class="hero__glow"></div>
+    <!-- ART GALLERY -->
+    <section id="art" class="container">
+      <h2 class="section__title">Art — Selected Works</h2>
+      <p class="section__subtitle muted">Handmade portraits, fan-art and experimental pieces.</p>
 
-        <div class="container hero__layout">
-          <div class="hero__left">
-            <p class="hero__eyebrow">HANDMADE PORTRAITS • AI WALLPAPERS • DIGITAL ART</p>
-            <h1 class="hero__title">
-              Handmade art, digital art and
-              <span class="hero__title-highlight">wallpapers</span>
-              by Artist Saurabh Gaur
-            </h1>
-
-            <p class="hero__subtitle">
-              I design custom portraits, AI wallpapers and digital art that turn ideas into visuals worth keeping.
-            </p>
-
-            <div class="hero__actions">
-              <a href="#art" class="btn btn--primary">View Art Gallery</a>
-              <a href="#wallpapers" class="btn btn--ghost">Browse Wallpapers</a>
-            </div>
-
-            <div class="hero__meta">
-              <span>Based on real experiences & philosophy.</span>
-              <span>Optimised for 4K, ultrawide & mobile screens.</span>
-            </div>
+      <div class="grid--art" id="gallery">
+        <!-- Example card structure: for each artwork file in assets/ART place a card -->
+        <article class="card-art">
+          <div class="card-art__image-wrapper">
+            <img class="card-art__image" src="assets/ART/IMG_20221002_103510_251.jpg" data-full="assets/ART/IMG_20221002_103510_251.jpg" alt="Static Noise — charcoal">
           </div>
-
-          <div class="hero__right">
-            <div class="hero-preview">
-              <!-- FRONT PORTRAIT (media button added for lightbox) -->
-              <figure class="hero-card hero-card--front">
-                <button class="media" data-src="assets/ART/IMG_20221002_103510_251.jpg" data-title="Static Noise · charcoal & graphite" aria-label="Open Static Noise">
-                  <img
-                    src="assets/ART/IMG_20221002_103510_251.jpg"
-                    alt="Charcoal portrait of a woman, intense gaze"
-                    loading="lazy"
-                  />
-                </button>
-                <figcaption>“Static Noise” · charcoal & graphite</figcaption>
-              </figure>
-
-              <!-- BACK SHIVA (media button) -->
-              <figure class="hero-card hero-card--back">
-                <button class="media" data-src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg" data-title="Mahadev · Beyond the Mind" aria-label="Open Mahadev">
-                  <img
-                    src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg"
-                    alt="Mahadev artwork in blue tones"
-                    loading="lazy"
-                  />
-                </button>
-                <figcaption>“Mahadev · Beyond the Mind”</figcaption>
-              </figure>
-            </div>
+          <div class="card-art__body">
+            <h3 class="card-art__title">Static Noise</h3>
+            <p class="card-art__desc">charcoal & graphite</p>
           </div>
-        </div>
-      </section>
+        </article>
 
-      <!-- ================= ART GALLERY ================= -->
-      <section id="art" class="section section--dark">
-        <div class="container">
-          <header class="section__header">
-            <h2 class="section__title">Handmade Art Gallery</h2>
-            <p class="section__subtitle">
-              These are the originals – paper, paint, ink and a lot of late
-              nights. Every wallpaper begins with pieces like these.
-            </p>
-          </header>
-
-          <div class="chips" role="region" aria-label="Art filters">
-            <button class="chip chip--active filter" data-filter="*">All</button>
-            <button class="chip filter" data-filter="portrait">Portrait</button>
-            <button class="chip filter" data-filter="devotional">Devotional</button>
-            <button class="chip filter" data-filter="shiva">Shiva</button>
-            <button class="chip filter" data-filter="fanart">Fan Art</button>
+        <article class="card-art">
+          <div class="card-art__image-wrapper">
+            <img class="card-art__image" src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg" data-full="assets/ART/Picsart_23-09-20_19-29-23-455.jpg" alt="Mahadev">
           </div>
-
-          <div class="grid grid--art" id="galleryGrid">
-            <!-- ========= UPLOADED ARTWORKS ========= -->
-            <!-- 1 -->
-            <article class="card-art" data-category="portrait">
-              <div class="card-art__image-wrapper">
-                <button class="media" data-src="assets/ART/IMG_20221002_103510_251.jpg" data-title="Static Noise">
-                  <img
-                    src="assets/ART/IMG_20221002_103510_251.jpg"
-                    alt="Charcoal portrait of a woman with intense gaze"
-                    class="card-art__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-art__body">
-                <h3 class="card-art__title">Static Noise</h3>
-                <p class="card-art__desc">
-                  Charcoal & graphite study — sharp eyes, messy hair.
-                </p>
-                <p class="card-art__meta">Charcoal & graphite · A4</p>
-              </div>
-            </article>
-
-            <!-- 2 -->
-            <article class="card-art" data-category="devotional">
-              <div class="card-art__image-wrapper">
-                <button class="media" data-src="assets/ART/Picsart_23-09-20_16-24-16-574.jpg" data-title="Radha Krishna · Eternal Melody">
-                  <img
-                    src="assets/ART/Picsart_23-09-20_16-24-16-574.jpg"
-                    alt="Radha and Krishna painting with flute"
-                    class="card-art__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-art__body">
-                <h3 class="card-art__title">Radha Krishna · Eternal Melody</h3>
-                <p class="card-art__desc">
-                  A tribute to devotion and balance.
-                </p>
-                <p class="card-art__meta">Acrylic · 2023</p>
-              </div>
-            </article>
-
-            <!-- 3 -->
-            <article class="card-art" data-category="shiva">
-              <div class="card-art__image-wrapper">
-                <button class="media" data-src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg" data-title="Mahadev · Beyond the Mind">
-                  <img
-                    src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg"
-                    alt="Mahadev artwork with cosmic spray texture"
-                    class="card-art__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-art__body">
-                <h3 class="card-art__title">Mahadev · Beyond the Mind</h3>
-                <p class="card-art__desc">
-                  Mixed media piece exploring stillness.
-                </p>
-                <p class="card-art__meta">Mixed media · 2023</p>
-              </div>
-            </article>
-
-            <!-- 4 -->
-            <article class="card-art" data-category="fanart">
-              <div class="card-art__image-wrapper">
-                <button class="media" data-src="assets/ART/Picsart_23-09-23_21-02-34-210.png" data-title="Stark & Rogers · Battle Focus">
-                  <img
-                    src="assets/ART/Picsart_23-09-23_21-02-34-210.png"
-                    alt="Pen sketch of Tony Stark and Steve Rogers"
-                    class="card-art__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-art__body">
-                <h3 class="card-art__title">Stark & Rogers · Battle Focus</h3>
-                <p class="card-art__desc">
-                  Pen sketch capturing tension and loyalty.
-                </p>
-                <p class="card-art__meta">Pen on paper · Fan art</p>
-              </div>
-            </article>
-
-            <!-- 5 -->
-            <article class="card-art" data-category="fanart">
-              <div class="card-art__image-wrapper">
-                <button class="media" data-src="assets/ART/deadpool.jpg" data-title="Deadpool · Red Silence">
-                  <img
-                    src="assets/ART/deadpool.jpg"
-                    alt="Deadpool fan art"
-                    class="card-art__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-art__body">
-                <h3 class="card-art__title">Deadpool · Red Silence</h3>
-                <p class="card-art__desc">
-                  Bold strokes and textured red washes.
-                </p>
-                <p class="card-art__meta">Acrylic & ink · Fan art</p>
-              </div>
-            </article>
-
-            <!-- 6 -->
-            <article class="card-art" data-category="fanart">
-              <div class="card-art__image-wrapper">
-                <button class="media" data-src="assets/ART/captain carter.jpg" data-title="Captain Carter · Shield & Resolve">
-                  <img
-                    src="assets/ART/captain carter.jpg"
-                    alt="Captain Carter artwork"
-                    class="card-art__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-art__body">
-                <h3 class="card-art__title">Captain Carter · Shield & Resolve</h3>
-                <p class="card-art__desc">
-                  Cinematic fan piece with splatter texture.
-                </p>
-                <p class="card-art__meta">Mixed media</p>
-              </div>
-            </article>
-
-            <!-- 7 -->
-            <article class="card-art" data-category="portrait">
-              <div class="card-art__image-wrapper">
-                <button class="media" data-src="assets/ART/ARTWORK PDF COLLECTION-images-5.jpg" data-title="Sketch Collection · #5">
-                  <img
-                    src="assets/ART/ARTWORK PDF COLLECTION-images-5.jpg"
-                    alt="Sketch from collection #5"
-                    class="card-art__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-art__body">
-                <h3 class="card-art__title">Sketch Collection · #5</h3>
-                <p class="card-art__desc">Scan from the PDF artwork collection.</p>
-                <p class="card-art__meta">Scan · Series</p>
-              </div>
-            </article>
-
-            <!-- 8 -->
-            <article class="card-art" data-category="portrait">
-              <div class="card-art__image-wrapper">
-                <button class="media" data-src="assets/ART/ARTWORK PDF COLLECTION-images-15.jpg" data-title="Sketch Collection · #15">
-                  <img
-                    src="assets/ART/ARTWORK PDF COLLECTION-images-15.jpg"
-                    alt="Sketch from collection #15"
-                    class="card-art__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-art__body">
-                <h3 class="card-art__title">Sketch Collection · #15</h3>
-                <p class="card-art__desc">Scan from the PDF artwork collection.</p>
-                <p class="card-art__meta">Scan · Series</p>
-              </div>
-            </article>
-
-            <!-- 9 -->
-            <article class="card-art" data-category="portrait">
-              <div class="card-art__image-wrapper">
-                <button class="media" data-src="assets/ART/ARTWORK PDF COLLECTION-images-19.jpg" data-title="Sketch Collection · #19">
-                  <img
-                    src="assets/ART/ARTWORK PDF COLLECTION-images-19.jpg"
-                    alt="Sketch from collection #19"
-                    class="card-art__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-art__body">
-                <h3 class="card-art__title">Sketch Collection · #19</h3>
-                <p class="card-art__desc">Scan from the PDF artwork collection.</p>
-                <p class="card-art__meta">Scan · Series</p>
-              </div>
-            </article>
-
-            <!-- 10 -->
-            <article class="card-art" data-category="portrait">
-              <div class="card-art__image-wrapper">
-                <button class="media" data-src="assets/ART/ARTWORK PDF COLLECTION-images-26.jpg" data-title="Sketch Collection · #26">
-                  <img
-                    src="assets/ART/ARTWORK PDF COLLECTION-images-26.jpg"
-                    alt="Sketch from collection #26"
-                    class="card-art__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-art__body">
-                <h3 class="card-art__title">Sketch Collection · #26</h3>
-                <p class="card-art__desc">Scan from the PDF artwork collection.</p>
-                <p class="card-art__meta">Scan · Series</p>
-              </div>
-            </article>
-
-            <!-- 11 -->
-            <article class="card-art" data-category="portrait">
-              <div class="card-art__image-wrapper">
-                <button class="media" data-src="assets/ART/ARTWORK PDF COLLECTION-images-27.jpg" data-title="Sketch Collection · #27">
-                  <img
-                    src="assets/ART/ARTWORK PDF COLLECTION-images-27.jpg"
-                    alt="Sketch from collection #27"
-                    class="card-art__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-art__body">
-                <h3 class="card-art__title">Sketch Collection · #27</h3>
-                <p class="card-art__desc">Scan from the PDF artwork collection.</p>
-                <p class="card-art__meta">Scan · Series</p>
-              </div>
-            </article>
-
-            <!-- Additional artworks can be appended here using same pattern -->
+          <div class="card-art__body">
+            <h3 class="card-art__title">Mahadev</h3>
+            <p class="card-art__desc">Beyond the Mind</p>
           </div>
-        </div>
-      </section>
+        </article>
 
-      <!-- ================= WALLPAPERS ================= -->
-      <section id="wallpapers" class="section">
-        <div class="container">
-          <header class="section__header">
-            <h2 class="section__title">UHD Wallpapers</h2>
-            <p class="section__subtitle">
-              Turn your screen into a reminder of who you’re becoming. These
-              wallpapers are crafted from my original artworks.
-            </p>
-          </header>
-
-          <div class="chips" role="region" aria-label="Wallpaper filters">
-            <button class="chip chip--active wall-filter" data-wall-filter="*">All</button>
-            <button class="chip wall-filter" data-wall-filter="dark">Dark</button>
-            <button class="chip wall-filter" data-wall-filter="minimal">Minimal</button>
-            <button class="chip wall-filter" data-wall-filter="mobile">Mobile</button>
-          </div>
-
-          <div class="grid grid--wall" id="wallGrid">
-            <article class="card-wall" data-category="dark">
-              <div class="card-wall__image-wrapper">
-                <button class="media" data-src="assets/WALLPAPERS UHD/wallpaper-1.jpg" data-title="Night Shift Mindset (3840x2160)">
-                  <img
-                    src="assets/WALLPAPERS UHD/wallpaper-1.jpg"
-                    alt="Dark UHD wallpaper preview"
-                    class="card-wall__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-wall__body">
-                <div>
-                  <h3 class="card-wall__title">Night Shift Mindset</h3>
-                  <p class="card-wall__meta">3840×2160 · Free</p>
-                </div>
-                <a
-                  href="assets/WALLPAPERS UHD/wallpaper-1.jpg"
-                  download
-                  class="btn btn--tiny"
-                  >Download</a
-                >
-              </div>
-            </article>
-
-            <article class="card-wall" data-category="minimal">
-              <div class="card-wall__image-wrapper">
-                <button class="media" data-src="assets/WALLPAPERS UHD/wallpaper-2.jpg" data-title="Focus Over Noise (5120x1440)">
-                  <img
-                    src="assets/WALLPAPERS UHD/wallpaper-2.jpg"
-                    alt="Minimal UHD wallpaper preview"
-                    class="card-wall__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-wall__body">
-                <div>
-                  <h3 class="card-wall__title">Focus Over Noise</h3>
-                  <p class="card-wall__meta">5120×1440 · Free</p>
-                </div>
-                <a
-                  href="assets/WALLPAPERS UHD/wallpaper-2.jpg"
-                  download
-                  class="btn btn--tiny"
-                  >Download</a
-                >
-              </div>
-            </article>
-
-            <article class="card-wall" data-category="mobile">
-              <div class="card-wall__image-wrapper">
-                <button class="media" data-src="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg" data-title="Keep Going (1080x2400)">
-                  <img
-                    src="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg"
-                    alt="Mobile wallpaper preview"
-                    class="card-wall__image"
-                    loading="lazy"
-                  />
-                </button>
-              </div>
-              <div class="card-wall__body">
-                <div>
-                  <h3 class="card-wall__title">Keep Going</h3>
-                  <p class="card-wall__meta">1080×2400 · Free</p>
-                </div>
-                <a
-                  href="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg"
-                  download
-                  class="btn btn--tiny"
-                  >Download</a
-                >
-              </div>
-            </article>
-          </div>
-
-          <p class="wall__note">
-            Want a wallpaper based on your own story?
-            <a href="#contact">Reach out</a> and tell me your scene.
-          </p>
-        </div>
-      </section>
-
-      <!-- ================= PHILOSOPHY ================= -->
-      <section id="philosophy" class="section section--philosophy">
-        <div class="container">
-          <header class="section__header">
-            <h2 class="section__title">Philosophy & Quotes</h2>
-            <p class="section__subtitle">
-              The art is the surface layer. Underneath are ideas about pain,
-              discipline, ambition and what it actually means to rebuild
-              yourself.
-            </p>
-          </header>
-
-          <div class="quotes">
-            <figure class="quote">
-              <blockquote>
-                “Some people escape into entertainment. I escape into building
-                the life I used to watch on screens.”
-              </blockquote>
-              <figcaption>— Saurabh Gaur</figcaption>
-            </figure>
-
-            <figure class="quote">
-              <blockquote>
-                “If I can turn my worst days into art, they don’t own me
-                anymore.”
-              </blockquote>
-              <figcaption>— From a sketchbook note</figcaption>
-            </figure>
-
-            <figure class="quote">
-              <blockquote>
-                “Discipline is just self-respect stretched across time.”
-              </blockquote>
-              <figcaption>— Personal philosophy</figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= LIFE STORY ================= -->
-      <section id="story" class="section section--dark">
-        <div class="container">
-          <header class="section__header">
-            <h2 class="section__title">Creative Journey</h2>
-            <p class="section__subtitle">
-              How the work evolved from rough sketchbook experiments to
-              structured, client-ready visual systems.
-            </p>
-          </header>
-
-          <div class="timeline">
-            <article class="timeline__item">
-              <div class="timeline__dot"></div>
-              <div class="timeline__content">
-                <h3 class="timeline__title">Phase 1 — Foundations in Drawing</h3>
-                <p class="timeline__time">Early exploration</p>
-                <p class="timeline__text">
-                  Years of studying faces, gesture and light through pencils,
-                  pens and traditional tools. No shortcuts — just repetition,
-                  anatomy studies and filling sketchbooks to build control over
-                  line, value and proportion.
-                </p>
-              </div>
-            </article>
-
-            <article class="timeline__item">
-              <div class="timeline__dot"></div>
-              <div class="timeline__content">
-                <h3 class="timeline__title">Phase 2 — From Sketches to Clients</h3>
-                <p class="timeline__time">Transition to commissioned work</p>
-                <p class="timeline__text">
-                  Portrait requests, fan-art commissions and custom pieces for
-                  friends, creators and small brands. This phase was all about
-                  learning to work with briefs, deadlines and feedback while
-                  keeping the style honest and expressive.
-                </p>
-              </div>
-            </article>
-
-            <article class="timeline__item">
-              <div class="timeline__dot"></div>
-              <div class="timeline__content">
-                <h3 class="timeline__title">Phase 3 — Digital Canvas & Systems</h3>
-                <p class="timeline__time">Current focus</p>
-                <p class="timeline__text">
-                  Converting handmade art into high-resolution wallpapers,
-                  cover art and visual identities. Blending analogue texture
-                  with digital polish to design pieces that work across
-                  screens, social content, and long-term personal branding.
-                </p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-    <!-- ================= FOOTER ================= -->
-    <footer class="footer">
-      <div class="container footer__inner">
-        <span>© <span id="year"></span> Saurabh Gaur. All rights reserved.</span>
-        <span class="footer__note">Made with Electric Kiwi energy.</span>
+        <!-- Add more artwork cards as needed (use filenames in /assets/ART/) -->
       </div>
+    </section>
+
+    <!-- WALLPAPERS -->
+    <section id="wallpapers" class="container">
+      <h2 class="section__title">Wallpapers</h2>
+      <p class="section__subtitle muted">High-resolution neon & cinematic wallpapers.</p>
+
+      <div class="grid--wall">
+        <div class="card-wall">
+          <img class="card-wall__image" src="assets/WALLPAPERS UHD/wallpaper-1.jpg" alt="wallpaper 1" loading="lazy">
+        </div>
+        <div class="card-wall">
+          <img class="card-wall__image" src="assets/WALLPAPERS UHD/wallpaper-2.jpg" alt="wallpaper 2" loading="lazy">
+        </div>
+        <div class="card-wall">
+          <img class="card-wall__image" src="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg" alt="wallpaper 3" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <section id="philosophy" class="container">
+      <h2 class="section__title">Philosophy</h2>
+      <p class="section__subtitle muted">Visuals that mix analogue texture with digital polish — built to work across screens and social content.</p>
+    </section>
+
+    <!-- LIFE STORY (we keep HTML but hide with CSS per your request) -->
+    <section id="story" class="container">
+      <h2 class="section__title">Creative Journey</h2>
+      <p class="muted">(Hidden by CSS — kept in the HTML so you can restore later.)</p>
+    </section>
+
+    <!-- CONTACT / DONATE -->
+    <section id="contact" class="container">
+      <h2 class="section__title">Contact</h2>
+      <p class="muted">For commissions and inquiries, email: <strong>hello@saurabhgaur.world</strong> (replace with real if needed)</p>
+    </section>
+
+    <footer class="footer container">
+      © <span id="year"></span> Saurabh Gaur — All rights reserved.
     </footer>
-  </div>
+  </main>
 
-  <!-- ================= LIGHTBOX =================
-       (structured to match the main.js you already added)
-  -->
-  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer" tabindex="-1">
-    <button class="lightbox-close" aria-label="Close viewer">&times;</button>
+  <!-- Lightbox (hidden by default) -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
     <div class="lightbox-inner">
-      <img class="lightbox-img" src="" alt="" />
-      <div class="lightbox-caption" aria-live="polite"></div>
-      <div class="lightbox-actions">
-        <a id="downloadBtn" class="btn" href="#" download>Download</a>
-        <button class="btn" id="prevBtn" aria-label="Previous image">‹</button>
-        <button class="btn" id="nextBtn" aria-label="Next image">›</button>
-      </div>
+      <img class="lightbox-img" id="lightboxImg" src="" alt="">
+      <div class="lightbox-caption" id="lightboxCaption"></div>
     </div>
   </div>
 
-  <!-- DONATION MODAL (UPI) -->
-  <div id="donationModal" class="modal" role="dialog" aria-hidden="true" aria-label="Donation modal">
-    <div class="modal-inner glass-card">
-      <button class="modal-close" aria-label="Close donation modal">&times;</button>
-      <h3>Support the work — UPI</h3>
-      <p>Scan to donate or tap the link to open your UPI app.</p>
-      <figure class="modal-qr">
-        <img src="assets/upi/upi-qr.jpg" alt="UPI QR code for donations to SAURABH GAUR" width="360" height="360" loading="lazy" />
-      </figure>
-      <a class="btn btn-primary" href="upi://pay?pa=yourupi@bank&pn=SAURABH%20GAUR" id="modalUpiLink">Open UPI App</a>
-    </div>
-  </div>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  <!-- main JS -->
+  <script src="assets/js/main.js" type="module"></script>
 </body>
 </html>
-
-
