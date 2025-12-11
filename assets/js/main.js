@@ -1,22 +1,16 @@
 /**
  * main.js (module)
- * - Dynamic background cycling + scroll parallax
+ * - Dynamic background cycling + scroll parallax (uses bg1..bg6)
  * - Masonry gallery (batch loading, lazy img)
- * - Wallpapers loader (batch)
- * - Lightbox
- * - JSON-driven index (assets/ART/gallery.json and assets/WALLPAPERS UHD/wallpapers.json)
+ * - Wallpaper grid
+ * - Download button on each artwork card + lightbox download
  *
- * Important:
- *  - For production, create assets/ART/gallery.json and assets/WALLPAPERS UHD/wallpapers.json
- *    containing arrays of filenames (strings). Example:
- *    ["IMG_20221002_103510_251.jpg","deadpool.jpg","Picsart_23-09-20_19-29-23-455.jpg"]
- *
- *  - If no JSON present, the script falls back to ART_LIST / WALL_LIST inline arrays below.
+ * NOTE:
+ * - Create assets/ART/gallery.json and assets/WALLPAPERS UHD/wallpapers.json for automatic indexing.
+ * - If JSON absent, script falls back to ART_LIST / WALL_LIST arrays below.
  */
 
-/* ======================
-   CONFIG: edit if needed
-   ====================== */
+/* CONFIG */
 const ART_JSON = 'assets/ART/gallery.json';
 const WALL_JSON = 'assets/WALLPAPERS UHD/wallpapers.json';
 const ART_PATH = 'assets/ART/';
@@ -29,16 +23,12 @@ const BG_IMAGES = [
   'assets/bg/bg5.jpg',
   'assets/bg/bg6.jpg'
 ];
-const BG_CHANGE_INTERVAL = 18000; // ms
-const BATCH_SIZE = 24; // number of artwork cards per batch (scales well)
+const BG_CHANGE_INTERVAL = 20000; // 20s
+const BATCH_SIZE = 24;
 const WALL_BATCH = 12;
 
-/* ===============
-   FALLBACK LISTS
-   (edit if you don't use JSON)
-   =============== */
+/* FALLBACK ARRAYS (edit as you add files) */
 const ART_LIST = [
-  // names I know you uploaded (edit as you add/remove)
   "IMG_20221002_103510_251.jpg",
   "Picsart_23-09-20_19-29-23-455.jpg",
   "captain carter.jpg",
@@ -50,87 +40,84 @@ const ART_LIST = [
   "ARTWORK PDF COLLECTION-images-27.jpg",
   "Picsart_23-09-23_21-02-34-210.png"
 ];
-
 const WALL_LIST = [
   "wallpaper-1.jpg",
   "wallpaper-2.jpg",
   "wallpaper-3-mobile.jpg"
 ];
 
-/* ---------------------------
-   DYNAMIC BACKGROUND (cycle + parallax)
-   --------------------------- */
+/* DYNAMIC BACKGROUND */
 const dynamicBg = document.getElementById('dynamic-bg');
 let bgIndex = 0;
-function setBackground(index){
-  dynamicBg.style.backgroundImage = `url("${BG_IMAGES[index]}")`;
-}
+function setBackground(i){ dynamicBg.style.backgroundImage = `url("${BG_IMAGES[i]}")`; }
 function startBgCycle(){
   setBackground(bgIndex);
   bgIndex = (bgIndex + 1) % BG_IMAGES.length;
-  setInterval(()=>{
-    setBackground(bgIndex);
-    bgIndex = (bgIndex + 1) % BG_IMAGES.length;
-  }, BG_CHANGE_INTERVAL);
+  setInterval(()=>{ setBackground(bgIndex); bgIndex = (bgIndex + 1) % BG_IMAGES.length; }, BG_CHANGE_INTERVAL);
 }
-// parallax on scroll: translateY for a subtle move
 window.addEventListener('scroll', () => {
-  const sc = window.scrollY * 0.18; // tune parallax depth
+  const sc = window.scrollY * 0.18;
   dynamicBg.style.transform = `translateY(${sc}px) scale(1.02)`;
-}, { passive: true });
-
+}, { passive:true });
 startBgCycle();
 
-/* ---------------------------
-   UTIL: fetch JSON list with fallback
-   --------------------------- */
-async function fetchList(jsonPath, fallback){
+/* JSON fetch with fallback */
+async function fetchList(path, fallback){
   try{
-    const r = await fetch(jsonPath, {cache: "no-cache"});
-    if(!r.ok) throw new Error('no json');
+    const r = await fetch(path, {cache: "no-cache"});
+    if(!r.ok) throw new Error('json not found');
     const arr = await r.json();
-    if(Array.isArray(arr) && arr.length) return arr;
-    throw new Error('json empty');
+    if(Array.isArray(arr)) return arr;
+    return fallback;
   }catch(e){
-    console.warn('Using fallback list for', jsonPath);
+    console.warn('Fallback list used for', path);
     return fallback;
   }
 }
 
-/* ---------------------------
-   MASONRY: progressive rendering
-   --------------------------- */
+/* MASONRY */
 const masonry = document.getElementById('masonry');
 const masonryLoading = document.getElementById('masonryLoading');
 const loadMoreBtn = document.getElementById('loadMoreBtn');
-let ART = [];            // full artwork list
-let artOffset = 0;       // next index to render
-let filterType = 'all';  // filter (future: we can add tags in gallery.json)
+let ART = [], artOffset = 0;
 
-/* utility: create card element */
 function createArtCard(filename){
-  const item = document.createElement('div');
-  item.className = 'masonry-item';
-  // image uses data-src for lazy observer
+  const item = document.createElement('div'); item.className = 'masonry-item';
   const img = document.createElement('img');
   img.dataset.src = ART_PATH + filename;
-  img.alt = filename.replace(/[-_\.]/g,' ').replace(/\.[^/.]+$/, "");
+  img.alt = filename.replace(/\.[^/.]+$/, "").replace(/[-_\.]/g,' ');
   img.loading = 'lazy';
-  // meta
-  const meta = document.createElement('div');
-  meta.className = 'meta';
-  const h3 = document.createElement('h3'); h3.textContent = img.alt;
-  const p = document.createElement('p'); p.className = 'muted'; p.textContent = 'Artwork';
-  meta.appendChild(h3); meta.appendChild(p);
-  item.appendChild(img); item.appendChild(meta);
 
-  // click -> lightbox
-  item.addEventListener('click', () => openLightbox(img.dataset.src, img.alt));
+  const meta = document.createElement('div'); meta.className = 'meta';
+  const h3 = document.createElement('h3'); h3.textContent = img.alt;
+
+  const metaRight = document.createElement('div'); metaRight.className = 'meta-right';
+  const downloadBtn = document.createElement('button');
+  downloadBtn.className = 'download-btn';
+  downloadBtn.textContent = 'Download';
+  downloadBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const link = document.createElement('a');
+    link.href = ART_PATH + filename;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  });
+
+  metaRight.appendChild(downloadBtn);
+  meta.appendChild(h3);
+  meta.appendChild(metaRight);
+
+  item.appendChild(img);
+  item.appendChild(meta);
+
+  // click opens lightbox
+  item.addEventListener('click', () => openLightbox(ART_PATH + filename, img.alt));
 
   return item;
 }
 
-/* render next batch */
 function renderNextBatch(){
   if(artOffset >= ART.length){
     masonryLoading.textContent = 'No more artworks';
@@ -141,46 +128,26 @@ function renderNextBatch(){
   const end = Math.min(artOffset + BATCH_SIZE, ART.length);
   const frag = document.createDocumentFragment();
   for(let i = artOffset; i < end; ++i){
-    const name = ART[i];
-    // simple filter logic if you expand to categories in gallery.json
-    if(filterType !== 'all'){
-      // placeholder for future filters by metadata
-    }
-    const card = createArtCard(name);
-    frag.appendChild(card);
+    frag.appendChild(createArtCard(ART[i]));
   }
   masonry.appendChild(frag);
   artOffset = end;
-  // after inserting, kick lazy observer
   lazyLoadObserver.observeAll();
 }
 
-/* load initial */
 async function initMasonry(){
   masonryLoading.style.display = 'block';
   ART = await fetchList(ART_JSON, ART_LIST);
-  artOffset = 0;
-  masonry.innerHTML = ''; // reset
+  artOffset = 0; masonry.innerHTML = '';
   renderNextBatch();
-  // show Load More if remaining
   if(artOffset < ART.length) loadMoreBtn.style.display = 'inline-flex';
   else loadMoreBtn.style.display = 'none';
 }
+if(loadMoreBtn) loadMoreBtn.addEventListener('click', ()=> renderNextBatch());
 
-/* Load more button */
-if(loadMoreBtn){
-  loadMoreBtn.addEventListener('click', ()=> {
-    renderNextBatch();
-    if(artOffset >= ART.length) loadMoreBtn.style.display = 'none';
-  });
-}
-
-/* ---------------------------
-   LAZY-LOAD OBSERVER (for many images)
-   - keeps memory low and speeds initial load
-   --------------------------- */
-const lazyLoadObserver = (function(){
-  const intersection = new IntersectionObserver((entries, obs) => {
+/* LAZY LOADER */
+const lazyLoadObserver = (() => {
+  const io = new IntersectionObserver((entries, obs) => {
     entries.forEach(en => {
       if(en.isIntersecting){
         const img = en.target;
@@ -194,44 +161,35 @@ const lazyLoadObserver = (function(){
   }, { rootMargin: "400px 0px", threshold: 0.01 });
 
   return {
-    observeAll: function(){
-      const imgs = document.querySelectorAll('img[data-src]');
-      imgs.forEach(img => intersection.observe(img));
+    observeAll: () => {
+      document.querySelectorAll('img[data-src]').forEach(i => io.observe(i));
     }
   };
 })();
 
-/* ---------------------------
-   WALLPAPERS (grid, lazy)
-   --------------------------- */
+/* WALLPAPERS */
 const wallGrid = document.getElementById('wallpaperGrid');
 const wallpaperLoading = document.getElementById('wallpaperLoading');
 
 async function initWallpapers(){
   wallpaperLoading.style.display = 'block';
-  const WAL = await fetchList(WALL_JSON, WALL_LIST);
+  const WALL = await fetchList(WALL_JSON, WALL_LIST);
   wallpaperLoading.style.display = 'none';
-  // render first batch (WALL_BATCH)
-  const batch = WAL.slice(0, WALL_BATCH);
   const frag = document.createDocumentFragment();
-  batch.forEach(fn => {
+  WALL.slice(0, WALL_BATCH).forEach(fn => {
     const el = document.createElement('div'); el.className = 'card-wall';
-    const img = document.createElement('img');
-    img.className = 'card-wall__image';
-    img.alt = fn.replace(/\.[^/.]+$/, "").replace(/[-_\.]/g,' ');
-    img.dataset.src = WALL_PATH + fn;
+    const img = document.createElement('img'); img.className = 'card-wall__image';
+    img.dataset.src = WALL_PATH + fn; img.alt = fn.replace(/\.[^/.]+$/, "").replace(/[-_\.]/g,' ');
     img.loading = 'lazy';
     el.appendChild(img);
-    el.addEventListener('click', () => openLightbox(WALL_PATH + fn, img.alt));
+    el.addEventListener('click', (e) => openLightbox(WALL_PATH + fn, img.alt));
     frag.appendChild(el);
   });
   wallGrid.appendChild(frag);
   lazyLoadObserver.observeAll();
 }
 
-/* ---------------------------
-   LIGHTBOX (desktop-friendly)
-   --------------------------- */
+/* LIGHTBOX */
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
 const lightboxCaption = document.getElementById('lightboxCaption');
@@ -242,9 +200,9 @@ function openLightbox(src, caption){
   lightboxImg.src = src;
   lightboxImg.alt = caption || '';
   lightboxCaption.textContent = caption || '';
-  lightbox.setAttribute('aria-hidden','false');
+  lightbox.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
-  if(lightboxDownload) { lightboxDownload.href = src; lightboxDownload.setAttribute('download',''); }
+  if(lightboxDownload){ lightboxDownload.href = src; lightboxDownload.setAttribute('download',''); }
 }
 function closeLightbox(){
   lightbox.setAttribute('aria-hidden','true');
@@ -255,21 +213,12 @@ lightboxClose.addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
 document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
 
-/* ---------------------------
-   INIT
-   --------------------------- */
-document.addEventListener('DOMContentLoaded', async () => {
-  // init masonry & wallpapers
+/* INIT */
+document.addEventListener('DOMContentLoaded', () => {
   initMasonry();
   initWallpapers();
-
-  // hide loading text after a short moment
   setTimeout(()=> {
-    const l = document.getElementById('masonryLoading');
-    if(l) l.style.display = 'none';
-  }, 1500);
-
-  // header year
-  const yearEl = document.getElementById('year');
-  if(yearEl) yearEl.textContent = new Date().getFullYear();
+    const l = document.getElementById('masonryLoading'); if(l) l.style.display = 'none';
+  }, 1400);
+  const year = document.getElementById('year'); if(year) year.textContent = new Date().getFullYear();
 });
