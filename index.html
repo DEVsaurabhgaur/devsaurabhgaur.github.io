@@ -4,53 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saurabh Gaur | Visual Artist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="noise-overlay"></div>
+    <div class="bg-pulse"></div>
+    <div class="bg-grid"></div>
+    <div class="vignette"></div>
 
     <nav class="navbar">
-        <div class="logo">SG<span class="dot">.</span></div>
-        <div class="nav-links">
-            <button data-filter="all" class="active">All Work</button>
-            <button data-filter="art">Handmade</button>
-            <button data-filter="wallpaper">Wallpapers</button>
-            <a href="#contact" class="btn-contact">Contact</a>
+        <div class="brand">SG<span class="gold-dot">.</span></div>
+        <div class="nav-menu">
+            <button class="nav-btn active" data-filter="all">ALL CONTRACTS</button>
+            <button class="nav-btn" data-filter="art">HANDMADE</button>
+            <button class="nav-btn" data-filter="wallpaper">WALLPAPERS</button>
+            <a href="#footer" class="nav-btn contact-link">CONTACT</a>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-content">
-            <span class="pill">Visual Artist & Designer</span>
-            <h1>Turning ideas into <br><span class="gradient-text">visual reality.</span></h1>
-            <p>High-fidelity digital art, handmade portraits, and 4K wallpapers.</p>
+        <div class="hero-inner">
+            <h1 class="glitch-text" data-text="SAURABH GAUR">SAURABH GAUR</h1>
+            <p class="subtitle">Art is a weapon. Design is the ammo.</p>
+            <div class="hero-actions">
+                <a href="#gallery" class="cta-btn">View Gallery</a>
+            </div>
         </div>
     </header>
 
-    <main class="container">
-        <div id="gallery-grid" class="masonry-grid">
-            </div>
-    </main>
-
-    <footer id="contact">
-        <h2>Let's Create.</h2>
-        <div class="socials">
-            <a href="mailto:saurabhgaur122000@gmail.com">Email</a>
-            <a href="https://instagram.com/thesaurabhgaur" target="_blank">Instagram</a>
-            <a href="https://linkedin.com/in/saurabh-gaur-122k" target="_blank">LinkedIn</a>
+    <section id="gallery" class="container">
+        <div class="gallery-header">
+            <h2><span class="red-slash">//</span> RECENT WORKS</h2>
         </div>
-        <p class="copyright">&copy; 2025 Saurabh Gaur. All rights reserved.</p>
+        
+        <div id="masonry-grid" class="masonry-grid"></div>
+        
+        <div class="loader-area">
+            <div class="infinite-scroll-trigger"></div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="footer-content">
+            <h3>INITIATE CONTACT</h3>
+            <div class="social-links">
+                <a href="mailto:saurabhgaur122000@gmail.com" class="social-btn">EMAIL</a>
+                <a href="https://instagram.com/thesaurabhgaur" target="_blank" class="social-btn">INSTAGRAM</a>
+                <a href="https://linkedin.com/in/saurabh-gaur-122k" target="_blank" class="social-btn">LINKEDIN</a>
+            </div>
+            <p class="copyright">Excommunicado Status: <strong>Revoked</strong>. &copy; 2025 Saurabh Gaur.</p>
+        </div>
     </footer>
 
     <div id="lightbox" class="lightbox">
-        <button id="close-lightbox" aria-label="Close">&times;</button>
-        <div class="lightbox-container">
-            <img id="lightbox-img" src="" alt="Full Resolution">
-            <div class="lightbox-details">
-                <h3 id="lightbox-title">Artwork Title</h3>
-                <a id="lightbox-dl" href="#" class="btn-download" download>Download 4K</a>
+        <div class="lightbox-backdrop"></div>
+        <button id="lb-close" class="lb-close">✕</button>
+        <div class="lb-content">
+            <img id="lb-img" src="" alt="">
+            <div class="lb-info">
+                <h2 id="lb-title">Artwork Title</h2>
+                <a id="lb-dl" href="#" class="lb-download-btn" download>
+                    DOWNLOAD <span>↓</span>
+                </a>
             </div>
         </div>
     </div>
