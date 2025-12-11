@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="SAURABH GAUR — Cinematic neon portfolio showcasing handmade portraits, digital art and 4K wallpapers. Donations via UPI." />
+  <meta name="theme-color" content="#0f0f12" />
+  <title>SAURABH GAUR — Neon Portfolio</title>
+
+  <!-- Social preview -->
+  <meta property="og:title" content="SAURABH GAUR — Neon Portfolio" />
+  <meta property="og:description" content="Handmade portraits, digital art, 4K wallpapers. Cinematic Electric-Kiwi aesthetics with parallax and neon gradients." />
+  <meta property="og:image" content="assets/ART/art1.jpg" />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <!-- Preload important images -->
+  <link rel="preload" as="image" href="assets/bg/smoke.jpg" />
+  <link rel="preload" as="image" href="assets/bg/slices.jpg" />
+  <link rel="preload" as="image" href="assets/ART/art1.jpg" />
+  <!-- Canonical / CNAME behaviour retained by repo root -->
+  <link rel="canonical" href="https://saurabhgaur.world/" />
+</head>
+<body class="site-root" id="top">
+
+  <!-- Background layers (controlled via CSS for parallax / noise / slices) -->
+  <div class="bg-layer bg-smoke" aria-hidden="true" data-parallax-speed="0.2" style="background-image:url('assets/bg/smoke.jpg')"></div>
+  <div class="bg-layer bg-slices" aria-hidden="true" data-parallax-speed="0.4" style="background-image:url('assets/bg/slices.jpg')"></div>
+  <div class="bg-layer bg-noise" aria-hidden="true" style="background-image:url('assets/bg/noise.png')"></div>
+
+  <header class="site-header glass-card" role="banner">
+    <div class="inner container">
+      <a class="brand" href="#top" aria-label="SAURABH GAUR home">
+        <h1 class="brand-title">SAURABH GAUR</h1>
+        <p class="brand-tag">Handmade portraits • Digital art • 4K wallpapers</p>
+      </a>
+
+      <nav class="site-nav" role="navigation" aria-label="Main navigation">
+        <ul>
+          <li><a href="#gallery">Art</a></li>
+          <li><a href="#wallpapers">Wallpapers</a></li>
+          <li><a href="#philosophy">Philosophy</a></li>
+          <li><a href="#life">Life Story</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-cta">
+        <button id="donateBtn" class="btn btn-neon" aria-haspopup="dialog">Donate (UPI)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main id="main" role="main">
+    <section id="hero" class="hero container">
+      <div class="hero-left">
+        <h2 class="eyebrow">Cinematic • Neon • Handmade</h2>
+        <h3 class="hero-title">Portraits, digital art & UHD wallpapers</h3>
+        <p class="lead">Curated gallery of bold, cinematic visuals — crafted by <strong>SAURABH GAUR</strong>. Smooth parallax, glass cards and neon gradients. Explore, download, or support via UPI.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#gallery">Explore Art</a>
+          <a class="btn btn-outline" href="#wallpapers">View Wallpapers</a>
+        </div>
+      </div>
+
+      <figure class="hero-image" aria-hidden="true">
+        <img src="assets/ART/art1.jpg" alt="Featured artwork by SAURABH GAUR" loading="eager" width="900" height="600" />
+      </figure>
+    </section>
+
+    <!-- GALLERY + FILTERS -->
+    <section id="gallery" class="gallery container" aria-labelledby="gallery-heading">
+      <div class="section-head">
+        <h2 id="gallery-heading">Art Gallery</h2>
+        <div class="filters" role="region" aria-label="Gallery filters">
+          <button class="filter active" data-filter="*">All</button>
+          <button class="filter" data-filter="portraits">Portraits</button>
+          <button class="filter" data-filter="digital">Digital</button>
+          <button class="filter" data-filter="fanart">Fanart</button>
+        </div>
+      </div>
+
+      <div class="grid" id="galleryGrid">
+        <!-- Example cards — replace / add images from assets/ART/ -->
+        <article class="card-art" data-category="portraits" tabindex="0">
+          <button class="media" data-src="assets/ART/art1.jpg" data-title="Untitled Portrait #1" aria-label="Open Untitled Portrait #1">
+            <img src="assets/ART/art1.jpg" alt="Untitled Portrait #1 by SAURABH GAUR" loading="lazy" width="600" height="400" />
+            <div class="card-overlay">
+              <h3>Untitled Portrait #1</h3>
+            </div>
+          </button>
+        </article>
+
+        <article class="card-art" data-category="digital" tabindex="0">
+          <button class="media" data-src="assets/ART/art2.jpg" data-title="Neon Study #2" aria-label="Open Neon Study #2">
+            <img src="assets/ART/art2.jpg" alt="Neon Study #2 by SAURABH GAUR" loading="lazy" width="600" height="400" />
+            <div class="card-overlay">
+              <h3>Neon Study #2</h3>
+            </div>
+          </button>
+        </article>
+
+        <article class="card-art" data-category="fanart" tabindex="0">
+          <button class="media" data-src="assets/ART/art3.jpg" data-title="Fanart Remake" aria-label="Open Fanart Remake">
+            <img src="assets/ART/art3.jpg" alt="Fanart Remake by SAURABH GAUR" loading="lazy" width="600" height="400" />
+            <div class="card-overlay">
+              <h3>Fanart Remake</h3>
+            </div>
+          </button>
+        </article>
+
+        <!-- Additional image cards: you will add more similar <article> blocks -->
+      </div>
+    </section>
+
+    <!-- LIGHTBOX (hidden by default; JS will manage) -->
+    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer" tabindex="-1">
+      <button class="lightbox-close" aria-label="Close viewer">&times;</button>
+      <div class="lightbox-inner">
+        <img class="lightbox-img" src="" alt="" />
+        <div class="lightbox-caption" aria-live="polite"></div>
+        <div class="lightbox-actions">
+          <a id="downloadBtn" class="btn" href="#" download>Download</a>
+          <button class="btn" id="prevBtn" aria-label="Previous image">‹</button>
+          <button class="btn" id="nextBtn" aria-label="Next image">›</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- WALLPAPERS -->
+    <section id="wallpapers" class="wallpapers container" aria-labelledby="wallpapers-heading">
+      <h2 id="wallpapers-heading">Wallpapers (UHD)</h2>
+      <p class="muted">Optimized for desktop. Right-click to download or use the Download button in the viewer.</p>
+
+      <div class="wallpaper-grid">
+        <figure class="wp-card">
+          <button class="media" data-src="assets/WALLPAPERS UHD/wallpaper-1.jpg" data-title="UHD Wallpaper 1" aria-label="Open Wallpaper 1">
+            <img src="assets/WALLPAPERS UHD/wallpaper-1.jpg" alt="UHD Wallpaper 1 by SAURABH GAUR" loading="lazy" width="1600" height="900" />
+          </button>
+        </figure>
+
+        <figure class="wp-card">
+          <button class="media" data-src="assets/WALLPAPERS UHD/wallpaper-2.jpg" data-title="UHD Wallpaper 2" aria-label="Open Wallpaper 2">
+            <img src="assets/WALLPAPERS UHD/wallpaper-2.jpg" alt="UHD Wallpaper 2 by SAURABH GAUR" loading="lazy" width="1600" height="900" />
+          </button>
+        </figure>
+
+        <figure class="wp-card">
+          <button class="media" data-src="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg" data-title="Mobile Wallpaper" aria-label="Open Mobile Wallpaper">
+            <img src="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg" alt="Mobile Wallpaper by SAURABH GAUR" loading="lazy" width="900" height="1600" />
+          </button>
+        </figure>
+      </div>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <section id="philosophy" class="philosophy container" aria-labelledby="philosophy-heading">
+      <h2 id="philosophy-heading">Philosophy</h2>
+      <div class="philosophy-inner glass-card">
+        <p><em>Work that challenges comfort. Art should be honest, relentless and crafted with patience. — <strong>SAURABH GAUR</strong></em></p>
+        <p>Short essays and thoughts about creativity, craft and building a life around visual expression. Minimal, clear, and to the point.</p>
+      </div>
+    </section>
+
+    <!-- LIFE STORY -->
+    <section id="life" class="life container" aria-labelledby="life-heading">
+      <h2 id="life-heading">Life Story</h2>
+      <article class="life-story glass-card">
+        <p>A creative childhood, curiosity for discovery, and a relentless desire to improve. This space documents the work, process and small lessons learned on the path from hobby to craft.</p>
+        <a class="btn btn-ghost" href="#contact">Contact & Collaborate</a>
+      </article>
+    </section>
+
+    <!-- CONTACT / DONATE -->
+    <section id="contact" class="contact container" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Contact & Donate</h2>
+
+      <div class="contact-grid">
+        <div class="contact-card glass-card">
+          <h3>Get in touch</h3>
+          <p>Email: <a href="mailto:saurabh@portfolio.example">saurabh@portfolio.example</a></p>
+          <p>Instagram: <a href="https://instagram.com/devsaurabhgaur" target="_blank" rel="noopener noreferrer">@devsaurabhgaur</a></p>
+          <p>Use the donate button to support the work.</p>
+        </div>
+
+        <div class="contact-card glass-card">
+          <h3>Donate via UPI</h3>
+          <p>Scan the UPI QR or click the button to open the donation modal.</p>
+          <img src="assets/upi/upi-qr.jpg" alt="UPI QR code for donations" class="upi-qr" loading="lazy" width="360" height="360" />
+          <div class="donate-actions">
+            <button id="openDonate" class="btn btn-neon">Open Donation Modal</button>
+            <a class="btn" href="upi://pay?pa=yourupi@bank&pn=SAURABH%20GAUR" id="upiLink">Open UPI App</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- DONATION MODAL -->
+  <div id="donationModal" class="modal" role="dialog" aria-hidden="true" aria-label="Donation modal">
+    <div class="modal-inner glass-card">
+      <button class="modal-close" aria-label="Close donation modal">&times;</button>
+      <h3>Support the work — UPI</h3>
+      <p>Scan to donate or tap the link to open your UPI app.</p>
+      <figure class="modal-qr">
+        <img src="assets/upi/upi-qr.jpg" alt="UPI QR code for donations to SAURABH GAUR" width="360" height="360" loading="lazy" />
+      </figure>
+      <a class="btn btn-primary" href="upi://pay?pa=yourupi@bank&pn=SAURABH%20GAUR" id="modalUpiLink">Open UPI App</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> SAURABH GAUR — All rights reserved.</p>
+      <p class="muted">Made with neon gradients and noise overlays. Hosted on GitHub Pages.</p>
+      <nav aria-label="Footer">
+        <ul>
+          <li><a href="#top">Back to top</a></li>
+          <li><a href="README.txt">Readme</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Minimal noscript fallback -->
+  <noscript>
+    <div class="noscript-warning">This site uses JavaScript for the lightbox and parallax effects. Please enable JavaScript for the full experience.</div>
+  </noscript>
+
+  <!-- Main JS (controls lightbox, filters, parallax hooks, donation modal) -->
+  <script>
+    // Small inline boot helpers (keeps file accessible before main.js loads)
+    (function () {
+      // set copyright year
+      var y = new Date().getFullYear();
+      document.addEventListener('DOMContentLoaded', function () {
+        var el = document.getElementById('year');
+        if (el) el.textContent = y;
+      });
+
+      // allow quick keyboard close for lightbox/modal
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          var lb = document.getElementById('lightbox');
+          var dm = document.getElementById('donationModal');
+          if (lb && lb.getAttribute('aria-hidden') === 'false') lb.querySelector('.lightbox-close').click();
+          if (dm && dm.getAttribute('aria-hidden') === 'false') dm.querySelector('.modal-close').click();
+        }
+      });
+    })();
+  </script>
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
