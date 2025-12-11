@@ -49,11 +49,12 @@
   }
 
   /* -------------------------
-     Lightbox
+     Lightbox (responsive enhancements added)
   ------------------------- */
   function initLightbox() {
     const mediaButtons = $$('.media');
     const lightbox = $('#lightbox');
+    if (!lightbox) return;
     const lbImg = $('.lightbox-img', lightbox);
     const lbCaption = $('.lightbox-caption', lightbox);
     const lbClose = $('.lightbox-close', lightbox);
@@ -63,24 +64,53 @@
 
     // Build list from all media buttons (gallery + wallpapers)
     const items = mediaButtons.map(btn => ({
-      src: btn.dataset.src,
+      src: btn.dataset.src || btn.getAttribute('src') || '',
       title: btn.dataset.title || '',
       el: btn
     }));
 
     let current = -1;
 
+    // Responsive resize function: set CSS limiting values for the image
+    function resizeLightboxImage() {
+      if (!lbImg) return;
+      const viewportW = window.innerWidth;
+      const viewportH = window.innerHeight;
+      // leave space for caption, controls, padding; tweak reserved pixels if needed
+      const reservedHeight = 140; // caption + buttons + padding
+      const reservedWidth = 48;   // padding
+      const maxH = Math.max(120, viewportH - reservedHeight);
+      const maxW = Math.max(220, viewportW - reservedWidth);
+
+      // enforce containment and safe dimensions
+      lbImg.style.objectFit = 'contain';
+      lbImg.style.maxHeight = maxH + 'px';
+      lbImg.style.maxWidth = maxW + 'px';
+      lbImg.style.width = 'auto';
+      lbImg.style.height = 'auto';
+    }
+
     function openAt(index) {
       if (!items[index]) return;
       current = index;
       const it = items[index];
+      // set image and caption
       lbImg.src = it.src;
       lbImg.alt = it.title || 'Artwork by SAURABH GAUR';
       lbCaption.textContent = it.title || '';
-      downloadBtn.href = it.src;
+      if (downloadBtn) downloadBtn.href = it.src || '#';
+
+      // show
       lightbox.setAttribute('aria-hidden', 'false');
-      lightbox.focus();
+      // focus trap minimal: move focus to close button (if present)
+      if (lbClose) lbClose.focus();
       document.body.style.overflow = 'hidden';
+
+      // ensure the image fits the viewport
+      resizeLightboxImage();
+      // add resize listener while open (removed on close)
+      window.addEventListener('resize', resizeLightboxImage);
+
       // preload neighbors
       preloadIndex(index + 1);
       preloadIndex(index - 1);
@@ -89,8 +119,11 @@
     function close() {
       lightbox.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+      // clear image to free memory
       lbImg.src = '';
       current = -1;
+      // remove resize listener
+      window.removeEventListener('resize', resizeLightboxImage);
     }
 
     function next() {
@@ -102,15 +135,18 @@
     }
 
     function preloadIndex(i) {
-      if (!items[i]) return;
+      if (!items[i] || !items[i].src) return;
       const img = new Image();
       img.src = items[i].src;
     }
 
     // attach to each media button to open correct index
     mediaButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        // prefer dataset mapping, otherwise match by element
         const idx = items.findIndex(it => it.el === btn);
+        if (idx === -1) return;
+        e.preventDefault && e.preventDefault();
         openAt(idx);
       });
       // keyboard accessibility
@@ -123,7 +159,7 @@
     });
 
     // lightbox controls
-    lbClose.addEventListener('click', close);
+    lbClose && lbClose.addEventListener('click', close);
     nextBtn && nextBtn.addEventListener('click', next);
     prevBtn && prevBtn.addEventListener('click', prev);
 
@@ -135,12 +171,12 @@
       if (e.key === 'Escape') close();
     });
 
-    // click outside image to close
+    // click outside image to close (lightbox background)
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) close();
     });
 
-    // touch/swipe support (basic)
+    // basic touch/swipe support on image
     let touchStartX = 0;
     lbImg.addEventListener('touchstart', (e) => {
       touchStartX = e.touches[0].clientX;
@@ -150,6 +186,12 @@
       if (dx > 60) prev();
       if (dx < -60) next();
     }, {passive:true});
+
+    // ensure image resized on load too (in case natural size or orientation changes)
+    lbImg.addEventListener('load', () => {
+      // slight timeout to allow browser layout to stabilise
+      setTimeout(() => resizeLightboxImage(), 40);
+    });
   }
 
   /* -------------------------
