@@ -1,334 +1,118 @@
-/* main.js
-   Lightbox, filters, parallax, lazy-loading, donation modal, keyboard nav
-   Small, dependency-free, accessible.
-*/
+// main.js (module) — background rotation, lightbox, nav highlight, small parallax
 
-(function () {
-  // Helpers
-  const $ = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-  const isHidden = el => !el || el.getAttribute('aria-hidden') === 'true';
+/* ----------------------
+   DYNAMIC BACKGROUND ROTATION
+   ---------------------- */
+const bgImages = [
+  "assets/bg/bg1.jpg",
+  "assets/bg/bg2.jpg",
+  "assets/bg/bg3.jpg",
+  "assets/bg/bg4.jpg",
+  "assets/bg/bg5.jpg",
+  "assets/bg/bg6.jpg"
+];
 
-  document.addEventListener('DOMContentLoaded', init);
+let bgIndex = 0;
+const bgDiv = document.getElementById("dynamic-bg");
 
-  function init() {
-    initFilters();
-    initLightbox();
-    initParallax();
-    initLazyLoad();
-    initDonationModal();
-    smallUXTweaks();
+function updateBG() {
+  if (!bgDiv) return;
+  bgDiv.style.backgroundImage = `url("${bgImages[bgIndex]}")`;
+  bgIndex = (bgIndex + 1) % bgImages.length;
+}
+updateBG();
+setInterval(updateBG, 18000); // rotate every 18s
+
+/* ----------------------
+   LIGHTBOX (open on click)
+   ---------------------- */
+const gallery = document.getElementById("gallery");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+const lightboxCaption = document.getElementById("lightboxCaption");
+const lightboxClose = document.getElementById("lightboxClose");
+
+if (gallery) {
+  gallery.addEventListener("click", (e) => {
+    const img = e.target.closest("img");
+    if (!img) return;
+    const src = img.dataset.full || img.src;
+    const title = img.alt || img.getAttribute("data-title") || "";
+    openLightbox(src, title);
+  });
+}
+
+function openLightbox(src, caption) {
+  lightboxImg.src = src;
+  lightboxImg.alt = caption || "Artwork";
+  lightboxCaption.textContent = caption || "";
+  lightbox.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+  lightbox.setAttribute("aria-hidden", "true");
+  lightboxImg.src = "";
+  document.body.style.overflow = "";
+}
+
+if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
+lightbox.addEventListener("click", (e) => {
+  if (e.target === lightbox) closeLightbox();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && lightbox.getAttribute("aria-hidden") === "false") {
+    closeLightbox();
   }
+});
 
-  /* -------------------------
-     Filters
-  ------------------------- */
-  function initFilters() {
-    const filters = $$('.filter');
-    const cards = $$('.card-art');
-    filters.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filters.forEach(f => f.classList.remove('active'));
-        btn.classList.add('active');
-        const type = btn.getAttribute('data-filter');
-        cards.forEach(card => {
-          if (type === '*' || card.dataset.category === type) {
-            card.style.display = '';
-            // animate
-            requestAnimationFrame(() => card.style.transform = 'translateY(0) scale(1)');
-            card.style.opacity = '1';
-          } else {
-            // hide with subtle animation
-            card.style.transform = 'translateY(8px) scale(.98)';
-            card.style.opacity = '0';
-            setTimeout(() => card.style.display = 'none', 240);
-          }
-        });
-      });
+/* ----------------------
+   NAV ACTIVE LINK HIGHLIGHT (scroll spy)
+   ---------------------- */
+const navLinks = document.querySelectorAll(".nav__link[href^='#']");
+const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute("href")));
+
+function onScroll() {
+  const y = window.scrollY + (window.innerHeight * 0.15);
+  let activeIndex = -1;
+  sections.forEach((sec, idx) => {
+    if (!sec) return;
+    const rect = sec.getBoundingClientRect();
+    const top = rect.top + window.scrollY;
+    if (y >= top) activeIndex = idx;
+  });
+  navLinks.forEach((a, i) => {
+    if (i === activeIndex) a.classList.add("active");
+    else a.classList.remove("active");
+  });
+}
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+
+/* ----------------------
+   SMALL PARALLAX / MOTION FOR HERO PREVIEW (subtle)
+   ---------------------- */
+const hero = document.querySelector(".hero");
+if (hero) {
+  hero.addEventListener("mousemove", (e) => {
+    const rect = hero.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) / rect.width;
+    const dy = (e.clientY - cy) / rect.height;
+    const previews = hero.querySelectorAll(".hero-card img");
+    previews.forEach(p => {
+      p.style.transform = `translate(${dx * 8}px, ${dy * 8}px) scale(1.01)`;
     });
-  }
+  });
+  hero.addEventListener("mouseleave", () => {
+    const previews = hero.querySelectorAll(".hero-card img");
+    previews.forEach(p => { p.style.transform = ""; });
+  });
+}
 
-  /* -------------------------
-     Lightbox (responsive enhancements added)
-  ------------------------- */
-  function initLightbox() {
-    const mediaButtons = $$('.media');
-    const lightbox = $('#lightbox');
-    if (!lightbox) return;
-    const lbImg = $('.lightbox-img', lightbox);
-    const lbCaption = $('.lightbox-caption', lightbox);
-    const lbClose = $('.lightbox-close', lightbox);
-    const prevBtn = $('#prevBtn');
-    const nextBtn = $('#nextBtn');
-    const downloadBtn = $('#downloadBtn');
-
-    // Build list from all media buttons (gallery + wallpapers)
-    const items = mediaButtons.map(btn => ({
-      src: btn.dataset.src || btn.getAttribute('src') || '',
-      title: btn.dataset.title || '',
-      el: btn
-    }));
-
-    let current = -1;
-
-    // Responsive resize function: set CSS limiting values for the image
-    function resizeLightboxImage() {
-      if (!lbImg) return;
-      const viewportW = window.innerWidth;
-      const viewportH = window.innerHeight;
-      // leave space for caption, controls, padding; tweak reserved pixels if needed
-      const reservedHeight = 140; // caption + buttons + padding
-      const reservedWidth = 48;   // padding
-      const maxH = Math.max(120, viewportH - reservedHeight);
-      const maxW = Math.max(220, viewportW - reservedWidth);
-
-      // enforce containment and safe dimensions
-      lbImg.style.objectFit = 'contain';
-      lbImg.style.maxHeight = maxH + 'px';
-      lbImg.style.maxWidth = maxW + 'px';
-      lbImg.style.width = 'auto';
-      lbImg.style.height = 'auto';
-    }
-
-    function openAt(index) {
-      if (!items[index]) return;
-      current = index;
-      const it = items[index];
-      // set image and caption
-      lbImg.src = it.src;
-      lbImg.alt = it.title || 'Artwork by SAURABH GAUR';
-      lbCaption.textContent = it.title || '';
-      if (downloadBtn) downloadBtn.href = it.src || '#';
-
-      // show
-      lightbox.setAttribute('aria-hidden', 'false');
-      // focus trap minimal: move focus to close button (if present)
-      if (lbClose) lbClose.focus();
-      document.body.style.overflow = 'hidden';
-
-      // ensure the image fits the viewport
-      resizeLightboxImage();
-      // add resize listener while open (removed on close)
-      window.addEventListener('resize', resizeLightboxImage);
-
-      // preload neighbors
-      preloadIndex(index + 1);
-      preloadIndex(index - 1);
-    }
-
-    function close() {
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      // clear image to free memory
-      lbImg.src = '';
-      current = -1;
-      // remove resize listener
-      window.removeEventListener('resize', resizeLightboxImage);
-    }
-
-    function next() {
-      if (current < items.length - 1) openAt(current + 1);
-    }
-
-    function prev() {
-      if (current > 0) openAt(current - 1);
-    }
-
-    function preloadIndex(i) {
-      if (!items[i] || !items[i].src) return;
-      const img = new Image();
-      img.src = items[i].src;
-    }
-
-    // attach to each media button to open correct index
-    mediaButtons.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        // prefer dataset mapping, otherwise match by element
-        const idx = items.findIndex(it => it.el === btn);
-        if (idx === -1) return;
-        e.preventDefault && e.preventDefault();
-        openAt(idx);
-      });
-      // keyboard accessibility
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          btn.click();
-        }
-      });
-    });
-
-    // lightbox controls
-    lbClose && lbClose.addEventListener('click', close);
-    nextBtn && nextBtn.addEventListener('click', next);
-    prevBtn && prevBtn.addEventListener('click', prev);
-
-    // keyboard nav inside lightbox (left/right/escape)
-    document.addEventListener('keydown', (e) => {
-      if (isHidden(lightbox)) return;
-      if (e.key === 'ArrowRight') next();
-      if (e.key === 'ArrowLeft') prev();
-      if (e.key === 'Escape') close();
-    });
-
-    // click outside image to close (lightbox background)
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) close();
-    });
-
-    // basic touch/swipe support on image
-    let touchStartX = 0;
-    lbImg.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-    }, {passive:true});
-    lbImg.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      if (dx > 60) prev();
-      if (dx < -60) next();
-    }, {passive:true});
-
-    // ensure image resized on load too (in case natural size or orientation changes)
-    lbImg.addEventListener('load', () => {
-      // slight timeout to allow browser layout to stabilise
-      setTimeout(() => resizeLightboxImage(), 40);
-    });
-  }
-
-  /* -------------------------
-     Parallax (background layers)
-     uses data-parallax-speed on elements
-  ------------------------- */
-  function initParallax() {
-    const bgLayers = $$('.bg-layer');
-    // throttle scroll
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrolled = window.scrollY;
-          bgLayers.forEach(layer => {
-            const speed = parseFloat(layer.dataset.parallaxSpeed) || 0.2;
-            // translateY slightly for parallax feel
-            layer.style.transform = `translate3d(0, ${-(scrolled * speed)}px, 0) scale(1.02)`;
-          });
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, {passive:true});
-  }
-
-  /* -------------------------
-     Lazy load enhancements
-  ------------------------- */
-  function initLazyLoad() {
-    const imgs = $$('img[loading="lazy"]');
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            // if image has data-src (progressive pattern), swap; else it already has src
-            if (img.dataset.src) {
-              img.src = img.dataset.src;
-              img.removeAttribute('data-src');
-            }
-            img.classList.add('revealed');
-            obs.unobserve(img);
-          }
-        });
-      }, {rootMargin: '200px 0px', threshold: 0.01});
-      imgs.forEach(i => io.observe(i));
-    } else {
-      // fallback: mark all as revealed
-      imgs.forEach(i => i.classList.add('revealed'));
-    }
-  }
-
-  /* -------------------------
-     Donation modal (UPI)
-  ------------------------- */
-  function initDonationModal() {
-    const donateBtn = $('#donateBtn');
-    const openDonate = $('#openDonate');
-    const donationModal = $('#donationModal');
-    const modalClose = donationModal && donationModal.querySelector('.modal-close');
-    const upiLink = $('#modalUpiLink');
-    // open
-    [donateBtn, openDonate].forEach(el => {
-      if (!el) return;
-      el.addEventListener('click', () => {
-        donationModal.setAttribute('aria-hidden', 'false');
-        // focus management
-        const close = donationModal.querySelector('.modal-close');
-        if (close) close.focus();
-        document.body.style.overflow = 'hidden';
-      });
-    });
-    // close
-    if (modalClose) {
-      modalClose.addEventListener('click', () => {
-        donationModal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      });
-    }
-    // click outside to close
-    donationModal && donationModal.addEventListener('click', (e) => {
-      if (e.target === donationModal) {
-        donationModal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-    });
-
-    // fallback: ensure UPI link has proper URI (replace placeholder if needed)
-    if (upiLink && upiLink.href.indexOf('upi://') === -1) {
-      // keep it functional but non-breaking
-      upiLink.href = upiLink.href || '#';
-    }
-
-    // keyboard: Escape handled by global listener in index.html's inline script
-  }
-
-  /* -------------------------
-     Small UX touches & accessibility
-  ------------------------- */
-  function smallUXTweaks() {
-    // Make image cards slightly lift on hover
-    $$('.card-art').forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-6px) scale(1.01)';
-        card.style.boxShadow = '0 20px 60px rgba(0,0,0,0.6)';
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-        card.style.boxShadow = '';
-      });
-    });
-
-    // Add aria-hidden default states (defensive)
-    const lightbox = $('#lightbox');
-    if (lightbox && !lightbox.hasAttribute('aria-hidden')) lightbox.setAttribute('aria-hidden','true');
-    const modal = $('#donationModal');
-    if (modal && !modal.hasAttribute('aria-hidden')) modal.setAttribute('aria-hidden','true');
-
-    // ensure smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
-        const href = a.getAttribute('href');
-        if (href === '#' || href === '#!') return;
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({behavior:'smooth', block:'start'});
-        }
-      });
-    });
-
-    // set download attribute behaviour for large images (download button is set in lightbox open)
-    const downloadBtn = $('#downloadBtn');
-    if (downloadBtn) downloadBtn.addEventListener('click', () => {
-      // if target is external or upi, let browser handle it
-    });
-  }
-
-})();
+/* ----------------------
+   Set current year in footer
+   ---------------------- */
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
