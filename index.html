@@ -5,7 +5,180 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saurabh Gaur | Visual Artist</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        /* =========================================
+           CSS STYLES (JOHN WICK x AKATSUKI THEME)
+           ========================================= */
+        :root {
+            --bg-black: #050505;
+            --card-dark: #0f0f0f;
+            --blood-red: #d32f2f; /* Akatsuki Red */
+            --wick-gold: #c5a059; /* Continental Coin Gold */
+            --text-white: #e0e0e0;
+            --text-gray: #888;
+            --font-display: 'Cinzel', serif;
+            --font-tech: 'Rajdhani', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            font-family: var(--font-tech);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- ATMOSPHERE BACKGROUND --- */
+        .bg-pulse {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(60, 10, 10, 0.4), transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+            z-index: -3;
+        }
+        .bg-grid {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+        }
+        .vignette {
+            position: fixed; inset: 0;
+            background: radial-gradient(circle, transparent 40%, #000 100%);
+            pointer-events: none; z-index: -1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* --- NAVIGATION --- */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px;
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            background: rgba(5, 5, 5, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+        }
+        .brand { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; color: #fff; letter-spacing: 2px; }
+        .gold-dot { color: var(--wick-gold); }
+
+        .nav-menu { display: flex; gap: 20px; }
+        .nav-btn {
+            background: transparent; border: 1px solid transparent;
+            color: var(--text-gray); font-family: var(--font-tech);
+            font-weight: 600; font-size: 0.9rem; letter-spacing: 1px;
+            padding: 8px 16px; cursor: pointer; transition: 0.3s;
+            text-transform: uppercase; position: relative; overflow: hidden;
+        }
+        /* Button Red Hover Effect */
+        .nav-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(211, 47, 47, 0.2), transparent);
+            transition: 0.4s;
+        }
+        .nav-btn:hover::before { left: 100%; }
+        .nav-btn:hover, .nav-btn.active { color: var(--text-white); border-color: var(--wick-gold); text-shadow: 0 0 8px rgba(197,160,89,0.5); }
+        .contact-link { border: 1px solid var(--text-gray); }
+
+        /* --- HERO SECTION --- */
+        .hero { height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; }
+        .hero-inner { position: relative; z-index: 10; padding: 0 20px; }
+        .hero h1 {
+            font-family: var(--font-display); font-size: 5vw;
+            text-transform: uppercase; letter-spacing: 5px; margin-bottom: 10px;
+            border-bottom: 2px solid var(--blood-red); padding-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+        .subtitle { font-size: 1.2rem; color: var(--wick-gold); letter-spacing: 3px; margin-bottom: 30px; }
+
+        .cta-btn {
+            text-decoration: none; padding: 15px 40px; display: inline-block;
+            background: var(--blood-red); color: white;
+            font-weight: bold; letter-spacing: 2px;
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+            transition: 0.3s; box-shadow: 0 0 15px rgba(211, 47, 47, 0.4);
+        }
+        .cta-btn:hover { background: var(--wick-gold); color: #000; box-shadow: 0 0 25px var(--wick-gold); transform: translateY(-2px); }
+
+        /* --- GALLERY GRID --- */
+        .container { max-width: 1400px; margin: 0 auto; padding: 50px 20px; }
+        .gallery-header h2 { font-family: var(--font-display); font-size: 2rem; border-left: 4px solid var(--wick-gold); padding-left: 15px; margin-bottom: 40px; color: white; }
+        .red-slash { color: var(--blood-red); }
+
+        .masonry-grid { 
+            column-count: 3; 
+            column-gap: 20px; 
+            opacity: 1; 
+            min-height: 200px;
+        }
+        @media(max-width: 900px) { .masonry-grid { column-count: 2; } }
+        @media(max-width: 600px) { .masonry-grid { column-count: 1; } }
+
+        .grid-item {
+            break-inside: avoid; margin-bottom: 20px; position: relative;
+            border-radius: 4px; overflow: hidden; cursor: pointer;
+            background: var(--card-dark); border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s ease, border-color 0.3s;
+        }
+        .grid-item:hover { transform: translateY(-5px); border-color: var(--blood-red); box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+
+        .grid-item img { width: 100%; display: block; transition: 0.4s; min-height: 200px; object-fit: cover; background: #1a1a1a; }
+        .grid-item:hover img { transform: scale(1.05); filter: grayscale(100%) contrast(120%); }
+
+        .item-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            opacity: 0; transition: 0.3s; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
+        }
+        .grid-item:hover .item-overlay { opacity: 1; }
+        .item-title { font-family: var(--font-display); color: var(--wick-gold); font-size: 1.2rem; }
+        .item-cat { font-size: 0.8rem; color: var(--blood-red); text-transform: uppercase; letter-spacing: 2px; }
+
+        /* --- LIGHTBOX (POPUP) --- */
+        .lightbox {
+            position: fixed; inset: 0; z-index: 999;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: 0.3s;
+        }
+        .lightbox.active { opacity: 1; pointer-events: auto; }
+        .lightbox-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(5px); }
+        .lb-content { position: relative; z-index: 2; max-width: 90%; max-height: 90%; display: flex; flex-direction: column; align-items: center; }
+        #lb-img { max-height: 75vh; border: 2px solid var(--wick-gold); box-shadow: 0 0 30px rgba(197,160,89,0.2); max-width: 100%; }
+        .lb-info { margin-top: 20px; text-align: center; }
+        #lb-title { font-family: var(--font-display); color: #fff; margin-bottom: 10px; }
+
+        .lb-download-btn {
+            display: inline-block; padding: 10px 30px;
+            background: transparent; border: 1px solid var(--blood-red); color: var(--blood-red);
+            text-decoration: none; font-weight: bold; transition: 0.3s; text-transform: uppercase;
+        }
+        .lb-download-btn:hover { background: var(--blood-red); color: white; box-shadow: 0 0 15px var(--blood-red); }
+
+        .lb-close {
+            position: absolute; top: 30px; right: 30px; z-index: 3;
+            background: none; border: none; color: white; font-size: 2rem; cursor: pointer; transition: 0.3s;
+        }
+        .lb-close:hover { color: var(--blood-red); transform: rotate(90deg); }
+
+        /* --- FOOTER --- */
+        footer { padding: 60px 20px; text-align: center; border-top: 1px solid #222; background: #020202; margin-top: 50px;}
+        .social-btn { color: var(--text-gray); text-decoration: none; margin: 0 15px; font-weight: bold; transition: 0.3s; }
+        .social-btn:hover { color: var(--wick-gold); }
+        
+        /* Mobile Adjustments */
+        @media(max-width: 768px) {
+            .navbar { flex-direction: column; padding: 15px; }
+            .nav-menu { margin-top: 15px; gap: 10px; flex-wrap: wrap; justify-content: center; }
+            .hero h1 { font-size: 3rem; }
+        }
+    </style>
 </head>
 <body>
 
@@ -39,21 +212,17 @@
         </div>
         
         <div id="masonry-grid" class="masonry-grid"></div>
-        
-        <div class="loader-area">
-            <div class="infinite-scroll-trigger"></div>
-        </div>
     </section>
 
     <footer id="footer">
         <div class="footer-content">
-            <h3>INITIATE CONTACT</h3>
+            <h3 style="color: var(--wick-gold); margin-bottom: 20px; font-family: var(--font-display);">INITIATE CONTACT</h3>
             <div class="social-links">
                 <a href="mailto:saurabhgaur122000@gmail.com" class="social-btn">EMAIL</a>
                 <a href="https://instagram.com/thesaurabhgaur" target="_blank" class="social-btn">INSTAGRAM</a>
                 <a href="https://linkedin.com/in/saurabh-gaur-122k" target="_blank" class="social-btn">LINKEDIN</a>
             </div>
-            <p class="copyright">Excommunicado Status: <strong>Revoked</strong>. &copy; 2025 Saurabh Gaur.</p>
+            <p style="margin-top: 30px; color: #444; font-size: 0.8rem;">Excommunicado Status: <strong style="color: var(--blood-red);">Revoked</strong>. &copy; 2025 Saurabh Gaur.</p>
         </div>
     </footer>
 
@@ -71,6 +240,111 @@
         </div>
     </div>
 
-    <script src="assets/js/app.js"></script>
+    <script>
+        /* =========================================
+           YOUR DATA: EDIT THIS SECTION TO ADD IMAGES
+           ========================================= */
+        const portfolioItems = [
+            // Example 1: Handmade Art (Using your 'ART' folder)
+            {
+                file: 'assets/ART/IMG_20221002_103510_251.jpg', // Make sure this file name is EXACT
+                title: 'The Silent Assassin',       
+                category: 'art'
+            },
+            // Example 2: Wallpaper (Using your 'WALLPAPERS UHD' folder)
+            {
+                file: 'assets/WALLPAPERS UHD/wallpaper-1.jpg',
+                title: 'Neon Tokyo 2077',
+                category: 'wallpaper'
+            },
+            // Add more items here...
+            {
+                file: 'assets/ART/captain carter.jpg',
+                title: 'Captain Carter',
+                category: 'art'
+            },
+            {
+                file: 'assets/ART/deadpool.jpg',
+                title: 'Deadpool',
+                category: 'art'
+            }
+        ];
+
+        /* =========================================
+           SYSTEM CODE (DO NOT EDIT)
+           ========================================= */
+        const grid = document.getElementById('masonry-grid');
+        const filterBtns = document.querySelectorAll('.nav-btn[data-filter]');
+
+        // 1. Render Gallery
+        function renderGallery(filterType) {
+            grid.innerHTML = ''; 
+            grid.style.opacity = '0'; 
+
+            setTimeout(() => {
+                portfolioItems.forEach(item => {
+                    if (filterType === 'all' || item.category === filterType) {
+                        const card = document.createElement('div');
+                        card.classList.add('grid-item');
+                        
+                        // Image Error Handler included so broken links don't ruin the layout
+                        card.innerHTML = `
+                            <img src="${item.file}" loading="lazy" alt="${item.title}" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x600/0f0f0f/c5a059?text=Image+Not+Found'">
+                            <div class="item-overlay">
+                                <span class="item-cat">// ${item.category.toUpperCase()}</span>
+                                <h3 class="item-title">${item.title}</h3>
+                            </div>
+                        `;
+
+                        card.addEventListener('click', () => openLightbox(item));
+                        grid.appendChild(card);
+                    }
+                });
+                grid.style.opacity = '1'; 
+            }, 200);
+        }
+
+        // 2. Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-img');
+        const lbTitle = document.getElementById('lb-title');
+        const lbDl = document.getElementById('lb-dl');
+        const lbClose = document.getElementById('lb-close');
+        const lbBackdrop = document.querySelector('.lightbox-backdrop');
+
+        function openLightbox(item) {
+            lbImg.src = item.file;
+            lbTitle.innerText = item.title;
+            lbDl.href = item.file; 
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+            setTimeout(() => { lbImg.src = ''; }, 300);
+        }
+
+        lbClose.addEventListener('click', closeLightbox);
+        lbBackdrop.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // 3. Filter Buttons
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderGallery(btn.dataset.filter);
+            });
+        });
+
+        // Start
+        document.addEventListener('DOMContentLoaded', () => {
+            renderGallery('all');
+        });
+    </script>
 </body>
 </html>
