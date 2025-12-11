@@ -3,120 +3,133 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Saurabh Gaur — Art & Wallpapers</title>
-  <link rel="icon" href="assets/favicon.png">
-  <link rel="stylesheet" href="assets/css/main.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <title>SAURABH GAUR — Art & Wallpapers</title>
+  <meta name="description" content="Cinematic neon portfolio of SAURABH GAUR — handmade portraits, digital art, and 4K wallpapers." />
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 <body>
+  <!-- Background container (JS will add .bg-layer elements if missing) -->
+  <div id="bg-container" aria-hidden="true"></div>
 
-  <!-- FIXED BACKGROUND (two layers for crossfade) -->
-  <div id="bg-fixed" aria-hidden="true">
-    <div id="bg-a" class="bg-layer"></div>
-    <div id="bg-b" class="bg-layer bg-top"></div>
-
-    <!-- overlays -->
-    <div class="bg-overlay bg-noise"></div>
-    <div class="bg-overlay bg-slices"></div>
-    <div class="bg-overlay bg-smoke"></div>
-    <div class="bg-tint"></div>
-  </div>
-
-  <!-- SITE -->
-  <div id="page">
-
-    <!-- header -->
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="brand" href="#hero"><span class="brand-dot"></span>Saurabh Gaur</a>
-
-        <nav class="nav">
-          <a class="nav-link" href="#art">Art</a>
-          <a class="nav-link" href="#wallpapers">Wallpapers</a>
-          <a class="nav-link" href="#contact">Contact</a>
-          <a class="btn neon-box" href="#donate">Donate</a>
-        </nav>
-      </div>
-    </header>
-
-    <!-- HERO -->
-    <section id="hero" class="section hero section-swap" data-bg-index="0" aria-label="Hero">
-      <div class="container hero-inner">
-        <div class="hero-left">
-          <p class="kicker">HANDMADE PORTRAITS · AI WALLPAPERS · DIGITAL ART</p>
-          <h1>Handmade art, digital art & wallpapers — <span class="accent">Saurabh Gaur</span></h1>
-          <p class="lead">I design custom portraits, wallpapers and digital visuals — crafted for screens and prints.</p>
-          <p class="cta-row">
-            <a class="btn primary" href="#art">View Art Gallery</a>
-            <a class="btn ghost" href="#wallpapers">Browse Wallpapers</a>
-          </p>
-        </div>
-
-        <aside class="hero-right">
-          <div class="showcase-card">
-            <img src="assets/ART/IMG_20221002_103510_251.jpg" alt="Showcase artwork" loading="lazy">
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- ART -->
-    <section id="art" class="section section-swap" data-bg-index="1" aria-label="Art gallery">
-      <div class="container">
-        <div class="section-head">
-          <h2>Art Gallery — Originals & Prints</h2>
-          <p class="muted">Handmade portraits, commissions and fan art. Click to preview or download high-res files.</p>
-        </div>
-
-        <div id="gallery-grid" class="gallery-grid" aria-live="polite"></div>
-
-        <div class="load-more-wrap">
-          <button id="load-more" class="btn neon-box">Load more</button>
-          <div id="infinite-loader" class="muted" aria-hidden="true"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- WALLPAPERS -->
-    <section id="wallpapers" class="section section-swap" data-bg-index="2" aria-label="Wallpapers">
-      <div class="container">
-        <div class="section-head">
-          <h2>Wallpapers — High-res / 4K</h2>
-          <p class="muted">Optimised for ultra-wide & mobile. These images also drive the page background as you scroll.</p>
-        </div>
-        <div id="wallpaper-grid" class="wallpaper-grid"></div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section section-swap" data-bg-index="3" aria-label="Contact">
-      <div class="container contact-inner">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:saurabhgaur122000@gmail.com">saurabhgaur122000@gmail.com</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/saurabh-gaur-122k" target="_blank" rel="noopener">in/saurabh-gaur-122k</a></p>
-        <p>Instagram: <a href="https://instagram.com/thesaurabhgaur" target="_blank" rel="noopener">@thesaurabhgaur</a></p>
-      </div>
-    </section>
-
-    <!-- footer -->
-    <footer class="site-footer">
-      <div class="container">
-        <p>© 2025 Saurabh Gaur — All rights reserved.</p>
-      </div>
-    </footer>
-  </div>
-
-  <!-- LIGHTBOX -->
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <button id="lb-close" class="lightbox-close" aria-label="Close">✕</button>
-    <div class="lightbox-panel">
-      <img id="lb-img" src="" alt="">
-      <div class="lb-actions">
-        <a id="lb-download" class="btn neon-box small" download>Download</a>
-      </div>
+  <!-- Preloader (minimal fade) -->
+  <div id="preloader" class="preloader hidden" aria-hidden="true">
+    <div class="preloader-inner">
+      <div class="logo">SAURABH GAUR</div>
+      <div class="spinner" role="status" aria-hidden="true"></div>
     </div>
   </div>
 
-<script type="module" src="assets/js/main.js"></script>
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <a href="#hero" class="brand" aria-label="SAURABH GAUR — Home">SAURABH GAUR</a>
+      </div>
+      <nav class="main-nav" role="navigation" aria-label="Main navigation">
+        <ul>
+          <li><a href="#art-gallery" data-scroll>Art</a></li>
+          <li><a href="#wallpapers" data-scroll>Wallpapers</a></li>
+          <li><a href="#contact" data-scroll>Contact</a></li>
+          <li><button id="donate-btn" class="btn donate" aria-haspopup="dialog">Donate</button></li>
+        </ul>
+      </nav>
+      <button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    </div>
+  </header>
+
+  <!-- Mobile nav (aria friendly) -->
+  <div id="mobile-nav" class="mobile-nav" hidden>
+    <ul>
+      <li><a href="#art-gallery" data-scroll>Art</a></li>
+      <li><a href="#wallpapers" data-scroll>Wallpapers</a></li>
+      <li><a href="#contact" data-scroll>Contact</a></li>
+      <li><button id="donate-btn-2" class="btn donate" aria-haspopup="dialog">Donate</button></li>
+    </ul>
+  </div>
+
+  <main id="main" role="main">
+    <!-- Hero -->
+    <section id="hero" class="section hero" data-bg-index="0" tabindex="-1" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <h1 id="hero-title">Cinematic Neon Art<br/><span class="accent">Handmade portraits & 4K wallpapers</span></h1>
+        <p class="lead">A portfolio by SAURABH GAUR — browse, preview, and download. Smooth parallax, accessible navigation, lazy-loading images.</p>
+        <div class="hero-actions">
+          <a href="#art-gallery" class="btn">Browse Art</a>
+          <a href="#wallpapers" class="btn ghost">Wallpapers</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Art Gallery -->
+    <section id="art-gallery" class="section gallery" data-bg-index="1" aria-labelledby="gallery-title">
+      <div class="section-inner">
+        <h2 id="gallery-title">Art Gallery</h2>
+        <p class="section-desc">Selected works — click to preview, or download full resolution.</p>
+
+        <div id="gallery-grid" class="gallery-grid" role="list" aria-live="polite">
+          <!-- Cards injected by JS -->
+        </div>
+
+        <!-- sentinel for infinite scroll -->
+        <div id="gallery-sentinel" class="sentinel" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- Wallpapers -->
+    <section id="wallpapers" class="section wallpapers" data-bg-index="2" aria-labelledby="wallpapers-title">
+      <div class="section-inner">
+        <h2 id="wallpapers-title">Wallpapers</h2>
+        <p class="section-desc">High-resolution wallpapers — preview on the fly and download.</p>
+
+        <div id="wallpapers-grid" class="wallpapers-grid" role="list" aria-live="polite">
+          <!-- Injected by JS -->
+        </div>
+
+        <div id="wallpapers-sentinel" class="sentinel" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section contact" data-bg-index="5" aria-labelledby="contact-title">
+      <div class="section-inner">
+        <h2 id="contact-title">Contact</h2>
+        <p>Email: <a href="mailto:saurabhgaur122000@gmail.com">saurabhgaur122000@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/saurabh-gaur-122k" target="_blank" rel="noopener">in/saurabh-gaur-122k</a></p>
+        <p>Instagram: <a href="https://www.instagram.com/thesaurabhgaur" target="_blank" rel="noopener">@thesaurabhgaur</a></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button id="lb-close" class="lb-close" aria-label="Close (Esc)">&times;</button>
+    <button id="lb-prev" class="lb-nav" aria-label="Previous (left arrow)">&larr;</button>
+    <button id="lb-next" class="lb-nav" aria-label="Next (right arrow)">&rarr;</button>
+    <div class="lb-stage" role="document" tabindex="0">
+      <img id="lb-image" alt="" src="" />
+      <figcaption id="lb-caption"></figcaption>
+      <a id="lb-download" class="btn download" download>Download</a>
+    </div>
+  </div>
+
+  <!-- Donate Modal -->
+  <div id="donate-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-inner">
+      <button class="modal-close" aria-label="Close donate dialog">&times;</button>
+      <h3>Donate / UPI</h3>
+      <p>Scan the UPI QR or download it for your mobile.</p>
+      <img src="assets/upi/upi-qr.jpg" alt="UPI QR code" loading="lazy" />
+      <p class="modal-note">If you prefer, send to UPI ID: <strong>saurabh@upi</strong> (replace with actual ID).</p>
+    </div>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <small>&copy; <span id="current-year"></span> SAURABH GAUR — All rights reserved.</small>
+    </div>
+  </footer>
+
+  <script defer type="module" src="assets/js/main.js"></script>
 </body>
 </html>
