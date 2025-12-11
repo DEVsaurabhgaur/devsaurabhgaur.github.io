@@ -1,116 +1,110 @@
-// ==============================
-// MAIN JS – LIGHTBOX + FILTERS
-// ==============================
+/* main.js — site interactions
+   Place at: assets/js/main.js
+*/
 
-document.addEventListener("DOMContentLoaded", () => {
-  setupLightbox();
-  setupArtFilters();
-  setupWallpaperFilters();
-});
+/* DOM helpers */
+const $ = sel => document.querySelector(sel)
+const $$ = sel => Array.from(document.querySelectorAll(sel))
 
-// ==============================
-// LIGHTBOX
-// ==============================
+document.addEventListener('DOMContentLoaded', () => {
 
-function setupLightbox() {
-  const lightbox = document.getElementById("lightbox");
-  if (!lightbox) return;
+  // MENU LINKS: smooth scroll
+  $$('.nav__link').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href')
+      if (!href || !href.startsWith('#')) return
+      e.preventDefault()
+      const target = document.querySelector(href)
+      if (target) target.scrollIntoView({behavior:'smooth', block:'start'})
+    })
+  })
 
-  const imageEl = lightbox.querySelector(".lightbox__image");
-  const captionEl = lightbox.querySelector(".lightbox__caption");
-  const closeBtn = lightbox.querySelector(".lightbox__close");
-  const backdrop = lightbox.querySelector(".lightbox__backdrop");
+  // ART FILTERING (chips)
+  const artChips = $$('.chips .chip')
+  const artCards = $$('.grid--art .card-art')
+  artChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      // manage active state
+      artChips.forEach(c => c.classList.remove('chip--active'))
+      chip.classList.add('chip--active')
+      const filter = chip.dataset.filter || chip.getAttribute('data-filter') || chip.getAttribute('data-wall-filter') || 'all'
 
-  function openLightbox(src, caption) {
-    imageEl.src = src;
-    imageEl.alt = caption || "Artwork preview";
-    captionEl.textContent = caption || "";
-    lightbox.classList.add("lightbox--open");
-    document.body.style.overflow = "hidden";
+      // decide which grid: art or wall
+      const parent = chip.closest('.container')
+      const usingWall = !!chip.closest('#wallpapers')
+      if (usingWall) {
+        // wallpapers
+        const walls = $$('.grid--wall .card-wall')
+        walls.forEach(w => {
+          const cat = w.getAttribute('data-category') || 'all'
+          if (filter === 'all' || cat === filter) w.style.display = ''
+          else w.style.display = 'none'
+        })
+      } else {
+        artCards.forEach(card => {
+          const cat = card.getAttribute('data-category') || 'all'
+          if (filter === 'all' || cat === filter) card.style.display = ''
+          else card.style.display = 'none'
+        })
+      }
+    })
+  })
+
+  // Lightbox for art & wallpapers
+  const lightbox = $('#lightbox')
+  const lightboxImg = document.querySelector('.lightbox__image')
+  const lightboxCaption = document.querySelector('.lightbox__caption')
+  const lightboxClose = document.querySelector('.lightbox__close')
+  const imageTriggers = $$('.card-art__image, .card-wall__image')
+
+  imageTriggers.forEach(img => {
+    img.style.cursor = 'zoom-in'
+    img.addEventListener('click', e => {
+      const src = img.getAttribute('src') || img.getAttribute('data-src')
+      lightboxImg.src = src
+      const title = img.closest('.card-art') ? img.closest('.card-art').querySelector('.card-art__title')?.textContent : img.closest('.card-wall')?.querySelector('.card-wall__title')?.textContent
+      lightboxCaption.textContent = title || ''
+      lightbox.style.display = 'flex'
+      lightbox.setAttribute('aria-hidden', 'false')
+      document.body.style.overflow = 'hidden'
+    })
+  })
+
+  lightboxClose.addEventListener('click', closeLightbox)
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox || e.target.classList.contains('lightbox__backdrop')) closeLightbox() })
+
+  function closeLightbox(){
+    lightbox.style.display = 'none'
+    lightbox.setAttribute('aria-hidden', 'true')
+    lightboxImg.src = ''
+    document.body.style.overflow = ''
   }
 
-  function closeLightbox() {
-    lightbox.classList.remove("lightbox--open");
-    document.body.style.overflow = "";
-    setTimeout(() => {
-      imageEl.src = "";
-    }, 150);
+  // Download handler: ensures correct download attribute present
+  $$('.btn--tiny').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      // optionally add tracking here
+      // default browser download works as anchor has download attribute in HTML
+    })
+  })
+
+  // Floating parallax for hero layers (mouse)
+  const heroGlow = document.querySelector('.hero__glow')
+  if (heroGlow) {
+    document.addEventListener('mousemove', (ev) => {
+      const x = (ev.clientX / window.innerWidth - 0.5) * 16
+      const y = (ev.clientY / window.innerHeight - 0.5) * 12
+      heroGlow.style.transform = `translate3d(${x}px, ${y}px, 0) scale(1.01)`
+    })
   }
 
-  // Event delegation – works for all current + future images
-  document.addEventListener("click", (e) => {
-    const img = e.target.closest(".card-art__image, .card-wall__image");
-    if (!img) return;
+  // Replace placeholders with NEON art thumbnails if available (graceful)
+  try {
+    const neonArt = ['../NEON/art1.png','../NEON/art2.png','../NEON/art3.png']
+    const heroFront = document.querySelector('.hero-card--front img')
+    const heroBack = document.querySelector('.hero-card--back img')
+    if (heroFront && neonArt[0]) heroFront.src = neonArt[0]
+    if (heroBack && neonArt[1]) heroBack.src = neonArt[1]
+  } catch (e){ /* ignore if not present */ }
 
-    const fullSrc = img.dataset.fullSrc || img.src;
-    const card = img.closest(".card-art, .card-wall");
-    const titleEl = card
-      ? card.querySelector(".card-art__title, .card-wall__title")
-      : null;
-    const caption = titleEl ? titleEl.textContent.trim() : "";
-    openLightbox(fullSrc, caption);
-  });
-
-  closeBtn.addEventListener("click", closeLightbox);
-  backdrop.addEventListener("click", closeLightbox);
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && lightbox.classList.contains("lightbox--open")) {
-      closeLightbox();
-    }
-  });
-}
-
-// ==============================
-// ART FILTERS
-// ==============================
-
-function setupArtFilters() {
-  const chips = document.querySelectorAll("[data-filter]");
-  const cards = document.querySelectorAll(".card-art");
-  if (!chips.length || !cards.length) return;
-
-  chips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const filter = chip.dataset.filter;
-      chips.forEach((c) => c.classList.remove("chip--active"));
-      chip.classList.add("chip--active");
-
-      cards.forEach((card) => {
-        const cat = card.dataset.category || "all";
-        if (filter === "all" || filter === cat) {
-          card.style.display = "";
-        } else {
-          card.style.display = "none";
-        }
-      });
-    });
-  });
-}
-
-// ==============================
-// WALLPAPER FILTERS
-// ==============================
-
-function setupWallpaperFilters() {
-  const chips = document.querySelectorAll("[data-wall-filter]");
-  const cards = document.querySelectorAll(".card-wall");
-  if (!chips.length || !cards.length) return;
-
-  chips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const filter = chip.dataset.wallFilter;
-      chips.forEach((c) => c.classList.remove("chip--active"));
-      chip.classList.add("chip--active");
-
-      cards.forEach((card) => {
-        const cat = card.dataset.category || "all";
-        if (filter === "all" || filter === cat) {
-          card.style.display = "";
-        } else {
-          card.style.display = "none";
-        }
-      });
-    });
-  });
-}
+})
