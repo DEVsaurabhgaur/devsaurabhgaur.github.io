@@ -1,98 +1,81 @@
-// main.js - hero parallax, reveal, lightbox, downloads
-(function(){
-  // small helpers
-  const q = s => document.querySelector(s)
-  const qa = s => Array.from(document.querySelectorAll(s))
+/* main.js — interactions: hero reveal, parallax, lightbox, donate */
+document.addEventListener('DOMContentLoaded', function(){
+  // small staged reveal for hero title
+  const title = document.querySelector('.hero__title');
+  if(title){
+    title.style.opacity = 0;
+    title.style.transform = 'translateY(14px)';
+    setTimeout(()=> {
+      title.style.transition = 'all 700ms cubic-bezier(.2,.9,.2,1)';
+      title.style.opacity = 1; title.style.transform = 'none';
+    }, 200);
+  }
 
-  // hero parallax for background layers
-  const hero = q('.hero')
+  // mouse parallax on body for background position (hero)
+  const hero = document.querySelector('.hero');
   if(hero){
-    const slice = document.createElement('div')
-    slice.className = 'hero-bg-slice'
-    hero.appendChild(slice)
-
-    document.addEventListener('mousemove', e=>{
-      const x = (e.clientX/window.innerWidth - 0.5) * 24
-      const y = (e.clientY/window.innerHeight - 0.5) * 18
-      // move background layers subtly
-      hero.style.setProperty('--mx', x+'px')
-      hero.style.setProperty('--my', y+'px')
-      // apply transforms
-      hero.querySelectorAll('.hero-bg-slice, .hero::before, .hero::after').forEach(()=>{})
-      // individual transforms:
-      hero.querySelector('.hero-bg-slice').style.transform = `translate3d(${x*0.5}px, ${y*0.4}px, 0) scale(1.02)`
-      hero.style.backgroundPosition = `${50 - x/4}% ${50 - y/6}%`
-    })
+    hero.addEventListener('mousemove', (e) => {
+      const w = window.innerWidth, h = window.innerHeight;
+      const nx = (e.clientX/w - 0.5) * 20;
+      const ny = (e.clientY/h - 0.5) * 14;
+      // apply subtle transform to the :before and :after via CSS variables if you prefer
+      hero.style.setProperty('--px', nx + 'px');
+      hero.style.setProperty('--py', ny + 'px');
+      // move the hero preview slightly
+      const preview = document.querySelector('.hero-preview');
+      if(preview) preview.style.transform = `translate3d(${nx*0.6}px, ${ny*0.6}px, 0)`;
+    });
   }
 
-  // hero card subtle float on mouse enter
-  qa('.hero-card').forEach(card=>{
-    card.addEventListener('mouseenter', ()=>{
-      qa('.hero-card').forEach(c => c.style.transform = c.classList.contains('hero-card--front')
-        ? 'translate3d(-28px,-10px,48px) rotate(6deg) scale(1.02)'
-        : 'translate3d(40px,20px,0) rotate(-6deg) scale(.98)'
-      )
-    })
-    card.addEventListener('mouseleave', ()=>{
-      document.querySelectorAll('.hero-card--front').forEach(c => c.style.transform = '')
-      document.querySelectorAll('.hero-card--back').forEach(c => c.style.transform = '')
-    })
-  })
+  // LIGHTBOX: open when clicking .card-art__image
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.querySelector('.lightbox__image');
+  const lbCap = document.querySelector('.lightbox__caption');
+  const closeBtn = document.querySelector('.lightbox__close');
 
-  // reveal on scroll
-  const revealEls = qa('.section__title, .card-art, .card-wall, .quote')
-  const reveal = (entries, obs) => {
-    entries.forEach(e=>{
-      if(e.isIntersecting) {
-        e.target.style.opacity = 1
-        e.target.style.transform = 'none'
-        obs.unobserve(e.target)
-      }
-    })
+  document.querySelectorAll('.card-art__image').forEach(img => {
+    img.addEventListener('click', (ev) => {
+      const src = img.getAttribute('src');
+      const title = img.closest('.card-art').querySelector('.card-art__title')?.textContent || '';
+      const desc = img.closest('.card-art').querySelector('.card-art__desc')?.textContent || '';
+      lbImg.src = src;
+      lbImg.alt = title;
+      lbCap.textContent = title + (desc ? ' — ' + desc : '');
+      lightbox.style.display = 'flex';
+      lightbox.setAttribute('aria-hidden','false');
+    });
+  });
+
+  function closeLightbox(){
+    lightbox.style.display = 'none';
+    lightbox.setAttribute('aria-hidden','true');
   }
-  const obs = new IntersectionObserver(reveal, {threshold:0.12})
-  revealEls.forEach(el=>{
-    el.style.opacity = 0
-    el.style.transform = 'translateY(18px)'
-    el.style.transition = 'all .7s cubic-bezier(.2,.9,.2,1)'
-    obs.observe(el)
-  })
+  closeBtn?.addEventListener('click', closeLightbox);
+  lightbox.querySelector('.lightbox__backdrop')?.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLightbox(); });
 
-  // thumbnails and lightbox (works for .card-art images and wallpapers)
-  const lightbox = q('#lightbox')
-  const lightboxImage = q('.lightbox__image')
-  const lightboxCaption = q('.lightbox__caption')
-  const closeBtn = q('.lightbox__close')
-  qa('.card-art__image, .card-wall__image').forEach(img=>{
-    img.style.cursor = 'zoom-in'
-    img.addEventListener('click', (e)=>{
-      lightboxImage.src = img.src
-      lightboxCaption.textContent = img.closest('.card-art') ? img.closest('.card-art').querySelector('.card-art__title').textContent : ''
-      lightbox.classList.add('active')
-      lightbox.setAttribute('aria-hidden','false')
-    })
-  })
-  closeBtn.addEventListener('click', ()=>{ lightbox.classList.remove('active'); lightbox.setAttribute('aria-hidden','true') })
-  lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) { lightbox.classList.remove('active') } })
+  // download anchors: small UX, open in new tab if needed
+  document.querySelectorAll('a[download]').forEach(a=>{
+    a.addEventListener('click', ()=> {
+      // analytics or visual feedback could be added here
+      a.textContent = 'Downloading...';
+      setTimeout(()=> a.textContent = 'Download', 1800);
+    });
+  });
 
-  // download buttons: ensure they trigger download with original filename
-  qa('.card-wall a[download]').forEach(a=>{
-    a.addEventListener('click', (e)=>{
-      // nothing needed: native browser download works; can add analytics here
-    })
-  })
+  // donation modal: open when element with class donate-btn is clicked
+  const donateModal = document.createElement('div');
+  donateModal.className = 'donate-modal';
+  donateModal.innerHTML = `
+    <button class="donate-close" style="position:absolute;right:8px;top:8px;background:none;border:none;color:#fff;font-size:20px">×</button>
+    <h3 style="margin:0 0 12px">Support my work — UPI</h3>
+    <img src="assets/upi/upi-qr.jpg" alt="Scan to donate" />
+    <p style="color:var(--muted);margin:8px 0 0">If you love these wallpapers, scan the QR or use UPI id: <strong>saurabhgaur122000@okaxis</strong></p>
+  `;
+  document.body.appendChild(donateModal);
+  document.querySelectorAll('.donate-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=> donateModal.style.display = 'block');
+  });
+  donateModal.querySelector('.donate-close')?.addEventListener('click', ()=> donateModal.style.display = 'none');
 
-  // simple smooth scroll for nav links
-  qa('.nav__link').forEach(a=>{
-    a.addEventListener('click', (ev)=>{
-      ev.preventDefault()
-      const href = a.getAttribute('href'); if(!href || href === '#') return
-      const el = document.querySelector(href)
-      if(el) el.scrollIntoView({behavior:'smooth', block:'start'})
-    })
-  })
-
-  // set current year (already in HTML but keep safe)
-  const yr = document.getElementById('year'); if(yr) yr.textContent = new Date().getFullYear()
-
-})()
+});
