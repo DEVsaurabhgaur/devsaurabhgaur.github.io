@@ -1,76 +1,112 @@
-// ---------- robust reveal + debug (replace any prior cardReveal code) ----------
-(function robustCardReveal(){
-  try{
-    const cards = Array.from(document.querySelectorAll('.card-art'));
-    if(!cards.length){
-      console.info("[reveal] No .card-art elements found.");
-      return;
-    }
+/* main.js
+   Lightbox, filters, parallax, lazy-loading, donation modal, keyboard nav
+   Small, dependency-free, accessible.
+*/
 
-    // helpful debug array on window for earlier capture
-    window._lastErrors = window._lastErrors || [];
+(function () {
+  // Helpers
+  const $ = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+  const isHidden = el => !el || el.getAttribute('aria-hidden') === 'true';
 
-    function revealWithStagger(list){
-      list.forEach((el, i) => {
-        // set data attr for CSS delay classes
-        const delayIndex = i % 6;
-        el.setAttribute('data-reveal-delay', String(delayIndex));
-        // use timeout for stagger; gives predictable animation
-        setTimeout(() => {
-          el.classList.add('revealed');
-          el.setAttribute('aria-hidden', 'false');
-        }, 120 + (i * 80));
-      });
-    }
+  document.addEventListener('DOMContentLoaded', init);
 
-    // if IO is available, prefer it for early reveal when in viewport
-    if ('IntersectionObserver' in window) {
-      const observed = new Set();
-      const io = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          const el = entry.target;
-          if (entry.isIntersecting && !observed.has(el)) {
-            // reveal this element now
-            const idx = cards.indexOf(el);
-            const baseDelay = (idx >= 0) ? (idx * 70) : 0;
-            setTimeout(() => {
-              el.classList.add('revealed');
-              el.setAttribute('aria-hidden', 'false');
-            }, baseDelay);
-            observed.add(el);
-            observer.unobserve(el);
+  function init() {
+    initFilters();
+    initLightbox();
+    initParallax();
+    initLazyLoad();
+    initDonationModal();
+    smallUXTweaks();
+  }
+
+  /* -------------------------
+     Filters
+  ------------------------- */
+  function initFilters() {
+    const filters = $$('.filter');
+    const cards = $$('.card-art');
+    filters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filters.forEach(f => f.classList.remove('active'));
+        btn.classList.add('active');
+        const type = btn.getAttribute('data-filter');
+        cards.forEach(card => {
+          if (type === '*' || card.dataset.category === type) {
+            card.style.display = '';
+            // animate
+            requestAnimationFrame(() => card.style.transform = 'translateY(0) scale(1)');
+            card.style.opacity = '1';
+          } else {
+            // hide with subtle animation
+            card.style.transform = 'translateY(8px) scale(.98)';
+            card.style.opacity = '0';
+            setTimeout(() => card.style.display = 'none', 240);
           }
         });
-      }, {root:null, rootMargin:'0px 0px -80px 0px', threshold: 0.06});
-
-      // observe all, but also have a safety fallback that reveals any that never enter
-      cards.forEach(c => {
-        c.setAttribute('aria-hidden','true');
-        io.observe(c);
       });
+    });
+  }
 
-      // safety: after X seconds reveal any remaining (handles IO mismatch)
-      setTimeout(() => {
-        const remaining = cards.filter(c => !c.classList.contains('revealed'));
-        if (remaining.length) {
-          console.info(`[reveal] Safety fallback revealing ${remaining.length} cards`);
-          revealWithStagger(remaining);
-        }
-      }, 2200);
-    } else {
-      // no IO, reveal all with stagger
-      revealWithStagger(cards);
+  /* -------------------------
+     Lightbox
+  ------------------------- */
+  function initLightbox() {
+    const mediaButtons = $$('.media');
+    const lightbox = $('#lightbox');
+    const lbImg = $('.lightbox-img', lightbox);
+    const lbCaption = $('.lightbox-caption', lightbox);
+    const lbClose = $('.lightbox-close', lightbox);
+    const prevBtn = $('#prevBtn');
+    const nextBtn = $('#nextBtn');
+    const downloadBtn = $('#downloadBtn');
+
+    // Build list from all media buttons (gallery + wallpapers)
+    const items = mediaButtons.map(btn => ({
+      src: btn.dataset.src,
+      title: btn.dataset.title || '',
+      el: btn
+    }));
+
+    let current = -1;
+
+    function openAt(index) {
+      if (!items[index]) return;
+      current = index;
+      const it = items[index];
+      lbImg.src = it.src;
+      lbImg.alt = it.title || 'Artwork by SAURABH GAUR';
+      lbCaption.textContent = it.title || '';
+      downloadBtn.href = it.src;
+      lightbox.setAttribute('aria-hidden', 'false');
+      lightbox.focus();
+      document.body.style.overflow = 'hidden';
+      // preload neighbors
+      preloadIndex(index + 1);
+      preloadIndex(index - 1);
     }
 
-    console.info("[reveal] Started observing", cards.length, "cards");
-  } catch(err){
-    window._lastErrors = window._lastErrors || [];
-    window._lastErrors.push(err);
-    console.error("[reveal] error:", err);
-    // fallback reveal all immediately
-    document.querySelectorAll('.card-art').forEach((el)=> el.classList.add('revealed'));
-  }
-})();
+    function close() {
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+      current = -1;
+    }
+
+    function next() {
+      if (current < items.length - 1) openAt(current + 1);
+    }
+
+    function prev() {
+      if (current > 0) openAt(current - 1);
+    }
+
+    function preloadIndex(i) {
+      if (!items[i]) return;
+      const img = new Image();
+      img.src = items[i].src;
+    }
+
     // attach to each media button to open correct index
     mediaButtons.forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -254,31 +290,3 @@
   }
 
 })();
-// ---------- reveal cards (staggered) ----------
-(function cardReveal(){
-  const cards = document.querySelectorAll('.card-art');
-  if (!cards.length) return;
-  let idx = 0;
-  if ('IntersectionObserver' in window) {
-    const obs = new IntersectionObserver((entries, o) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        // set stagger index
-        el.setAttribute('data-reveal-delay', (idx % 5).toString());
-        // small timeout ensures transition-delay applies
-        requestAnimationFrame(() => el.classList.add('revealed'));
-        idx++;
-        o.unobserve(el);
-      });
-    }, {rootMargin:'0px 0px -80px 0px', threshold: 0.06});
-    cards.forEach(c => obs.observe(c));
-  } else {
-    // fallback - reveal all
-    cards.forEach((c,i) => {
-      c.setAttribute('data-reveal-delay', (i % 5).toString());
-      c.classList.add('revealed');
-    });
-  }
-})();
-
