@@ -290,3 +290,30 @@
   }
 
 })();
+// ---------- reveal cards (staggered) ----------
+(function cardReveal(){
+  const cards = document.querySelectorAll('.card-art');
+  if (!cards.length) return;
+  let idx = 0;
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries, o) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        // set stagger index
+        el.setAttribute('data-reveal-delay', (idx % 5).toString());
+        // small timeout ensures transition-delay applies
+        requestAnimationFrame(() => el.classList.add('revealed'));
+        idx++;
+        o.unobserve(el);
+      });
+    }, {rootMargin:'0px 0px -80px 0px', threshold: 0.06});
+    cards.forEach(c => obs.observe(c));
+  } else {
+    // fallback - reveal all
+    cards.forEach((c,i) => {
+      c.setAttribute('data-reveal-delay', (i % 5).toString());
+      c.classList.add('revealed');
+    });
+  }
+})();
