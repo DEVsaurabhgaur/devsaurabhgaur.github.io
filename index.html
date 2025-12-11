@@ -1,264 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Saurabh Gaur — Art & Wallpapers</title>
-<link rel="icon" href="assets/favicon.png">
-<link rel="stylesheet" href="assets/css/main.css">
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saurabh Gaur | Visual Artist</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- BACKGROUND LAYERS (controlled by JS/CSS) -->
-  <div id="dynamic-bg" aria-hidden="true">
-    <!-- 6 background layers (bg1..bg6) + overlays -->
-    <div class="bg-layer" data-index="0"></div>
-    <div class="bg-layer" data-index="1"></div>
-    <div class="bg-layer" data-index="2"></div>
-    <div class="bg-layer" data-index="3"></div>
-    <div class="bg-layer" data-index="4"></div>
-    <div class="bg-layer" data-index="5"></div>
+    <div class="noise-overlay"></div>
 
-    <!-- overlays -->
-    <div class="bg-overlay bg-noise"></div>
-    <div class="bg-overlay bg-slices"></div>
-    <div class="bg-overlay bg-smoke"></div>
-  </div>
-
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#hero"><span class="brand-dot"></span>Saurabh Gaur</a>
-      <nav class="nav">
-        <a class="nav-link" href="#art">Art</a>
-        <a class="nav-link" href="#wallpapers">Wallpapers</a>
-        <!-- Philosophy removed on purpose -->
-        <a class="nav-link" href="#contact">Contact</a>
-        <a class="btn neon-btn" href="#donate">Donate</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section id="hero" class="hero">
-    <div class="container hero-inner">
-      <div class="hero-left">
-        <p class="kicker">HANDMADE PORTRAITS · AI WALLPAPERS · DIGITAL ART</p>
-        <h1>Handmade art, digital art and wallpapers by Artist <span class="accent">Saurabh Gaur</span></h1>
-        <p class="lead">I design custom portraits, AI wallpapers and digital art that turn ideas into visuals worth keeping.</p>
-        <p class="cta-row">
-          <a class="btn primary" href="#art">View Art Gallery</a>
-          <a class="btn ghost" href="#wallpapers">Browse Wallpapers</a>
-        </p>
-      </div>
-
-      <aside class="hero-right">
-        <!-- showcase cards — keep these as sample artworks; they are lazy-loaded by JS gallery loader -->
-        <div class="showcase-card" aria-hidden="true">
-          <img src="assets/ART/IMG_20221002_103510_251.jpg" alt="Showcase artwork" loading="lazy">
+    <nav class="navbar">
+        <div class="logo">SG<span class="dot">.</span></div>
+        <div class="nav-links">
+            <button data-filter="all" class="active">All Work</button>
+            <button data-filter="art">Handmade</button>
+            <button data-filter="wallpaper">Wallpapers</button>
+            <a href="#contact" class="btn-contact">Contact</a>
         </div>
-        <div class="showcase-card" aria-hidden="true">
-          <img src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg" alt="Showcase artwork" loading="lazy">
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <span class="pill">Visual Artist & Designer</span>
+            <h1>Turning ideas into <br><span class="gradient-text">visual reality.</span></h1>
+            <p>High-fidelity digital art, handmade portraits, and 4K wallpapers.</p>
         </div>
-      </aside>
-    </div>
-  </section>
+    </header>
 
-  <!-- ART GALLERY -->
-  <section id="art" class="section gallery-section">
-    <div class="container">
-      <div class="section-head">
-        <h2>Art Gallery — Originals & Prints</h2>
-        <p class="muted">Handmade portraits, fan art and mixed media — click to preview, download or request a print.</p>
-      </div>
+    <main class="container">
+        <div id="gallery-grid" class="masonry-grid">
+            </div>
+    </main>
 
-      <div id="gallery-grid" class="gallery-grid" aria-live="polite">
-        <!-- JS will populate cards here in batches -->
-      </div>
-
-      <div class="load-more-wrap">
-        <button id="load-more" class="btn neon-btn">Load more</button>
-        <div id="infinite-loader" class="muted" aria-hidden="true">Loading…</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WALLPAPERS -->
-  <section id="wallpapers" class="section wallpapers-section">
-    <div class="container">
-      <div class="section-head">
-        <h2>Wallpapers — High-res</h2>
-        <p class="muted">4K and ultra-wide wallpaper downloads — optimized for screens. Wallpapers also power the background parallax above.</p>
-      </div>
-
-      <div id="wallpaper-grid" class="wallpaper-grid">
-        <!-- JS will populate wallpaper cards; each card includes a download link to assets/WALLPAPERS UHD -->
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="section contact-section">
-    <div class="container contact-inner">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:saurabhgaur122000@gmail.com">saurabhgaur122000@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/saurabh-gaur-122k" target="_blank" rel="noopener">in/saurabh-gaur-122k</a></p>
-      <p>Instagram: <a href="https://instagram.com/thesaurabhgaur" target="_blank" rel="noopener">@thesaurabhgaur</a></p>
-    </div>
-  </section>
-
-  <!-- LIGHTBOX (hidden by default) -->
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <button id="lightbox-close" class="lightbox-close" aria-label="Close">✕</button>
-    <div class="lightbox-content">
-      <img id="lightbox-img" alt="">
-      <div class="lightbox-meta">
-        <a id="lightbox-download" class="btn neon-btn small" download>Download</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2025 Saurabh Gaur — All rights reserved.</p>
-    </div>
-  </footer>
-
-<script src="assets/js/main.js" type="module"></script>
-</body>
-</html>
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Saurabh Gaur — Art & Wallpapers</title>
-<link rel="icon" href="assets/favicon.png">
-<link rel="stylesheet" href="assets/css/main.css">
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-</head>
-<body>
-
-  <!-- BACKGROUND LAYERS (controlled by JS/CSS) -->
-  <div id="dynamic-bg" aria-hidden="true">
-    <!-- 6 background layers (bg1..bg6) + overlays -->
-    <div class="bg-layer" data-index="0"></div>
-    <div class="bg-layer" data-index="1"></div>
-    <div class="bg-layer" data-index="2"></div>
-    <div class="bg-layer" data-index="3"></div>
-    <div class="bg-layer" data-index="4"></div>
-    <div class="bg-layer" data-index="5"></div>
-
-    <!-- overlays -->
-    <div class="bg-overlay bg-noise"></div>
-    <div class="bg-overlay bg-slices"></div>
-    <div class="bg-overlay bg-smoke"></div>
-  </div>
-
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#hero"><span class="brand-dot"></span>Saurabh Gaur</a>
-      <nav class="nav">
-        <a class="nav-link" href="#art">Art</a>
-        <a class="nav-link" href="#wallpapers">Wallpapers</a>
-        <!-- Philosophy removed on purpose -->
-        <a class="nav-link" href="#contact">Contact</a>
-        <a class="btn neon-btn" href="#donate">Donate</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section id="hero" class="hero">
-    <div class="container hero-inner">
-      <div class="hero-left">
-        <p class="kicker">HANDMADE PORTRAITS · AI WALLPAPERS · DIGITAL ART</p>
-        <h1>Handmade art, digital art and wallpapers by Artist <span class="accent">Saurabh Gaur</span></h1>
-        <p class="lead">I design custom portraits, AI wallpapers and digital art that turn ideas into visuals worth keeping.</p>
-        <p class="cta-row">
-          <a class="btn primary" href="#art">View Art Gallery</a>
-          <a class="btn ghost" href="#wallpapers">Browse Wallpapers</a>
-        </p>
-      </div>
-
-      <aside class="hero-right">
-        <!-- showcase cards — keep these as sample artworks; they are lazy-loaded by JS gallery loader -->
-        <div class="showcase-card" aria-hidden="true">
-          <img src="assets/ART/IMG_20221002_103510_251.jpg" alt="Showcase artwork" loading="lazy">
+    <footer id="contact">
+        <h2>Let's Create.</h2>
+        <div class="socials">
+            <a href="mailto:saurabhgaur122000@gmail.com">Email</a>
+            <a href="https://instagram.com/thesaurabhgaur" target="_blank">Instagram</a>
+            <a href="https://linkedin.com/in/saurabh-gaur-122k" target="_blank">LinkedIn</a>
         </div>
-        <div class="showcase-card" aria-hidden="true">
-          <img src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg" alt="Showcase artwork" loading="lazy">
+        <p class="copyright">&copy; 2025 Saurabh Gaur. All rights reserved.</p>
+    </footer>
+
+    <div id="lightbox" class="lightbox">
+        <button id="close-lightbox" aria-label="Close">&times;</button>
+        <div class="lightbox-container">
+            <img id="lightbox-img" src="" alt="Full Resolution">
+            <div class="lightbox-details">
+                <h3 id="lightbox-title">Artwork Title</h3>
+                <a id="lightbox-dl" href="#" class="btn-download" download>Download 4K</a>
+            </div>
         </div>
-      </aside>
     </div>
-  </section>
 
-  <!-- ART GALLERY -->
-  <section id="art" class="section gallery-section">
-    <div class="container">
-      <div class="section-head">
-        <h2>Art Gallery — Originals & Prints</h2>
-        <p class="muted">Handmade portraits, fan art and mixed media — click to preview, download or request a print.</p>
-      </div>
-
-      <div id="gallery-grid" class="gallery-grid" aria-live="polite">
-        <!-- JS will populate cards here in batches -->
-      </div>
-
-      <div class="load-more-wrap">
-        <button id="load-more" class="btn neon-btn">Load more</button>
-        <div id="infinite-loader" class="muted" aria-hidden="true">Loading…</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WALLPAPERS -->
-  <section id="wallpapers" class="section wallpapers-section">
-    <div class="container">
-      <div class="section-head">
-        <h2>Wallpapers — High-res</h2>
-        <p class="muted">4K and ultra-wide wallpaper downloads — optimized for screens. Wallpapers also power the background parallax above.</p>
-      </div>
-
-      <div id="wallpaper-grid" class="wallpaper-grid">
-        <!-- JS will populate wallpaper cards; each card includes a download link to assets/WALLPAPERS UHD -->
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="section contact-section">
-    <div class="container contact-inner">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:saurabhgaur122000@gmail.com">saurabhgaur122000@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/saurabh-gaur-122k" target="_blank" rel="noopener">in/saurabh-gaur-122k</a></p>
-      <p>Instagram: <a href="https://instagram.com/thesaurabhgaur" target="_blank" rel="noopener">@thesaurabhgaur</a></p>
-    </div>
-  </section>
-
-  <!-- LIGHTBOX (hidden by default) -->
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <button id="lightbox-close" class="lightbox-close" aria-label="Close">✕</button>
-    <div class="lightbox-content">
-      <img id="lightbox-img" alt="">
-      <div class="lightbox-meta">
-        <a id="lightbox-download" class="btn neon-btn small" download>Download</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2025 Saurabh Gaur — All rights reserved.</p>
-    </div>
-  </footer>
-
-<script src="assets/js/main.js" type="module"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>
