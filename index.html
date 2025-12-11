@@ -6,13 +6,11 @@
   <title>Saurabh Gaur — Art & Wallpapers</title>
   <meta name="description" content="Handmade portraits, digital art & 4K wallpapers by Saurabh Gaur" />
   <link rel="icon" href="assets/favicon.png" />
-
-  <!-- main CSS -->
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 <body>
 
-  <!-- Dynamic background layers (no black fallback) -->
+  <!-- Dynamic background (cycles bg1..bg6 + noise) -->
   <div id="dynamic-bg" aria-hidden="true"></div>
   <div id="bg-noise" aria-hidden="true"></div>
 
@@ -23,19 +21,17 @@
         <span class="nav__logo-dot" aria-hidden="true"></span>
         <span class="nav__logo-text">Saurabh Gaur</span>
       </a>
+
       <nav class="nav__links" role="navigation" aria-label="Primary">
         <a class="nav__link" href="#art">Art</a>
         <a class="nav__link" href="#wallpapers">Wallpapers</a>
-        <a class="nav__link" href="#philosophy">Philosophy</a>
         <a class="nav__link" href="#contact">Contact</a>
         <a class="nav__link nav__link--primary" href="#donate">Donate</a>
       </nav>
     </div>
   </header>
 
-  <!-- Main -->
   <main id="home" role="main">
-
     <!-- HERO -->
     <section class="hero container">
       <div class="hero__layout">
@@ -64,10 +60,9 @@
         <p class="section__subtitle muted">Handmade portraits, fan-art and experimental pieces.</p>
       </div>
 
-      <!-- Controls -->
       <div class="gallery-controls">
         <label class="control-filter">
-          Show: 
+          Show:
           <select id="galleryFilter">
             <option value="all">All</option>
             <option value="pencil">Pencil / Charcoal</option>
@@ -78,11 +73,7 @@
         <button id="loadMoreBtn" class="btn btn--ghost" aria-label="Load more artworks">Load more</button>
       </div>
 
-      <!-- Masonry container -->
-      <div id="masonry" class="masonry" data-columns>
-        <!-- Cards are injected by JS for scalability -->
-      </div>
-
+      <div id="masonry" class="masonry" data-columns></div>
       <div id="masonryLoading" class="muted small">Loading artworks…</div>
     </section>
 
@@ -95,16 +86,12 @@
       <div id="wallpaperLoading" class="muted small">Loading wallpapers…</div>
     </section>
 
-    <!-- PHILOSOPHY -->
-    <section id="philosophy" class="container">
-      <h2 class="section__title">Philosophy</h2>
-      <p class="section__subtitle muted">Visuals that mix analogue texture with digital polish — built to work across screens and social content.</p>
-    </section>
-
     <!-- CONTACT -->
     <section id="contact" class="container">
       <h2 class="section__title">Contact</h2>
-      <p class="muted">For commissions and inquiries, email: <strong>hello@saurabhgaur.world</strong></p>
+      <p class="muted">Email: <strong>saurabhgaur122000@gmail.com</strong></p>
+      <p class="muted">LinkedIn: <a href="https://www.linkedin.com/in/saurabh-gaur-122k" target="_blank" rel="noopener">in/saurabh-gaur-122k</a></p>
+      <p class="muted">Instagram: <a href="https://www.instagram.com/thesaurabhgaur" target="_blank" rel="noopener">@thesaurabhgaur</a></p>
     </section>
 
     <footer class="footer container">
@@ -124,7 +111,6 @@
     </div>
   </div>
 
-  <!-- Main JS (module) -->
   <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
