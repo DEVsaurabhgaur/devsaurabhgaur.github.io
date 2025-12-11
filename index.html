@@ -1,146 +1,140 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Saurabh Gaur — Art & Wallpapers</title>
-  <meta name="description" content="Handmade portraits, digital art & 4K wallpapers by Saurabh Gaur" />
+/* main.css - Electric-Kiwi themed cinematic site */
 
-  <!-- main CSS -->
-  <link rel="stylesheet" href="assets/css/main.css">
+/* ============= Variables ============= */
+:root{
+  --bg:#060608;
+  --muted:#9aa0a6;
+  --neon-kiwi:#00ffd5;
+  --neon-violet:#8b00ff;
+  --neon-blue:#9fe9ff;
+  --glass-border: rgba(255,255,255,0.06);
+  --card-radius:14px;
+  --max-width:1180px;
+  --shadow: 0 20px 80px rgba(0,0,0,0.6);
+  --ease: cubic-bezier(.2,.9,.25,1);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  -webkit-font-smoothing:antialiased;
+}
 
-  <!-- favicon -->
-  <link rel="icon" href="assets/favicon.png" />
-</head>
-<body>
+/* Reset & base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:#e9eef6;
+  line-height:1.5;
+  font-size:16px;
+  overflow-x:hidden;
+}
 
-  <!-- Dynamic rotating background layers -->
-  <div id="dynamic-bg" aria-hidden="true"></div>
-  <div id="bg-noise" aria-hidden="true"></div>
+/* Container */
+.container{max-width:var(--max-width);margin:0 auto;padding:28px}
 
-  <!-- Page nav -->
-  <header class="nav" role="banner">
-    <div class="nav__inner container">
-      <a class="nav__logo" href="#home">
-        <span class="nav__logo-dot" aria-hidden="true"></span>
-        <span class="nav__logo-text">Saurabh Gaur</span>
-      </a>
+/* Dynamic background */
+#dynamic-bg{
+  position:fixed;inset:0;z-index:-6;background-size:cover;background-position:center center;background-repeat:no-repeat;transition:background-image .9s ease, transform .6s ease;filter:brightness(0.75) saturate(1.18);
+  will-change:transform;
+}
+#bg-noise{position:fixed;inset:0;background:url('../bg/noise.png') repeat;opacity:0.08;z-index:-5;pointer-events:none}
 
-      <nav class="nav__links" role="navigation" aria-label="Primary">
-        <a class="nav__link" href="#art">Art</a>
-        <a class="nav__link" href="#wallpapers">Wallpapers</a>
-        <a class="nav__link" href="#philosophy">Philosophy</a>
-        <a class="nav__link" href="#story">Life Story</a>
-        <a class="nav__link nav__link--primary" href="#contact">Contact</a>
-        <a class="nav__link nav__link--primary" href="#donate">Donate</a>
-      </nav>
-    </div>
-  </header>
+/* ---------- NAV ---------- */
+.nav{
+  position:sticky;top:12px;z-index:1100;display:flex;align-items:center;justify-content:center;padding:10px 0;backdrop-filter: blur(8px);-webkit-backdrop-filter:blur(8px)
+}
+.nav__inner{width:100%;max-width:var(--max-width);display:flex;align-items:center;justify-content:space-between;gap:18px;padding:6px 12px}
+.nav__logo{color:#fff;text-decoration:none;display:flex;align-items:center;gap:12px}
+.nav__logo-text{font-weight:700;letter-spacing:0.06em}
+.nav__logo-dot{width:14px;height:14px;border-radius:6px;background:linear-gradient(90deg,var(--neon-kiwi),var(--neon-violet));box-shadow:0 6px 20px rgba(0,255,213,0.08)}
 
-  <!-- HERO -->
-  <main id="home">
-    <section class="hero container">
-      <div class="hero__layout">
-        <div class="hero__left">
-          <div class="hero__eyebrow">HANDMADE PORTRAITS • AI WALLPAPERS • DIGITAL ART</div>
-          <h1 class="hero__title">
-            Handmade art, digital art and <span class="hero__title-highlight">wallpapers</span> by Artist Saurabh Gaur
-          </h1>
-          <p class="hero__subtitle">I design custom portraits, AI wallpapers and digital art that turn ideas into visuals worth keeping.</p>
-          <div class="hero__actions">
-            <a class="btn btn--primary" href="#art">View Art Gallery</a>
-            <a class="btn btn--ghost" href="#wallpapers">Browse Wallpapers</a>
-          </div>
-        </div>
+/* nav links */
+.nav__links{display:flex;gap:10px;align-items:center}
+.nav__link{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;text-decoration:none;color:#eaf9ff;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;border:1px solid rgba(255,255,255,0.03);transition: transform .18s var(--ease), box-shadow .18s var(--ease);box-shadow:0 6px 18px rgba(0,0,0,0.6);font-weight:600}
+.nav__link--primary{background: linear-gradient(90deg, #fff, rgba(159,233,255,0.18));color:#00141a;border:1px solid rgba(159,233,255,0.42);box-shadow:0 6px 30px rgba(31,196,255,0.06)}
+.nav__link:hover{ transform: translateY(-4px); box-shadow:0 18px 70px rgba(0,0,0,0.7) }
 
-        <aside class="hero-preview" aria-hidden="true">
-          <div class="hero-card"><img src="assets/ART/IMG_20221002_103510_251.jpg" alt="hero artwork preview"></div>
-        </aside>
-      </div>
-    </section>
+/* ---------- HERO ---------- */
+.hero{padding:48px 0 32px;display:flex;align-items:center;justify-content:center;min-height:420px}
+.hero__layout{display:flex;gap:36px;align-items:center}
+.hero__left{flex:1;max-width:620px}
+.hero__eyebrow{color:var(--neon-kiwi);font-weight:700;font-size:12px;margin:0 0 10px}
+.hero__title{font-size:40px;margin:0 0 12px;line-height:1.05}
+.hero__title-highlight{color:var(--neon-blue);font-weight:800}
+.hero__subtitle{color:var(--muted);margin-top:12px}
+.hero__actions{margin-top:18px;display:flex;gap:12px}
 
-    <!-- ART GALLERY -->
-    <section id="art" class="container">
-      <h2 class="section__title">Art — Selected Works</h2>
-      <p class="section__subtitle muted">Handmade portraits, fan-art and experimental pieces.</p>
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:0;cursor:pointer;font-weight:700;text-decoration:none;transition: transform .16s var(--ease), box-shadow .2s var(--ease)}
+.btn--primary{background: linear-gradient(90deg, #fff, rgba(159,233,255,0.95));color:#001a1f;border:1px solid rgba(159,233,255,0.45);box-shadow:0 12px 40px rgba(31,196,255,0.08)}
+.btn--ghost{background:transparent;color:var(--neon-kiwi);border:1px solid rgba(255,255,255,0.03)}
+.btn--primary:hover{ transform: translateY(-4px); box-shadow:0 30px 80px rgba(31,196,255,0.12) }
 
-      <div class="grid--art" id="gallery">
-        <!-- Example card structure: for each artwork file in assets/ART place a card -->
-        <article class="card-art">
-          <div class="card-art__image-wrapper">
-            <img class="card-art__image" src="assets/ART/IMG_20221002_103510_251.jpg" data-full="assets/ART/IMG_20221002_103510_251.jpg" alt="Static Noise — charcoal">
-          </div>
-          <div class="card-art__body">
-            <h3 class="card-art__title">Static Noise</h3>
-            <p class="card-art__desc">charcoal & graphite</p>
-          </div>
-        </article>
+/* hero preview */
+.hero-preview{display:flex;flex-direction:column;gap:14px;align-items:center}
+.hero-card img{width:320px;height:220px;object-fit:cover;border-radius:10px;box-shadow:var(--shadow);display:block;transition:transform .22s var(--ease)}
 
-        <article class="card-art">
-          <div class="card-art__image-wrapper">
-            <img class="card-art__image" src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg" data-full="assets/ART/Picsart_23-09-20_19-29-23-455.jpg" alt="Mahadev">
-          </div>
-          <div class="card-art__body">
-            <h3 class="card-art__title">Mahadev</h3>
-            <p class="card-art__desc">Beyond the Mind</p>
-          </div>
-        </article>
+/* ---------- CINEMATIC GALLERY =========== */
+/* grid will be populated by JS with large cards */
+.cinema-grid{display:grid;grid-template-columns:repeat(1,1fr);gap:26px;margin-top:18px}
+.cinema-card{
+  display:flex;gap:18px;align-items:stretch;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,0.03);box-shadow:var(--shadow);overflow:hidden;
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.cinema-card:hover{ transform: translateY(-8px); box-shadow:0 40px 140px rgba(0,0,0,0.7) }
 
-        <!-- Add more artwork cards as needed (use filenames in /assets/ART/) -->
-      </div>
-    </section>
+.cinema-card__media{flex:0 0 48%;height:420px;border-radius:12px;overflow:hidden;position:relative;background:#0b0b0c}
+.cinema-card__media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease)}
+.cinema-card__meta{flex:1;padding:6px 4px;display:flex;flex-direction:column;justify-content:center}
+.cinema-card__title{font-size:22px;margin:0 0 8px}
+.cinema-card__desc{color:var(--muted);margin-bottom:12px}
+.cinema-card__tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.cinema-tag{background:rgba(255,255,255,0.02);padding:6px 10px;border-radius:999px;font-weight:600;color:var(--neon-blue);border:1px solid rgba(255,255,255,0.03)}
 
-    <!-- WALLPAPERS -->
-    <section id="wallpapers" class="container">
-      <h2 class="section__title">Wallpapers</h2>
-      <p class="section__subtitle muted">High-resolution neon & cinematic wallpapers.</p>
+/* wallpaper grid (compact rows) */
+.wall-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.wall-card{border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);box-shadow:var(--shadow);background:#060606}
+.wall-card img{width:100%;height:220px;object-fit:cover;display:block}
 
-      <div class="grid--wall">
-        <div class="card-wall">
-          <img class="card-wall__image" src="assets/WALLPAPERS UHD/wallpaper-1.jpg" alt="wallpaper 1" loading="lazy">
-        </div>
-        <div class="card-wall">
-          <img class="card-wall__image" src="assets/WALLPAPERS UHD/wallpaper-2.jpg" alt="wallpaper 2" loading="lazy">
-        </div>
-        <div class="card-wall">
-          <img class="card-wall__image" src="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg" alt="wallpaper 3" loading="lazy">
-        </div>
-      </div>
-    </section>
+/* loader row */
+.loader-row{display:flex;justify-content:center;padding:26px 0}
 
-    <!-- PHILOSOPHY -->
-    <section id="philosophy" class="container">
-      <h2 class="section__title">Philosophy</h2>
-      <p class="section__subtitle muted">Visuals that mix analogue texture with digital polish — built to work across screens and social content.</p>
-    </section>
+/* responsive */
+@media (min-width:1200px){
+  .cinema-grid{grid-template-columns:repeat(1,1fr)}
+  .cinema-card__media{flex-basis:55%}
+}
+@media (max-width:980px){
+  .cinema-card{flex-direction:column}
+  .cinema-card__media{height:360px;width:100%}
+  .cinema-card__meta{padding-top:12px}
+  .wall-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:680px){
+  .hero__title{font-size:26px}
+  .hero__left{max-width:unset}
+  .wall-grid{grid-template-columns:1fr}
+}
 
-    <!-- LIFE STORY (we keep HTML but hide with CSS per your request) -->
-    <section id="story" class="container">
-      <h2 class="section__title">Creative Journey</h2>
-      <p class="muted">(Hidden by CSS — kept in the HTML so you can restore later.)</p>
-    </section>
+/* ---------- LIGHTBOX (big) ---------- */
+.lightbox{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:28px;z-index:3000;background:linear-gradient(180deg, rgba(2,2,4,0.85), rgba(2,2,4,0.95));visibility:hidden;opacity:0;transition:opacity .22s var(--ease),visibility .22s var(--ease)}
+.lightbox[aria-hidden="false"]{visibility:visible;opacity:1}
+.lightbox-inner{max-width:92vw;max-height:92vh;display:flex;align-items:center;justify-content:center;gap:18px;position:relative}
+.lightbox-img{max-width:92vw;max-height:78vh;border-radius:10px;box-shadow:0 60px 180px rgba(0,0,0,0.8);object-fit:contain}
+.lightbox-caption{position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); color:var(--muted); background: rgba(0,0,0,0.4); padding:8px 14px; border-radius:8px;}
+.lightbox-close{position:absolute;top:20px;right:22px;background:transparent;border:0;color:#fff;font-size:36px;cursor:pointer}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.35);border:0;color:#fff;padding:12px 16px;border-radius:8px;cursor:pointer}
+.lb-prev{left:12px}
+.lb-next{right:12px}
 
-    <!-- CONTACT / DONATE -->
-    <section id="contact" class="container">
-      <h2 class="section__title">Contact</h2>
-      <p class="muted">For commissions and inquiries, email: <strong>hello@saurabhgaur.world</strong> (replace with real if needed)</p>
-    </section>
+/* ---------- MISC ---------- */
+.section-head{display:flex;flex-direction:column;gap:6px}
+.section__title{font-size:24px;margin:0}
+.section__subtitle{color:var(--muted);margin:0}
 
-    <footer class="footer container">
-      © <span id="year"></span> Saurabh Gaur — All rights reserved.
-    </footer>
-  </main>
+/* hide story for now (keeps HTML but not visible) */
+#story{display:none !important}
 
-  <!-- Lightbox (hidden by default) -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
-    <div class="lightbox-inner">
-      <img class="lightbox-img" id="lightboxImg" src="" alt="">
-      <div class="lightbox-caption" id="lightboxCaption"></div>
-    </div>
-  </div>
-
-  <!-- main JS -->
-  <script src="assets/js/main.js" type="module"></script>
-</body>
-</html>
+/* focus */
+:focus{outline:none}
+:focus-visible{outline:3px solid rgba(159,233,255,0.22);outline-offset:3px;border-radius:8px}
