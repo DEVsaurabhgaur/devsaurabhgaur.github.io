@@ -1,132 +1,122 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Saurabh Gaur — Art & Wallpapers</title>
-<link rel="icon" href="assets/favicon.png">
-<link rel="stylesheet" href="assets/css/main.css">
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Saurabh Gaur — Art & Wallpapers</title>
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- BACKGROUND LAYERS (controlled by JS/CSS) -->
-  <div id="dynamic-bg" aria-hidden="true">
-    <!-- 6 background layers (bg1..bg6) + overlays -->
-    <div class="bg-layer" data-index="0"></div>
-    <div class="bg-layer" data-index="1"></div>
-    <div class="bg-layer" data-index="2"></div>
-    <div class="bg-layer" data-index="3"></div>
-    <div class="bg-layer" data-index="4"></div>
-    <div class="bg-layer" data-index="5"></div>
+  <!-- FIXED BACKGROUND (two layers for crossfade) -->
+  <div id="bg-fixed" aria-hidden="true">
+    <div id="bg-a" class="bg-layer"></div>
+    <div id="bg-b" class="bg-layer bg-top"></div>
 
     <!-- overlays -->
     <div class="bg-overlay bg-noise"></div>
     <div class="bg-overlay bg-slices"></div>
     <div class="bg-overlay bg-smoke"></div>
+    <div class="bg-tint"></div>
   </div>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#hero"><span class="brand-dot"></span>Saurabh Gaur</a>
-      <nav class="nav">
-        <a class="nav-link" href="#art">Art</a>
-        <a class="nav-link" href="#wallpapers">Wallpapers</a>
-        <!-- Philosophy removed on purpose -->
-        <a class="nav-link" href="#contact">Contact</a>
-        <a class="btn neon-btn" href="#donate">Donate</a>
-      </nav>
-    </div>
-  </header>
+  <!-- SITE -->
+  <div id="page">
 
-  <!-- HERO -->
-  <section id="hero" class="hero">
-    <div class="container hero-inner">
-      <div class="hero-left">
-        <p class="kicker">HANDMADE PORTRAITS · AI WALLPAPERS · DIGITAL ART</p>
-        <h1>Handmade art, digital art and wallpapers by Artist <span class="accent">Saurabh Gaur</span></h1>
-        <p class="lead">I design custom portraits, AI wallpapers and digital art that turn ideas into visuals worth keeping.</p>
-        <p class="cta-row">
-          <a class="btn primary" href="#art">View Art Gallery</a>
-          <a class="btn ghost" href="#wallpapers">Browse Wallpapers</a>
-        </p>
+    <!-- header -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#hero"><span class="brand-dot"></span>Saurabh Gaur</a>
+
+        <nav class="nav">
+          <a class="nav-link" href="#art">Art</a>
+          <a class="nav-link" href="#wallpapers">Wallpapers</a>
+          <a class="nav-link" href="#contact">Contact</a>
+          <a class="btn neon-box" href="#donate">Donate</a>
+        </nav>
       </div>
+    </header>
 
-      <aside class="hero-right">
-        <!-- showcase cards — keep these as sample artworks; they are lazy-loaded by JS gallery loader -->
-        <div class="showcase-card" aria-hidden="true">
-          <img src="assets/ART/IMG_20221002_103510_251.jpg" alt="Showcase artwork" loading="lazy">
+    <!-- HERO -->
+    <section id="hero" class="section hero section-swap" data-bg-index="0" aria-label="Hero">
+      <div class="container hero-inner">
+        <div class="hero-left">
+          <p class="kicker">HANDMADE PORTRAITS · AI WALLPAPERS · DIGITAL ART</p>
+          <h1>Handmade art, digital art & wallpapers — <span class="accent">Saurabh Gaur</span></h1>
+          <p class="lead">I design custom portraits, wallpapers and digital visuals — crafted for screens and prints.</p>
+          <p class="cta-row">
+            <a class="btn primary" href="#art">View Art Gallery</a>
+            <a class="btn ghost" href="#wallpapers">Browse Wallpapers</a>
+          </p>
         </div>
-        <div class="showcase-card" aria-hidden="true">
-          <img src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg" alt="Showcase artwork" loading="lazy">
+
+        <aside class="hero-right">
+          <div class="showcase-card">
+            <img src="assets/ART/IMG_20221002_103510_251.jpg" alt="Showcase artwork" loading="lazy">
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ART -->
+    <section id="art" class="section section-swap" data-bg-index="1" aria-label="Art gallery">
+      <div class="container">
+        <div class="section-head">
+          <h2>Art Gallery — Originals & Prints</h2>
+          <p class="muted">Handmade portraits, commissions and fan art. Click to preview or download high-res files.</p>
         </div>
-      </aside>
-    </div>
-  </section>
 
-  <!-- ART GALLERY -->
-  <section id="art" class="section gallery-section">
-    <div class="container">
-      <div class="section-head">
-        <h2>Art Gallery — Originals & Prints</h2>
-        <p class="muted">Handmade portraits, fan art and mixed media — click to preview, download or request a print.</p>
+        <div id="gallery-grid" class="gallery-grid" aria-live="polite"></div>
+
+        <div class="load-more-wrap">
+          <button id="load-more" class="btn neon-box">Load more</button>
+          <div id="infinite-loader" class="muted" aria-hidden="true"></div>
+        </div>
       </div>
+    </section>
 
-      <div id="gallery-grid" class="gallery-grid" aria-live="polite">
-        <!-- JS will populate cards here in batches -->
+    <!-- WALLPAPERS -->
+    <section id="wallpapers" class="section section-swap" data-bg-index="2" aria-label="Wallpapers">
+      <div class="container">
+        <div class="section-head">
+          <h2>Wallpapers — High-res / 4K</h2>
+          <p class="muted">Optimised for ultra-wide & mobile. These images also drive the page background as you scroll.</p>
+        </div>
+        <div id="wallpaper-grid" class="wallpaper-grid"></div>
       </div>
+    </section>
 
-      <div class="load-more-wrap">
-        <button id="load-more" class="btn neon-btn">Load more</button>
-        <div id="infinite-loader" class="muted" aria-hidden="true">Loading…</div>
+    <!-- CONTACT -->
+    <section id="contact" class="section section-swap" data-bg-index="3" aria-label="Contact">
+      <div class="container contact-inner">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:saurabhgaur122000@gmail.com">saurabhgaur122000@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/saurabh-gaur-122k" target="_blank" rel="noopener">in/saurabh-gaur-122k</a></p>
+        <p>Instagram: <a href="https://instagram.com/thesaurabhgaur" target="_blank" rel="noopener">@thesaurabhgaur</a></p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- WALLPAPERS -->
-  <section id="wallpapers" class="section wallpapers-section">
-    <div class="container">
-      <div class="section-head">
-        <h2>Wallpapers — High-res</h2>
-        <p class="muted">4K and ultra-wide wallpaper downloads — optimized for screens. Wallpapers also power the background parallax above.</p>
+    <!-- footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2025 Saurabh Gaur — All rights reserved.</p>
       </div>
+    </footer>
+  </div>
 
-      <div id="wallpaper-grid" class="wallpaper-grid">
-        <!-- JS will populate wallpaper cards; each card includes a download link to assets/WALLPAPERS UHD -->
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="section contact-section">
-    <div class="container contact-inner">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:saurabhgaur122000@gmail.com">saurabhgaur122000@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/saurabh-gaur-122k" target="_blank" rel="noopener">in/saurabh-gaur-122k</a></p>
-      <p>Instagram: <a href="https://instagram.com/thesaurabhgaur" target="_blank" rel="noopener">@thesaurabhgaur</a></p>
-    </div>
-  </section>
-
-  <!-- LIGHTBOX (hidden by default) -->
+  <!-- LIGHTBOX -->
   <div id="lightbox" class="lightbox" aria-hidden="true">
-    <button id="lightbox-close" class="lightbox-close" aria-label="Close">✕</button>
-    <div class="lightbox-content">
-      <img id="lightbox-img" alt="">
-      <div class="lightbox-meta">
-        <a id="lightbox-download" class="btn neon-btn small" download>Download</a>
+    <button id="lb-close" class="lightbox-close" aria-label="Close">✕</button>
+    <div class="lightbox-panel">
+      <img id="lb-img" src="" alt="">
+      <div class="lb-actions">
+        <a id="lb-download" class="btn neon-box small" download>Download</a>
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2025 Saurabh Gaur — All rights reserved.</p>
-    </div>
-  </footer>
-
-<script src="assets/js/main.js" type="module"></script>
+<script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
