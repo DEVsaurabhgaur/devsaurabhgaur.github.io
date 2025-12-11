@@ -1,122 +1,567 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Saurabh Gaur — Art & Wallpapers</title>
-  <link rel="icon" href="assets/favicon.png">
-  <link rel="stylesheet" href="assets/css/main.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Saurabh Gaur | Art, Wallpapers & Philosophy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="HANDMADE PORTRAITS • AI WALLPAPERS • DIGITAL ART Saurabh Gaur."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <script src="assets/js/main.js" defer></script>
 </head>
 <body>
+  <div class="page">
+    <div class="bg-layer bg-smoke" aria-hidden="true" data-parallax-speed="0.18" style="background-image:url('assets/bg/smoke.jpg')"></div>
+    <div class="bg-layer bg-slices" aria-hidden="true" data-parallax-speed="0.35" style="background-image:url('assets/bg/slices.jpg')"></div>
+    <div class="bg-layer bg-noise" aria-hidden="true" style="background-image:url('assets/bg/noise.png')"></div>
 
-  <!-- FIXED BACKGROUND (two layers for crossfade) -->
-  <div id="bg-fixed" aria-hidden="true">
-    <div id="bg-a" class="bg-layer"></div>
-    <div id="bg-b" class="bg-layer bg-top"></div>
+    <header class="nav">
+      <div class="nav__inner">
+        <a href="#hero" class="nav__logo">
+          <span class="nav__logo-dot"></span>
+          <span class="nav__logo-text">Saurabh&nbsp;Gaur</span>
+        </a>
 
-    <!-- overlays -->
-    <div class="bg-overlay bg-noise"></div>
-    <div class="bg-overlay bg-slices"></div>
-    <div class="bg-overlay bg-smoke"></div>
-    <div class="bg-tint"></div>
-  </div>
-
-  <!-- SITE -->
-  <div id="page">
-
-    <!-- header -->
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="brand" href="#hero"><span class="brand-dot"></span>Saurabh Gaur</a>
-
-        <nav class="nav">
-          <a class="nav-link" href="#art">Art</a>
-          <a class="nav-link" href="#wallpapers">Wallpapers</a>
-          <a class="nav-link" href="#contact">Contact</a>
-          <a class="btn neon-box" href="#donate">Donate</a>
+        <nav class="nav__links" aria-label="Main navigation">
+          <a href="#art" class="nav__link">Art</a>
+          <a href="#wallpapers" class="nav__link">Wallpapers</a>
+          <a href="#philosophy" class="nav__link">Philosophy</a>
+          <a href="#story" class="nav__link">Life Story</a>
+          <a href="#contact" class="nav__link nav__link--primary">Contact</a>
+          <button id="donateBtn" class="nav__link nav__link--primary" aria-haspopup="dialog">Donate</button>
         </nav>
       </div>
     </header>
 
-    <!-- HERO -->
-    <section id="hero" class="section hero section-swap" data-bg-index="0" aria-label="Hero">
-      <div class="container hero-inner">
-        <div class="hero-left">
-          <p class="kicker">HANDMADE PORTRAITS · AI WALLPAPERS · DIGITAL ART</p>
-          <h1>Handmade art, digital art & wallpapers — <span class="accent">Saurabh Gaur</span></h1>
-          <p class="lead">I design custom portraits, wallpapers and digital visuals — crafted for screens and prints.</p>
-          <p class="cta-row">
-            <a class="btn primary" href="#art">View Art Gallery</a>
-            <a class="btn ghost" href="#wallpapers">Browse Wallpapers</a>
+    <main>
+      <section id="hero" class="hero">
+        <div class="hero__glow"></div>
+
+        <div class="container hero__layout">
+          <div class="hero__left">
+            <p class="hero__eyebrow">HANDMADE PORTRAITS • AI WALLPAPERS • DIGITAL ART</p>
+            <h1 class="hero__title">
+              Handmade art, digital art and
+              <span class="hero__title-highlight">wallpapers</span>
+              by Artist Saurabh Gaur
+            </h1>
+
+            <p class="hero__subtitle">
+              I design custom portraits, AI wallpapers and digital art that turn ideas into visuals worth keeping.
+            </p>
+
+            <div class="hero__actions">
+              <a href="#art" class="btn btn--primary">View Art Gallery</a>
+              <a href="#wallpapers" class="btn btn--ghost">Browse Wallpapers</a>
+            </div>
+
+            <div class="hero__meta">
+              <span>Based on real experiences & philosophy.</span>
+              <span>Optimised for 4K, ultrawide & mobile screens.</span>
+            </div>
+          </div>
+
+          <div class="hero__right">
+            <div class="hero-preview">
+              <figure class="hero-card hero-card--front">
+                <button class="media" data-src="assets/ART/IMG_20221002_103510_251.jpg" data-title="Static Noise · charcoal & graphite" aria-label="Open Static Noise">
+                  <img
+                    src="assets/ART/IMG_20221002_103510_251.jpg"
+                    alt="Charcoal portrait of a woman, intense gaze"
+                    loading="lazy"
+                  />
+                </button>
+                <figcaption>“Static Noise” · charcoal & graphite</figcaption>
+              </figure>
+
+              <figure class="hero-card hero-card--back">
+                <button class="media" data-src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg" data-title="Mahadev · Beyond the Mind" aria-label="Open Mahadev">
+                  <img
+                    src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg"
+                    alt="Mahadev artwork in blue tones"
+                    loading="lazy"
+                  />
+                </button>
+                <figcaption>“Mahadev · Beyond the Mind”</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="art" class="section section--dark">
+        <div class="container">
+          <header class="section__header">
+            <h2 class="section__title">Handmade Art Gallery</h2>
+            <p class="section__subtitle">
+              These are the originals – paper, paint, ink and a lot of late
+              nights. Every wallpaper begins with pieces like these.
+            </p>
+          </header>
+
+          <div class="chips" role="region" aria-label="Art filters">
+            <button class="chip chip--active filter" data-filter="*">All</button>
+            <button class="chip filter" data-filter="portrait">Portrait</button>
+            <button class="chip filter" data-filter="devotional">Devotional</button>
+            <button class="chip filter" data-filter="shiva">Shiva</button>
+            <button class="chip filter" data-filter="fanart">Fan Art</button>
+          </div>
+
+          <div class="grid grid--art" id="galleryGrid">
+            <article class="card-art" data-category="portrait">
+              <div class="card-art__image-wrapper">
+                <button class="media" data-src="assets/ART/IMG_20221002_103510_251.jpg" data-title="Static Noise">
+                  <img
+                    src="assets/ART/IMG_20221002_103510_251.jpg"
+                    alt="Charcoal portrait of a woman with intense gaze"
+                    class="card-art__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Static Noise</h3>
+                <p class="card-art__desc">
+                  Charcoal & graphite study — sharp eyes, messy hair.
+                </p>
+                <p class="card-art__meta">Charcoal & graphite · A4</p>
+              </div>
+            </article>
+
+            <article class="card-art" data-category="devotional">
+              <div class="card-art__image-wrapper">
+                <button class="media" data-src="assets/ART/Picsart_23-09-20_16-24-16-574.jpg" data-title="Radha Krishna · Eternal Melody">
+                  <img
+                    src="assets/ART/Picsart_23-09-20_16-24-16-574.jpg"
+                    alt="Radha and Krishna painting with flute"
+                    class="card-art__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Radha Krishna · Eternal Melody</h3>
+                <p class="card-art__desc">
+                  A tribute to devotion and balance.
+                </p>
+                <p class="card-art__meta">Acrylic · 2023</p>
+              </div>
+            </article>
+
+            <article class="card-art" data-category="shiva">
+              <div class="card-art__image-wrapper">
+                <button class="media" data-src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg" data-title="Mahadev · Beyond the Mind">
+                  <img
+                    src="assets/ART/Picsart_23-09-20_19-29-23-455.jpg"
+                    alt="Mahadev artwork with cosmic spray texture"
+                    class="card-art__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Mahadev · Beyond the Mind</h3>
+                <p class="card-art__desc">
+                  Mixed media piece exploring stillness.
+                </p>
+                <p class="card-art__meta">Mixed media · 2023</p>
+              </div>
+            </article>
+
+            <article class="card-art" data-category="fanart">
+              <div class="card-art__image-wrapper">
+                <button class="media" data-src="assets/ART/Picsart_23-09-23_21-02-34-210.png" data-title="Stark & Rogers · Battle Focus">
+                  <img
+                    src="assets/ART/Picsart_23-09-23_21-02-34-210.png"
+                    alt="Pen sketch of Tony Stark and Steve Rogers"
+                    class="card-art__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Stark & Rogers · Battle Focus</h3>
+                <p class="card-art__desc">
+                  Pen sketch capturing tension and loyalty.
+                </p>
+                <p class="card-art__meta">Pen on paper · Fan art</p>
+              </div>
+            </article>
+
+            <article class="card-art" data-category="fanart">
+              <div class="card-art__image-wrapper">
+                <button class="media" data-src="assets/ART/deadpool.jpg" data-title="Deadpool · Red Silence">
+                  <img
+                    src="assets/ART/deadpool.jpg"
+                    alt="Deadpool fan art"
+                    class="card-art__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Deadpool · Red Silence</h3>
+                <p class="card-art__desc">
+                  Bold strokes and textured red washes.
+                </p>
+                <p class="card-art__meta">Acrylic & ink · Fan art</p>
+              </div>
+            </article>
+
+            <article class="card-art" data-category="fanart">
+              <div class="card-art__image-wrapper">
+                <button class="media" data-src="assets/ART/captain carter.jpg" data-title="Captain Carter · Shield & Resolve">
+                  <img
+                    src="assets/ART/captain carter.jpg"
+                    alt="Captain Carter artwork"
+                    class="card-art__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Captain Carter · Shield & Resolve</h3>
+                <p class="card-art__desc">
+                  Cinematic fan piece with splatter texture.
+                </p>
+                <p class="card-art__meta">Mixed media</p>
+              </div>
+            </article>
+
+            <article class="card-art" data-category="portrait">
+              <div class="card-art__image-wrapper">
+                <button class="media" data-src="assets/ART/ARTWORK PDF COLLECTION-images-5.jpg" data-title="Sketch Collection · #5">
+                  <img
+                    src="assets/ART/ARTWORK PDF COLLECTION-images-5.jpg"
+                    alt="Sketch from collection #5"
+                    class="card-art__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Sketch Collection · #5</h3>
+                <p class="card-art__desc">Scan from the PDF artwork collection.</p>
+                <p class="card-art__meta">Scan · Series</p>
+              </div>
+            </article>
+
+            <article class="card-art" data-category="portrait">
+              <div class="card-art__image-wrapper">
+                <button class="media" data-src="assets/ART/ARTWORK PDF COLLECTION-images-15.jpg" data-title="Sketch Collection · #15">
+                  <img
+                    src="assets/ART/ARTWORK PDF COLLECTION-images-15.jpg"
+                    alt="Sketch from collection #15"
+                    class="card-art__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Sketch Collection · #15</h3>
+                <p class="card-art__desc">Scan from the PDF artwork collection.</p>
+                <p class="card-art__meta">Scan · Series</p>
+              </div>
+            </article>
+
+            <article class="card-art" data-category="portrait">
+              <div class="card-art__image-wrapper">
+                <button class="media" data-src="assets/ART/ARTWORK PDF COLLECTION-images-19.jpg" data-title="Sketch Collection · #19">
+                  <img
+                    src="assets/ART/ARTWORK PDF COLLECTION-images-19.jpg"
+                    alt="Sketch from collection #19"
+                    class="card-art__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Sketch Collection · #19</h3>
+                <p class="card-art__desc">Scan from the PDF artwork collection.</p>
+                <p class="card-art__meta">Scan · Series</p>
+              </div>
+            </article>
+
+            <article class="card-art" data-category="portrait">
+              <div class="card-art__image-wrapper">
+                <button class="media" data-src="assets/ART/ARTWORK PDF COLLECTION-images-26.jpg" data-title="Sketch Collection · #26">
+                  <img
+                    src="assets/ART/ARTWORK PDF COLLECTION-images-26.jpg"
+                    alt="Sketch from collection #26"
+                    class="card-art__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Sketch Collection · #26</h3>
+                <p class="card-art__desc">Scan from the PDF artwork collection.</p>
+                <p class="card-art__meta">Scan · Series</p>
+              </div>
+            </article>
+
+            <article class="card-art" data-category="portrait">
+              <div class="card-art__image-wrapper">
+                <button class="media" data-src="assets/ART/ARTWORK PDF COLLECTION-images-27.jpg" data-title="Sketch Collection · #27">
+                  <img
+                    src="assets/ART/ARTWORK PDF COLLECTION-images-27.jpg"
+                    alt="Sketch from collection #27"
+                    class="card-art__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-art__body">
+                <h3 class="card-art__title">Sketch Collection · #27</h3>
+                <p class="card-art__desc">Scan from the PDF artwork collection.</p>
+                <p class="card-art__meta">Scan · Series</p>
+              </div>
+            </article>
+
+            </div>
+        </div>
+      </section>
+
+      <section id="wallpapers" class="section">
+        <div class="container">
+          <header class="section__header">
+            <h2 class="section__title">UHD Wallpapers</h2>
+            <p class="section__subtitle">
+              Turn your screen into a reminder of who you’re becoming. These
+              wallpapers are crafted from my original artworks.
+            </p>
+          </header>
+
+          <div class="chips" role="region" aria-label="Wallpaper filters">
+            <button class="chip chip--active wall-filter" data-wall-filter="*">All</button>
+            <button class="chip wall-filter" data-wall-filter="dark">Dark</button>
+            <button class="chip wall-filter" data-wall-filter="minimal">Minimal</button>
+            <button class="chip wall-filter" data-wall-filter="mobile">Mobile</button>
+          </div>
+
+          <div class="grid grid--wall" id="wallGrid">
+            <article class="card-wall" data-category="dark">
+              <div class="card-wall__image-wrapper">
+                <button class="media" data-src="assets/WALLPAPERS UHD/wallpaper-1.jpg" data-title="Night Shift Mindset (3840x2160)">
+                  <img
+                    src="assets/WALLPAPERS UHD/wallpaper-1.jpg"
+                    alt="Dark UHD wallpaper preview"
+                    class="card-wall__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-wall__body">
+                <div>
+                  <h3 class="card-wall__title">Night Shift Mindset</h3>
+                  <p class="card-wall__meta">3840×2160 · Free</p>
+                </div>
+                <a
+                  href="assets/WALLPAPERS UHD/wallpaper-1.jpg"
+                  download
+                  class="btn btn--tiny"
+                  >Download</a
+                >
+              </div>
+            </article>
+
+            <article class="card-wall" data-category="minimal">
+              <div class="card-wall__image-wrapper">
+                <button class="media" data-src="assets/WALLPAPERS UHD/wallpaper-2.jpg" data-title="Focus Over Noise (5120x1440)">
+                  <img
+                    src="assets/WALLPAPERS UHD/wallpaper-2.jpg"
+                    alt="Minimal UHD wallpaper preview"
+                    class="card-wall__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-wall__body">
+                <div>
+                  <h3 class="card-wall__title">Focus Over Noise</h3>
+                  <p class="card-wall__meta">5120×1440 · Free</p>
+                </div>
+                <a
+                  href="assets/WALLPAPERS UHD/wallpaper-2.jpg"
+                  download
+                  class="btn btn--tiny"
+                  >Download</a
+                >
+              </div>
+            </article>
+
+            <article class="card-wall" data-category="mobile">
+              <div class="card-wall__image-wrapper">
+                <button class="media" data-src="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg" data-title="Keep Going (1080x2400)">
+                  <img
+                    src="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg"
+                    alt="Mobile wallpaper preview"
+                    class="card-wall__image"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+              <div class="card-wall__body">
+                <div>
+                  <h3 class="card-wall__title">Keep Going</h3>
+                  <p class="card-wall__meta">1080×2400 · Free</p>
+                </div>
+                <a
+                  href="assets/WALLPAPERS UHD/wallpaper-3-mobile.jpg"
+                  download
+                  class="btn btn--tiny"
+                  >Download</a
+                >
+              </div>
+            </article>
+          </div>
+
+          <p class="wall__note">
+            Want a wallpaper based on your own story?
+            <a href="#contact">Reach out</a> and tell me your scene.
           </p>
         </div>
+      </section>
 
-        <aside class="hero-right">
-          <div class="showcase-card">
-            <img src="assets/ART/IMG_20221002_103510_251.jpg" alt="Showcase artwork" loading="lazy">
+      <section id="philosophy" class="section section--philosophy">
+        <div class="container">
+          <header class="section__header">
+            <h2 class="section__title">Philosophy & Quotes</h2>
+            <p class="section__subtitle">
+              The art is the surface layer. Underneath are ideas about pain,
+              discipline, ambition and what it actually means to rebuild
+              yourself.
+            </p>
+          </header>
+
+          <div class="quotes">
+            <figure class="quote">
+              <blockquote>
+                “Some people escape into entertainment. I escape into building
+                the life I used to watch on screens.”
+              </blockquote>
+              <figcaption>— Saurabh Gaur</figcaption>
+            </figure>
+
+            <figure class="quote">
+              <blockquote>
+                “If I can turn my worst days into art, they don’t own me
+                anymore.”
+              </blockquote>
+              <figcaption>— From a sketchbook note</figcaption>
+            </figure>
+
+            <figure class="quote">
+              <blockquote>
+                “Discipline is just self-respect stretched across time.”
+              </blockquote>
+              <figcaption>— Personal philosophy</figcaption>
+            </figure>
           </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- ART -->
-    <section id="art" class="section section-swap" data-bg-index="1" aria-label="Art gallery">
-      <div class="container">
-        <div class="section-head">
-          <h2>Art Gallery — Originals & Prints</h2>
-          <p class="muted">Handmade portraits, commissions and fan art. Click to preview or download high-res files.</p>
         </div>
+      </section>
 
-        <div id="gallery-grid" class="gallery-grid" aria-live="polite"></div>
+      <section id="story" class="section section--dark">
+        <div class="container">
+          <header class="section__header">
+            <h2 class="section__title">Creative Journey</h2>
+            <p class="section__subtitle">
+              How the work evolved from rough sketchbook experiments to
+              structured, client-ready visual systems.
+            </p>
+          </header>
 
-        <div class="load-more-wrap">
-          <button id="load-more" class="btn neon-box">Load more</button>
-          <div id="infinite-loader" class="muted" aria-hidden="true"></div>
+          <div class="timeline">
+            <article class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div class="timeline__content">
+                <h3 class="timeline__title">Phase 1 — Foundations in Drawing</h3>
+                <p class="timeline__time">Early exploration</p>
+                <p class="timeline__text">
+                  Years of studying faces, gesture and light through pencils,
+                  pens and traditional tools. No shortcuts — just repetition,
+                  anatomy studies and filling sketchbooks to build control over
+                  line, value and proportion.
+                </p>
+              </div>
+            </article>
+
+            <article class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div class="timeline__content">
+                <h3 class="timeline__title">Phase 2 — From Sketches to Clients</h3>
+                <p class="timeline__time">Transition to commissioned work</p>
+                <p class="timeline__text">
+                  Portrait requests, fan-art commissions and custom pieces for
+                  friends, creators and small brands. This phase was all about
+                  learning to work with briefs, deadlines and feedback while
+                  keeping the style honest and expressive.
+                </p>
+              </div>
+            </article>
+
+            <article class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div class="timeline__content">
+                <h3 class="timeline__title">Phase 3 — Digital Canvas & Systems</h3>
+                <p class="timeline__time">Current focus</p>
+                <p class="timeline__text">
+                  Converting handmade art into high-resolution wallpapers,
+                  cover art and visual identities. Blending analogue texture
+                  with digital polish to design pieces that work across
+                  screens, social content, and long-term personal branding.
+                </p>
+              </div>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- WALLPAPERS -->
-    <section id="wallpapers" class="section section-swap" data-bg-index="2" aria-label="Wallpapers">
-      <div class="container">
-        <div class="section-head">
-          <h2>Wallpapers — High-res / 4K</h2>
-          <p class="muted">Optimised for ultra-wide & mobile. These images also drive the page background as you scroll.</p>
-        </div>
-        <div id="wallpaper-grid" class="wallpaper-grid"></div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section section-swap" data-bg-index="3" aria-label="Contact">
-      <div class="container contact-inner">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:saurabhgaur122000@gmail.com">saurabhgaur122000@gmail.com</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/saurabh-gaur-122k" target="_blank" rel="noopener">in/saurabh-gaur-122k</a></p>
-        <p>Instagram: <a href="https://instagram.com/thesaurabhgaur" target="_blank" rel="noopener">@thesaurabhgaur</a></p>
-      </div>
-    </section>
-
-    <!-- footer -->
-    <footer class="site-footer">
-      <div class="container">
-        <p>© 2025 Saurabh Gaur — All rights reserved.</p>
+    <footer class="footer">
+      <div class="container footer__inner">
+        <span>© <span id="year"></span> Saurabh Gaur. All rights reserved.</span>
+        <span class="footer__note">Made with Electric Kiwi energy.</span>
       </div>
     </footer>
   </div>
 
-  <!-- LIGHTBOX -->
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <button id="lb-close" class="lightbox-close" aria-label="Close">✕</button>
-    <div class="lightbox-panel">
-      <img id="lb-img" src="" alt="">
-      <div class="lb-actions">
-        <a id="lb-download" class="btn neon-box small" download>Download</a>
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer" tabindex="-1">
+    <button class="lightbox-close" aria-label="Close viewer">&times;</button>
+    <div class="lightbox-inner">
+      <img class="lightbox-img" src="" alt="" />
+      <div class="lightbox-caption" aria-live="polite"></div>
+      <div class="lightbox-actions">
+        <a id="downloadBtn" class="btn" href="#" download>Download</a>
+        <button class="btn" id="prevBtn" aria-label="Previous image">‹</button>
+        <button class="btn" id="nextBtn" aria-label="Next image">›</button>
       </div>
     </div>
   </div>
 
-<script type="module" src="assets/js/main.js"></script>
+  <div id="donationModal" class="modal" role="dialog" aria-hidden="true" aria-label="Donation modal">
+    <div class="modal-inner glass-card">
+      <button class="modal-close" aria-label="Close donation modal">&times;</button>
+      <h3>Support the work — UPI</h3>
+      <p>Scan to donate or tap the link to open your UPI app.</p>
+      <figure class="modal-qr">
+        <img src="assets/upi/upi-qr.jpg" alt="UPI QR code for donations to SAURABH GAUR" width="360" height="360" loading="lazy" />
+      </figure>
+      <a class="btn btn-primary" href="upi://pay?pa=yourupi@bank&pn=SAURABH%20GAUR" id="modalUpiLink">Open UPI App</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
